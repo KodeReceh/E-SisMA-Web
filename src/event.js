@@ -13,6 +13,8 @@ export default [
         color: 'green',
         text: 'Logout successfully.'
       };
+      localStorage.removeItem('__token__');
+      localStorage.removeItem('__email__');
       this.$router.replace({ path: '/login' });
     }
   },
@@ -25,7 +27,7 @@ export default [
     name: 'APP_AUTH_FAILED',
     callback: function (e) {
       this.$router.push('/login');
-      this.$message.error('Token has expired');
+      // this.$message.error('Token has expired');
     }
   },
   {
