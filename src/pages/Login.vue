@@ -58,8 +58,6 @@ export default {
           vm.loading = false;
         })
         .catch(function (error) {
-          console.log(error);
-          
           if (error.response.status === 404) {
             vm.errorMsg = 'Email dan password tidak cocok!';
             vm.loading = false;
