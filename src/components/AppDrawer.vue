@@ -11,7 +11,7 @@
     <v-toolbar color="primary darken-1" dark>
       <img v-bind:src="computeLogo" height="46" alt="E-SisMA">
       <v-toolbar-title class="ml-0 pl-3">
-        <span class="hidden-sm-and-down">E-SisMA</span>
+        <span class="hidden-sm-and-down">E-SisMA Nagari</span>
       </v-toolbar-title>        
     </v-toolbar>
     <vue-perfect-scrollbar class="drawer-menu--scroll" :settings="scrollSettings">

@@ -2,9 +2,81 @@
     <div class="pageUser">
         <v-container grid-list-xl fluid>
             <v-layout row wrap>
-                <v-flex sm12>
-                    <h3>Data User</h3>
+                <v-flex sm12 v-for="(alert, index) in alerts" v-bind:key="index">
+                  <v-alert :type="alert.type" dismissible v-model="alert.show" transition="scale-transition">
+                    {{ alert.message }}
+                  </v-alert>
+                </v-flex>
+                <v-flex sm6>
+                  <h3>Data User</h3>
                 </v-flex> 
+                <v-layout sm6 align-end justify-end>
+                    <v-dialog v-model="dialog.state" scrollable max-width="500px">
+                    <v-btn color="info" :right="true" @click="addButtonClicked" slot="activator">Tambah</v-btn>
+                      <v-card>
+                        <v-card-title>
+                          <span class="headline">{{ dialog.title }}</span>
+                        </v-card-title>
+                        <v-divider></v-divider>
+                        <v-card-text>
+                          <v-container grid-list-md>
+                            <v-layout wrap>
+                              <v-flex xs12>
+                                <v-text-field label="Nama Lengkap" required v-model="user.name"></v-text-field>
+                              </v-flex>
+                              <v-flex xs12>
+                                <v-text-field label="Email" required v-model="user.email"></v-text-field>
+                              </v-flex>
+                              <v-flex xs12>
+                                <v-text-field label="Password" type="password" required v-model="user.password"></v-text-field>
+                              </v-flex>
+                              <v-flex xs12>
+                                <v-text-field label="Tempat Lahir" required v-model="user.birthplace"></v-text-field>
+                              </v-flex>
+                              <v-flex xs12>
+                                <v-text-field
+                                  class="mr-2"
+                                  label="Tanggal Lahir"       
+                                  append-icon="today"
+                                  type="date"
+                                  v-model="user.birthdate"
+                                  required
+                                ></v-text-field> 
+                              </v-flex>
+                              <v-flex xs12>
+                                <v-select
+                                  label="Jenis Kelamin"
+                                  required
+                                  :items="sex"
+                                  v-model="user.sex"
+                                ></v-select>
+                              </v-flex>
+                              <v-flex xs12>
+                                <v-text-field label="Alamat" v-model="user.address"></v-text-field>
+                              </v-flex>
+                              <v-flex xs12>
+                                <v-text-field label="Handphone" v-model="user.handphone"></v-text-field>
+                              </v-flex>
+                              <v-flex xs12>
+                                <v-autocomplete
+                                  label="Jabatan"
+                                  multiple
+                                  chips
+                                  :items="departments"
+                                ></v-autocomplete>
+                              </v-flex>
+                            </v-layout>
+                          </v-container>
+                          <small>*wajib diisi</small>
+                        </v-card-text>
+                        <v-card-actions>
+                          <v-spacer></v-spacer>
+                          <v-btn color="blue darken-1" flat @click.native="dialog.state = false">Close</v-btn>
+                          <v-btn color="blue darken-1" flat @click.native="dialog.state = false" @click="save">Save</v-btn>
+                        </v-card-actions>
+                      </v-card>
+                    </v-dialog>
+                </v-layout> 
             <v-flex lg12>
                 <v-card>
                     <v-toolbar card color="white">
@@ -57,6 +129,34 @@
 export default {
   data () {
     return {
+      alerts: [],
+      user: {
+        name: '',
+        email: '',
+        password: '',
+        birthplace: '',
+        birthdate: '',
+        sex: '',
+        address: '',
+        handphone: '',
+        departments: []
+      },
+      departments: [],
+      sex: [
+        {
+          value: 1,
+          text: 'Laki-Laki'
+        },
+        {
+          value: 2,
+          text: 'Perempuan'
+        }
+      ],
+      dialog: {
+        type: '',
+        state: false,
+        title: ''
+      },
       search: '',
       complex: {
         selected: [],
@@ -85,11 +185,14 @@ export default {
   created () {
     this.fetchUsers();    
   },
+  updated () {
+    this.fetchUsers();
+  },
   methods: {
     fetchUsers () {
       let vm = this;
       let token = localStorage.getItem('__token__');
-      this.axios.get('api/users', {
+      this.axios.get('/api/users', {
         headers: {
           'Authorization': 'bearer ' + token
         }
@@ -97,6 +200,47 @@ export default {
         vm.complex.items = response.data.data;
       }).catch(function (e) {
         console.log(e.message);
+      });
+    },
+    addButtonClicked () {
+      this.dialog.title = 'Tambah User';
+      this.dialog.type = 'register';
+    },
+    save () {
+      let token = localStorage.getItem('__token__');
+      let vm = this;
+      this.axios.post('/api/users/' + this.dialog.type, this.user, {
+        headers: {
+          'Authorization': 'bearer ' + token
+        }
+      }).then(response => {
+        vm.pushAlert('success', 'Data user ' + response.data.data.name + ' berhasil ditambahkan!');
+        vm.clearForm();
+      }).catch(function (e) {
+        vm.pushAlert('error', 'Data user gagal disimpan, periksa kembali data yang diinput!');
+        console.log(e.message);
+      });
+      
+    },
+    clearForm () {
+      this.user = {
+        name: '',
+        email: '',
+        password: '',
+        birthplace: '',
+        birthdate: '',
+        sex: '',
+        address: '',
+        handphone: '',
+        departments: []
+      };
+      this.dialog.type = '';
+    },
+    pushAlert (type, message, show = true) {
+      this.alerts.push({
+        type: type,
+        show: show,
+        message: message
       });
     }
   },
