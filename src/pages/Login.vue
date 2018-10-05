@@ -45,7 +45,7 @@ export default {
       this.loading = true;
       let vm = this;
       this.axios
-        .post('http://restapi.fz/login', vm.form)
+        .post('api/login', vm.form)
         .then(response => {
           if (response.data.success) {
             localStorage.setItem('__token__', response.data.data.api_token);

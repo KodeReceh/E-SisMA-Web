@@ -7,6 +7,12 @@ const Menu =  [
     name: 'Dashboard',
   },
   {
+    title: 'User',
+    group: 'apps',
+    icon: 'account_box',
+    name: 'User',
+  },
+  {
     title: 'Chat',
     group: 'apps',
     icon: 'chat_bubble',

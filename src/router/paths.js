@@ -66,6 +66,16 @@ export default [
     }
   },
   {
+    path: '/user',
+    meta: { breadcrumb: true },
+    name: 'User',
+    component: () => import(
+      /* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+      `@/pages/User.vue`
+    )
+  },
+  {
     path: '/dashboard',
     meta: { breadcrumb: true },
     name: 'Dashboard',
