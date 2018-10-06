@@ -10,7 +10,7 @@ export default [
     callback: function (e) {
       this.snackbar = {
         show: true,
-        color: 'green',
+        color: 'info',
         text: 'Berhasil logout!'
       };
       localStorage.removeItem('__token__');
@@ -28,7 +28,7 @@ export default [
     callback: function (e) {
       this.snackbar = {
         show: true,
-        color: 'warning',
+        color: 'error',
         text: 'Anda perlu login dulu untuk melanjutkan!'
       };
       this.$router.replace({ path: '/login' });

@@ -1,6 +1,6 @@
 <template>
 <div id="themeSetting">
-  <v-toolbar color="blue" dark>
+  <v-toolbar color="primary" dark>
     <v-toolbar-title>
       Theme Settings
     </v-toolbar-title>
@@ -53,8 +53,8 @@ import colors from 'vuetify/es5/util/colors';
 export default {
   data () {
     return {
-      themeColor: 'indigo',
-      sideBarOption: 'light',
+      themeColor: 'red',
+      sideBarOption: 'red',
       colors: colors
     };
   },
