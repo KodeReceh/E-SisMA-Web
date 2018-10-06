@@ -11,7 +11,7 @@ export default [
       this.snackbar = {
         show: true,
         color: 'green',
-        text: 'Logout successfully.'
+        text: 'Berhasil logout!'
       };
       localStorage.removeItem('__token__');
       localStorage.removeItem('__email__');
@@ -26,7 +26,12 @@ export default [
   {
     name: 'APP_AUTH_FAILED',
     callback: function (e) {
-      this.$router.push('/login');
+      this.snackbar = {
+        show: true,
+        color: 'warning',
+        text: 'Anda perlu login dulu untuk melanjutkan!'
+      };
+      this.$router.replace({ path: '/login' });
       // this.$message.error('Token has expired');
     }
   },

@@ -12,7 +12,7 @@
                 </div>                
                 <v-form>
                   <v-text-field append-icon="person" name="email" label="Email" type="text" v-model="form.email" autocomplete=""></v-text-field>
-                  <v-text-field append-icon="lock" name="password" label="Password" id="password" type="password" v-model="form.password" autocomplete></v-text-field>
+                  <v-text-field append-icon="lock" @keyup.enter="login" name="password" label="Password" id="password" type="password" v-model="form.password" autocomplete></v-text-field>
                 </v-form>
               </v-card-text>
               <div v-if="errorMsg"><p style="color: red">{{ errorMsg }}</p></div>
