@@ -108,7 +108,15 @@
                         <td>{{ props.item.email }}</td>
                         <td>{{ props.item.address }}</td>
                         <td>
-                            <v-btn depressed outline icon fab dark color="primary" small>
+                            <v-btn 
+                              depressed 
+                              outline 
+                              icon 
+                              fab 
+                              dark 
+                              color="primary" 
+                              small 
+                              @click="editButtonClicked(props.item.id)">
                             <v-icon>edit</v-icon>
                             </v-btn>
                             <v-btn depressed outline icon fab dark color="pink" small>
@@ -131,6 +139,7 @@ export default {
     return {
       alerts: [],
       user: {
+        id: '',
         name: '',
         email: '',
         password: '',
@@ -182,12 +191,16 @@ export default {
       }
     };
   },
+  
   created () {
     this.fetchUsers();    
   },
+
   updated () {
     this.fetchUsers();
   },
+
+  
   methods: {
     fetchUsers () {
       let vm = this;
@@ -210,12 +223,12 @@ export default {
     save () {
       let token = localStorage.getItem('__token__');
       let vm = this;
-      this.axios.post('/api/users/' + this.dialog.type, this.user, {
+      this.axios.post('/api/users/' + (this.dialog.type === 'update' ? this.dialog.type + '/' + this.user.id : this.dialog.type), this.user, {
         headers: {
           'Authorization': 'bearer ' + token
         }
       }).then(response => {
-        vm.pushAlert('success', 'Data user ' + response.data.data.name + ' berhasil ditambahkan!');
+        vm.pushAlert('success', 'Data user ' + response.data.data.name + ' berhasil disimpan!');
         vm.clearForm();
       }).catch(function (e) {
         vm.pushAlert('error', 'Data user gagal disimpan, periksa kembali data yang diinput!');
@@ -225,6 +238,7 @@ export default {
     },
     clearForm () {
       this.user = {
+        id: '',
         name: '',
         email: '',
         password: '',
@@ -242,6 +256,39 @@ export default {
         type: type,
         show: show,
         message: message
+      });
+    },
+    editButtonClicked (userId) {
+      this.getUserById(userId);
+      this.dialog.state = true;
+    },
+    getUserById (userId) {
+      let vm = this;
+      let token = localStorage.getItem('__token__');
+      this.axios.get('api/users/' + userId, {
+        headers: {
+          'Authorization': 'bearer ' + token
+        }
+      }).then(response => {
+        if (response.data.success) {
+          vm.user = {
+            id: response.data.data.id,
+            name: response.data.data.name,
+            email: response.data.data.email,
+            password: '',
+            birthplace: response.data.data.birthplace,
+            birthdate: response.data.data.birthdate,
+            sex: response.data.data.sex,
+            address: response.data.data.address,
+            handphone: response.data.data.handphone,
+            departments: []
+          };
+          vm.dialog.title = 'Edit User ' + vm.user.name;
+          vm.dialog.type = 'update';
+          vm.dialog.state = true;
+        }
+      }).catch((e) => {
+        console.log(e);
       });
     }
   },
