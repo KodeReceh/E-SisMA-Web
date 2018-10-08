@@ -119,7 +119,14 @@
                               @click="editButtonClicked(props.item.id)">
                             <v-icon>edit</v-icon>
                             </v-btn>
-                            <v-btn depressed outline icon fab dark color="pink" small>
+                            <v-btn 
+                              depressed 
+                              outline 
+                              icon 
+                              fab 
+                              dark 
+                              color="pink" 
+                              small @click="deleteButtonClicked(props.item.id)">
                             <v-icon>delete</v-icon>
                             </v-btn>
                         </td>
@@ -129,6 +136,39 @@
                 </v-card>
             </v-flex>  
             </v-layout>
+
+            <!-- dialog delete confirm -->
+             <v-layout row justify-center>
+              <v-dialog
+                v-model="confirmDialog.state"
+                max-width="290">
+                <v-card>
+                  <v-card-title class="headline">Hapus user?</v-card-title>
+
+                  <v-card-text>
+                    Anda yakin ingin menghapus  {{ user.name }}? 
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn
+                      color="warning"
+                      flat="flat"
+                      @click="onDeleteCancel">
+                      Batal
+                    </v-btn>
+
+                    <v-btn
+                      color="error"
+                      flat="flat"
+                      @click="onDeleteConfirm">
+                      Hapus
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-layout>
         </v-container>
     </div>
 </template>
@@ -137,6 +177,10 @@
 export default {
   data () {
     return {
+      confirmDialog: {
+        state: false
+      },
+      userExists: false,
       alerts: [],
       user: {
         id: '',
@@ -260,12 +304,18 @@ export default {
     },
     editButtonClicked (userId) {
       this.getUserById(userId);
-      this.dialog.state = true;
+      if (this.userExists) {
+        this.dialog.state = true;
+        this.dialog.type = 'update';
+        this.dialog.state = true;
+      }
+      
     },
     getUserById (userId) {
       let vm = this;
       let token = localStorage.getItem('__token__');
-      this.axios.get('api/users/' + userId, {
+      let success = false;
+      return this.axios.get('api/users/' + userId, {
         headers: {
           'Authorization': 'bearer ' + token
         }
@@ -283,13 +333,38 @@ export default {
             handphone: response.data.data.handphone,
             departments: []
           };
-          vm.dialog.title = 'Edit User ' + vm.user.name;
-          vm.dialog.type = 'update';
-          vm.dialog.state = true;
+          vm.userExists = true;
+          return true;
         }
       }).catch((e) => {
         console.log(e);
+        vm.userExists = false;
+        return false;
       });
+    },
+    deleteButtonClicked (userId) {
+      if (this.getUserById(userId)) this.confirmDialog.state = true;
+      
+    },
+    onDeleteConfirm () {
+      this.confirmDialog.state = false;
+      let vm = this;
+      this.axios.delete('api/users/delete/' + this.user.id, {
+        headers: {
+          Authorization: 'bearer ' + localStorage.getItem('__token__')
+        }
+      }).then(response => {
+        console.log(response.data);
+        if (response.data.success) {
+          vm.pushAlert('success', 'Data user ' + vm.user.name + ' berhasil dihapus!');
+          vm.clearForm();
+        }
+      }).catch((e) => {
+        vm.pushAlert('error', 'Data user gagal dihapus!');
+      });
+    },
+    onDeleteCancel () {
+      this.confirmDialog.state = false;
     }
   },
 };
