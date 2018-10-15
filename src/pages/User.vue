@@ -272,7 +272,6 @@ export default {
       });
     },
     addButtonClicked () {
-      this.clearForm();
       this.dialog.title = 'Tambah User';
       this.dialog.type = 'register';
       this.dialog.state = true;
@@ -280,7 +279,8 @@ export default {
     save () {
       let token = localStorage.getItem('__token__');
       let vm = this;
-      this.axios.post('/api/users/' + (this.dialog.type === 'update' ? this.dialog.type + '/' + this.user.id : this.dialog.type), this.user, {
+      
+      this.axios.post('/api/users/' + (this.dialog.type === 'update' ? this.dialog.type + '/' + this.user.id : this.dialog.type), vm.user, {
         headers: {
           'Authorization': 'bearer ' + token
         }
@@ -321,7 +321,6 @@ export default {
       });
     },
     editButtonClicked (userId) {
-      this.clearForm();
       if (this.getUserById(userId)) {
         this.dialog.state = true;
         this.dialog.type = 'update';
@@ -350,7 +349,8 @@ export default {
             address: response.data.data.address,
             handphone: response.data.data.handphone,
             status: response.data.data.status,
-            role_id: response.data.data.role_id
+            role_id: response.data.data.role_id,
+            role: response.data.data.role
           };
           vm.userExists = true;
           return true;
@@ -372,7 +372,6 @@ export default {
           Authorization: 'bearer ' + localStorage.getItem('__token__')
         }
       }).then(response => {
-        console.log(response.data);
         if (response.data.success) {
           vm.pushAlert('success', 'Data user ' + vm.user.name + ' berhasil dihapus!');
           vm.clearForm();
