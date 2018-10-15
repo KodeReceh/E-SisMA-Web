@@ -59,12 +59,11 @@
                           <v-text-field label="Handphone" v-model="user.handphone"></v-text-field>
                         </v-flex>
                         <v-flex xs12>
-                          <v-autocomplete
+                          <v-select
                             label="Jabatan"
-                            multiple
-                            chips
-                            :items="departments"
-                          ></v-autocomplete>
+                            :items="roles"
+                            v-model="user.role_id"
+                          ></v-select>
                         </v-flex>
                       </v-layout>
                     </v-container>
@@ -106,7 +105,10 @@
                         <template slot="items" slot-scope="props">            
                         <td>{{ props.item.name }}</td>
                         <td>{{ props.item.email }}</td>
-                        <td>{{ props.item.address }}</td>
+                        <td>{{ ((props.item.role) ? props.item.role.title : '-') }}</td>
+                        <td>
+                          <v-switch v-model="props.item.status" color="success" @change="changeUserStatus(props.item.id)"></v-switch>
+                        </td>
                         <td>
                             <v-btn 
                               depressed 
@@ -192,9 +194,14 @@ export default {
         sex: '',
         address: '',
         handphone: '',
-        departments: []
+        status: '',
+        role_id: '',
+        role: {
+          id: '',
+          title: ''
+        }
       },
-      departments: [],
+      roles: [],
       sex: [
         {
           value: 1,
@@ -223,8 +230,12 @@ export default {
             value: 'email'
           },
           {
-            text: 'Alamat',
-            value: 'address'
+            text: 'Jabatan',
+            value: 'role.title'
+          },
+          {
+            text: 'Status',
+            value: 'status'
           },
           {
             text: 'Action',
@@ -237,7 +248,8 @@ export default {
   },
   
   created () {
-    this.fetchUsers();    
+    this.fetchUsers();  
+    this.fetchRoles();  
   },
 
   updated () {
@@ -260,6 +272,7 @@ export default {
       });
     },
     addButtonClicked () {
+      this.clearForm();
       this.dialog.title = 'Tambah User';
       this.dialog.type = 'register';
       this.dialog.state = true;
@@ -291,7 +304,12 @@ export default {
         sex: '',
         address: '',
         handphone: '',
-        departments: []
+        status: '',
+        role_id: '',
+        role: {
+          id: '',
+          title: ''
+        }
       };
       this.dialog.type = '';
     },
@@ -303,8 +321,8 @@ export default {
       });
     },
     editButtonClicked (userId) {
-      this.getUserById(userId);
-      if (this.userExists) {
+      this.clearForm();
+      if (this.getUserById(userId)) {
         this.dialog.state = true;
         this.dialog.type = 'update';
         this.dialog.state = true;
@@ -331,7 +349,8 @@ export default {
             sex: response.data.data.sex,
             address: response.data.data.address,
             handphone: response.data.data.handphone,
-            departments: []
+            status: response.data.data.status,
+            role_id: response.data.data.role_id
           };
           vm.userExists = true;
           return true;
@@ -344,7 +363,6 @@ export default {
     },
     deleteButtonClicked (userId) {
       if (this.getUserById(userId)) this.confirmDialog.state = true;
-      
     },
     onDeleteConfirm () {
       this.confirmDialog.state = false;
@@ -365,6 +383,40 @@ export default {
     },
     onDeleteCancel () {
       this.confirmDialog.state = false;
+      this.clearForm();
+    },
+    fetchRoles () {
+      let vm = this;
+      this.axios.get('api/roles', {
+        headers: {
+          Authorization: 'bearer ' + localStorage.getItem('__token__')
+        }
+      }).then(response => {
+        if (response.data.success) {
+          response.data.data.forEach(role => {
+            vm.roles.push({
+              value: role.id,
+              text: role.title
+            });
+          });
+        }
+      }).catch((e) => {
+        console.log(e.message);
+      });
+    },
+    changeUserStatus (id) {
+      let data = new FormData();
+      data.append('user_id', id);
+      this.axios.post('api/users/change_status', data, {
+        headers: {
+          Authorization: 'bearer ' + localStorage.getItem('__token__'),
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      }).then(response => {
+        console.log('berhasil rubah status user');
+      }).catch((e) => {
+        console.log('gagal rubah status');
+      });
     }
   },
 };
