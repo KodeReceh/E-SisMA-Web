@@ -72,7 +72,23 @@ export default [
     component: () => import(
       /* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
-      `@/pages/User.vue`
+      `@/pages/user/User.vue`
+    )
+  },
+  {
+    path: 'surat/masuk',
+    meta: { breadcrumb: true },
+    name: 'pages/surat/masuk',
+    component: () => import(
+      `@/pages/surat/masuk/SuratMasuk.vue`
+    )
+  }, 
+  {
+    path: 'surat/keluar',
+    meta: { breadcrumb: true },
+    name: 'pages/surat/keluar',
+    component: () => import(
+      `@/pages/surat/keluar/SuratKeluar.vue`
     )
   },
   {
