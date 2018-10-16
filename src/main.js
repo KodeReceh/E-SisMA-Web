@@ -17,6 +17,7 @@ Vue.config.productionTip = false;
 // Global filters
 Vue.filter('truncate', Truncate);
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' });
+Vue.use(require('vue-moment'));
 Vue.use(Vuetify, {
   // theme: {
   //   primary: colors.indigo.base, // #E53935

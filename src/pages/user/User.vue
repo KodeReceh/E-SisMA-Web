@@ -76,6 +76,82 @@
                   </v-card-actions>
                 </v-card>
               </v-dialog>
+              <v-dialog v-model="showDialog.state" scrollable max-width="500px">
+                <v-card>
+                  <v-card-title class="justify-center" :style="{ backgroundColor: this.$vuetify.theme.primary}">
+                    <span class="headline" :style="{ color: 'white', fontWeight: 'bold'}">{{ showDialog.title }}</span>
+                  </v-card-title>
+                  <v-divider></v-divider>
+                  <v-card-text>
+                    <v-flex sm12>
+                      <div slot="widget-content">
+                        <v-container>
+                          <v-layout row>
+                            <v-flex xs4>
+                              <b>Nama</b>
+                            </v-flex>
+                            <v-flex xs8>
+                              <p>{{ user.name }}</p>
+                            </v-flex>
+                          </v-layout>
+                          <v-layout row>
+                            <v-flex xs4>
+                              <b>Email</b>
+                            </v-flex>
+                            <v-flex xs8>
+                              <p>{{ user.email }}</p>
+                            </v-flex>
+                          </v-layout> 
+                          <v-layout row>
+                            <v-flex xs4>
+                              <b>Tempat, Tgl Lahir</b>
+                            </v-flex>
+                            <v-flex xs8>
+                              <p>{{ user.birthplace }}, {{ (user.birthdate ? user.birthdate : new Date()) | moment('DD MMMM YYYY') }}</p>
+                            </v-flex>
+                          </v-layout>
+                          <v-layout row>
+                            <v-flex xs4>
+                              <b>Jenis Kelamin</b>
+                            </v-flex>
+                            <v-flex xs8>
+                              <p> {{ (user.sex === 1 ? 'Laki-Laki' : 'Perempuan') }}</p>
+                            </v-flex>
+                          </v-layout> 
+                          <v-layout row>
+                            <v-flex xs4>
+                              <b>Alamat</b>
+                            </v-flex>
+                            <v-flex xs8>
+                              <p>{{ user.address }}</p>
+                            </v-flex>
+                          </v-layout>
+                          <v-layout row>
+                            <v-flex xs4>
+                              <b>Handphone</b>
+                            </v-flex>
+                            <v-flex xs8>
+                              <p>{{ user.handphone }}</p>
+                            </v-flex>
+                          </v-layout> 
+                          <v-layout row>
+                            <v-flex xs4>
+                              <b>Jabatan</b>
+                            </v-flex>
+                            <v-flex xs8>
+                              <p>{{ user.role ? user.role.title : '-' }}</p>
+                            </v-flex>
+                          </v-layout>                                                        
+                        </v-container>
+                      </div>
+                    </v-flex>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click.native="showDialog.state = false">Close</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
               <v-flex lg12>
                 <v-card>
                     <v-toolbar card color="white">
@@ -110,6 +186,17 @@
                           <v-switch v-model="props.item.status" color="success" @change="changeUserStatus(props.item.id)"></v-switch>
                         </td>
                         <td>
+                          <v-btn 
+                              depressed 
+                              outline 
+                              icon 
+                              fab 
+                              dark 
+                              color="primary" 
+                              small 
+                              @click="showButtonClicked(props.item.id)">
+                            <v-icon>visibility</v-icon>
+                            </v-btn>
                             <v-btn 
                               depressed 
                               outline 
@@ -127,7 +214,7 @@
                               icon 
                               fab 
                               dark 
-                              color="pink" 
+                              color="warning" 
                               small @click="deleteButtonClicked(props.item.id)">
                             <v-icon>delete</v-icon>
                             </v-btn>
@@ -180,7 +267,8 @@ export default {
   data () {
     return {
       confirmDialog: {
-        state: false
+        state: false,
+        title: ''
       },
       userExists: false,
       alerts: [],
@@ -212,6 +300,9 @@ export default {
           text: 'Perempuan'
         }
       ],
+      showDialog: {
+        state: false
+      },
       dialog: {
         type: '',
         state: false,
@@ -246,7 +337,28 @@ export default {
       }
     };
   },
-  
+  computed: {
+    showDialogState () {
+      return this.showDialog.state;
+    },
+    confirmDialogState () {
+      return this.confirmDialog.state;
+    },
+    dialogState () {
+      return this.dialog.sate;
+    }
+  },
+  watch: {
+    showDialogState (v) {
+      if (!v) this.clearForm();
+    },
+    confirmDialogState (v) {
+      if (!v) this.clearForm();
+    },
+    dialogState (v) {
+      if (this.dialog === 'update' && !v) this.clearForm();
+    }
+  },
   created () {
     this.fetchUsers();  
     this.fetchRoles();  
@@ -255,8 +367,6 @@ export default {
   updated () {
     this.fetchUsers();
   },
-
-  
   methods: {
     fetchUsers () {
       let vm = this;
@@ -416,7 +526,13 @@ export default {
       }).catch((e) => {
         console.log('gagal rubah status');
       });
+    },
+    showButtonClicked (userId) {
+      if (this.getUserById(userId)) {
+        this.showDialog.state = true;
+        this.showDialog.title = 'Data user ' + this.user.name;
+      }
     }
-  },
+  }
 };
 </script>

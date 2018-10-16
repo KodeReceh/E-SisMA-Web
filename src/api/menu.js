@@ -8,13 +8,19 @@ const Menu =  [
   },
   {
     title: 'Surat',
-    group: 'apps',
+    group: 'surat',
     icon: 'local_post_office',
     component: 'surat',
     items: [
       { name: 'masuk', title: 'Surat Masuk', component: 'pages/surat/masuk' },
       { name: 'keluar', title: 'Surat Keluar', component: 'pages/surat/keluar' },
     ]
+  },
+  {
+    title: 'Dokumen',
+    group: 'apps',
+    icon: 'description',
+    name: 'Dokumen'
   },
   {
     title: 'User',
