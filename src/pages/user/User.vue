@@ -19,6 +19,8 @@
                     <span class="headline" :style="{ color: 'white', fontWeight: 'bold'}">{{ dialog.title }}</span>
                   </v-card-title>
                   <v-divider></v-divider>
+
+                  <!-- form  -->
                   <v-card-text>
                     <v-container grid-list-md>
                       <v-layout wrap>
