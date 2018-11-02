@@ -225,7 +225,7 @@
                     </v-data-table>
                     </v-card-text>
                 </v-card>
-            </v-flex>  
+              </v-flex>  
             </v-layout>
 
             <!-- dialog delete confirm -->

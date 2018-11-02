@@ -104,51 +104,13 @@ export default {
             value: ''
           }
         ],
-        items: [
-          {
-            id: 1,
-            date: '2012-02-07',
-            number: '2018/OK/PDG.2',
-            sender: 'Anu',
-            subject: 'Perencanaan Pembangunan Masjid di Kelurahan Apa Gituh 2018',
-            tendency: 'Penting'
-          },
-          {
-            id: 2,
-            date: '2012-02-01',
-            number: '2018/OK/PDG.10',
-            sender: 'Ani',
-            subject: 'Makan-makan',
-            tendency: 'Penting'
-          },
-          {
-            id: 3,
-            date: '2012-02-20',
-            number: '2018/OK/PDG.11',
-            sender: 'Oker',
-            subject: 'Minum-minum',
-            tendency: 'Penting'
-          },
-          {
-            id: 4,
-            date: '2012-02-13',
-            number: '2018/OK/PDG.3',
-            sender: 'One',
-            subject: 'Minum-makan',
-            tendency: 'Penting'
-          },
-          {
-            id: 5,
-            date: '2012-02-05',
-            number: '2018/OK/PDG.4',
-            sender: 'Hana',
-            subject: 'Makan-Minum',
-            tendency: 'Penting'
-          }
-        ]
+        items: []
       },
       search: ''
     };
+  },
+  created () {
+    this.fetchList();
   },
   methods: {
     showButtonClicked (id) {
@@ -159,6 +121,20 @@ export default {
     },
     deleteButtonClicked (id) {
       return 0;
+    },
+    fetchList () {
+      let vm = this;
+      this.axios.get('/api/letters/incoming-letter/get-list', {
+        headers: {
+          Authorization: 'bearer ' + localStorage.getItem('__token__')
+        }
+      }).then(response => {
+        if (response.data.success) {
+          vm.table.items = response.data.data;
+        }
+      }).catch((e) => {
+        console.log(e);
+      });
     }
   }
 };
