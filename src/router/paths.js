@@ -84,6 +84,14 @@ export default [
     )
   }, 
   {
+    path: '/surat/masuk/create',
+    meta: { breadcrumb: false },
+    name: 'pages/surat/masuk/create',
+    component: () => import(
+      `@/pages/surat/masuk/CreateSuratMasuk.vue`
+    )
+  }, 
+  {
     path: '/surat/keluar',
     meta: { breadcrumb: true },
     name: 'pages/surat/keluar',

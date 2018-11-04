@@ -2,7 +2,9 @@
   <div id="suratMasuk">
     <v-container grid-list-xl fluid>
         <v-layout row wrap>
-            <app-list-surat-masuk></app-list-surat-masuk>
+          <v-spacer></v-spacer>
+          <v-btn color="info" :to="{ name: 'pages/surat/masuk/create'}">Tambah</v-btn>
+          <ListSuratMasuk></ListSuratMasuk>
         </v-layout>
       </v-container>
   </div>
@@ -13,7 +15,7 @@ import ListSuratMasuk from './ListSuratMasuk';
 
 export default {
   components: {
-    'app-list-surat-masuk': ListSuratMasuk
+    ListSuratMasuk,
   },
 };
 </script>

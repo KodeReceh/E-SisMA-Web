@@ -73,6 +73,8 @@
 </template>
 
 <script>
+import IncomingLetterAPI from '@/api/incoming-letter';
+
 export default {
   data () {
     return {
@@ -124,11 +126,7 @@ export default {
     },
     fetchList () {
       let vm = this;
-      this.axios.get('/api/letters/incoming-letter/get-list', {
-        headers: {
-          Authorization: 'bearer ' + localStorage.getItem('__token__')
-        }
-      }).then(response => {
+      IncomingLetterAPI.getList().then(response => {
         if (response.data.success) {
           vm.table.items = response.data.data;
         }
