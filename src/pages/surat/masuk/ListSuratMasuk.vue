@@ -50,8 +50,14 @@
                         fab 
                         dark 
                         color="primary" 
-                        small 
-                        @click="editButtonClicked(props.item.id)">
+                        small
+                        :to="{
+                                name: 'pages/surat/masuk/edit',
+                                params: {
+                                  id: props.item.id
+                                }
+                            }" 
+                        >
                     <v-icon>edit</v-icon>
                     </v-btn>
                     <v-btn 
@@ -119,7 +125,12 @@ export default {
       return 0;
     },
     editButtonClicked (id) {
-      return 0;
+      this.$props.go({
+        name: 'pages/surat/masuk/edit',
+        params: {
+          id: id,
+        },
+      });
     },
     deleteButtonClicked (id) {
       return 0;

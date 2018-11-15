@@ -1,7 +1,7 @@
 <template>
   <div>
       <v-container grid-list-xl fluid>
-          <h4 class="display-1 text-md-center">Tambah Surat Masuk</h4>
+          <h4 class="display-1 text-md-center">Edit Surat Masuk</h4>
           <v-layout row wrap>
               <v-flex xs12>
                   <FormSuratMasuk :letter="letter" :onSubmit="submit" ></FormSuratMasuk>
@@ -22,6 +22,7 @@ export default {
   data () {
     return {
       letter: {
+        id: '',
         number: '',
         date: '',
         receipt_date: '',
@@ -35,13 +36,23 @@ export default {
       }
     };
   },
+  mounted () {
+    const { id } = this.$route.params;
+    this.fetchSuratMasuk(id);
+  },
   methods: {
-    submit () {
-      console.log(this.letter);
-      IncomingLetterAPI.store(this.letter).then(response => {
-        this.$router.push({ name: 'pages/surat/masuk' });
+    fetchSuratMasuk (id) {
+      IncomingLetterAPI.get(id).then(response => {
+        this.letter = response.data.data;
       }).catch((e) => {
         console.log(e);
+      });
+    },
+    submit () {
+      IncomingLetterAPI.update(this.letter.id, this.letter).then(response => {
+        this.$router.push({ name: 'pages/surat/masuk' });
+      }).catch((e) => {
+        console.log(localStorage.getItem('__token__'));
       });
     }
   }

@@ -24,7 +24,6 @@
         :rules="nonEmptyRules"
         label="Tanggal Surat"
         prepend-icon="event"
-        readonly
         required
       ></v-text-field>
       <v-date-picker v-model="letter.date" @input="menu1 = false"></v-date-picker>
@@ -45,7 +44,6 @@
         :rules="nonEmptyRules"
         label="Tanggal Terima Surat"
         prepend-icon="event"
-        readonly
         required
       ></v-text-field>
       <v-date-picker v-model="letter.receipt_date" @input="menu2 = false"></v-date-picker>
@@ -96,7 +94,7 @@
       required
       item-text="code_title"
       item-value="id"
-      @change="fetchNewSubLetterCodeItems"
+      :chips="true"
     ></v-autocomplete>
     <v-autocomplete
       v-model="letter.sub_letter_code_id"
@@ -105,6 +103,7 @@
       label="Sub Kategori Surat"
       item-text="code_title"
       item-value="id"
+      :chips="true"
     ></v-autocomplete>
     <v-btn
       :disabled="!valid"
@@ -131,7 +130,17 @@ export default {
     letterCodes: [],
     subLetterCodes: []
   }),
-  mounted () {
+  watch: {
+    'letter.letter_code_id': {
+      handler: function (val, oldVal) {
+        if (oldVal) this.letter.sub_letter_code_id = null;
+        this.fetchLetterCodeItems();
+        this.fetchNewSubLetterCodeItems();
+      },
+      immediate: true
+    },
+  },
+  created () {
     this.fetchLetterCodeItems();
   },
   methods: {
@@ -144,11 +153,10 @@ export default {
       this.$refs.form.reset();
     },
     fetchLetterCodeItems () {
-      let vm = this;
       LetterCodeAPI.getList()
         .then(response => {
           if (response.data.success) {
-            vm.letterCodes = response.data.data;
+            this.letterCodes = response.data.data;
           }
         })
         .catch(e => {
@@ -156,12 +164,11 @@ export default {
         });
     },
     fetchNewSubLetterCodeItems () {
-      let vm = this;
       SubLetterCodeAPI.getList(this.letter.letter_code_id)
         .then(response => {
           if (response.data.success) {
-            vm.subLetterCodes = response.data.data;
-            vm.subLetterCodes.unshift({
+            this.subLetterCodes = response.data.data;
+            this.subLetterCodes.unshift({
               'id': null,
               'code_title': '--Tidak Menggunakan Sub Kode Surat--',
             });
