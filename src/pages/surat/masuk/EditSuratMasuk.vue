@@ -52,7 +52,7 @@ export default {
       IncomingLetterAPI.update(this.letter.id, this.letter).then(response => {
         this.$router.push({ name: 'pages/surat/masuk' });
       }).catch((e) => {
-        console.log(localStorage.getItem('__token__'));
+        console.log(e);
       });
     }
   }
