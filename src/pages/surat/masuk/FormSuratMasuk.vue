@@ -113,6 +113,7 @@
     submit
     </v-btn>
     <v-btn @click="clear">clear</v-btn>
+    <v-btn color="warning" :to="{ name: 'pages/surat/masuk'}">back</v-btn>
   </v-form>
 </template>
 

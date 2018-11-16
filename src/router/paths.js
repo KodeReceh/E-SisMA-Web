@@ -100,6 +100,14 @@ export default [
     )
   }, 
   {
+    path: '/surat/masuk/:id',
+    meta: { breadcrumb: false },
+    name: 'pages/surat/masuk/show',
+    component: () => import(
+      `@/pages/surat/masuk/ShowSuratMasuk.vue`
+    )
+  }, 
+  {
     path: '/surat/keluar',
     meta: { breadcrumb: true },
     name: 'pages/surat/keluar',

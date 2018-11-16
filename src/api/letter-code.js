@@ -10,4 +10,11 @@ export default {
       },
     });
   },
+  get (id) {
+    return axios.get(`${url}/${id}`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      },
+    });
+  }
 };

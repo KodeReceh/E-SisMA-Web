@@ -121,17 +121,6 @@ export default {
     this.fetchList();
   },
   methods: {
-    showButtonClicked (id) {
-      return 0;
-    },
-    editButtonClicked (id) {
-      this.$props.go({
-        name: 'pages/surat/masuk/edit',
-        params: {
-          id: id,
-        },
-      });
-    },
     deleteButtonClicked (id) {
       return 0;
     },
