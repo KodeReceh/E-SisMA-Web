@@ -31,4 +31,11 @@ export default {
       },
     });
   },
+  delete (id) {
+    return axios.delete(`${url}/${id}`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      },
+    });
+  }
 };

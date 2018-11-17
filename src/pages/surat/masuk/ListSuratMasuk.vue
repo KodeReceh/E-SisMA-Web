@@ -80,15 +80,29 @@
             </v-data-table>
             </v-card-text>
         </v-card>
+        <DeleteConfirmation
+          :confirmDeleteDialog="deleteDialog"
+          :onDeleteCancel="deleteCancel"
+          :onDeleteConfirm="deleteConfirm"
+        ></DeleteConfirmation>
     </v-flex> 
 </template>
 
 <script>
 import IncomingLetterAPI from '@/api/incoming-letter';
+import DeleteConfirmation from '@/components/DeleteConfirmation';
 
 export default {
+  components: {
+    DeleteConfirmation,
+  },
   data () {
     return {
+      deleteDialog: {
+        state: false,
+        title: '',
+        detail: {},
+      },
       table: {
         selected: [],
         headers: [
@@ -127,7 +141,22 @@ export default {
   },
   methods: {
     deleteButtonClicked (id) {
-      return 0;
+      this.deleteDialog.state = true;
+      this.deleteDialog.detail = { id: id };
+    },
+    deleteConfirm () {
+      IncomingLetterAPI.delete(this.deleteDialog.detail.id).then(response => {
+        console.log('dihapus');
+        this.deleteDialog.state = false;
+        this.deleteDialog.detail = {};
+        this.fetchList();
+      }).catch((e) => {
+        console.log(e);
+      });
+    },
+    deleteCancel () {
+      this.deleteDialog.state = false;
+      this.deleteDialog.detail = {};
     },
     fetchList () {
       let vm = this;

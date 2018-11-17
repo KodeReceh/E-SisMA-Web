@@ -68,7 +68,7 @@
                     <p class="font-weight-bold">Lampiran</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.attachments ? letter.attachments + ' buah' : '-' }}</p>
+                    <p class="font-weight-regular">{{ parseInt(letter.attachments) ? letter.attachments + ' buah' : '-' }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -121,8 +121,8 @@ export default {
       handler: function (val, oldVal) {
         if (val) {
           LetterCodeAPI.get(val).then(code => {        
-            if (this.sub_letter_code_id) {
-              SubLetterCodeAPI.get(val, this.sub_letter_code_id).then(subCode => {
+            if (this.letter.sub_letter_code_id) {
+              SubLetterCodeAPI.get(val, this.letter.sub_letter_code_id).then(subCode => {
                 this.letterCode = code.data.data.code + '.' + subCode.data.data.code + '. ' + subCode.data.data.title;
               }).catch((e) => {
                 console.log(e);

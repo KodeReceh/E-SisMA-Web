@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const url = 'api/letter-codes';
-const subUrl = 'sub-letter_codes';
+const subUrl = 'sub-letter-codes';
 
 export default {
   getList (id) {
