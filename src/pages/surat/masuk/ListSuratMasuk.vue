@@ -40,7 +40,12 @@
                         dark 
                         color="primary" 
                         small 
-                        @click="showButtonClicked(props.item.id)">
+                        :to="{
+                                name: 'pages/surat/masuk/show',
+                                params: {
+                                  id: props.item.id
+                                }
+                            }">
                     <v-icon>visibility</v-icon>
                     </v-btn>
                     <v-btn 
