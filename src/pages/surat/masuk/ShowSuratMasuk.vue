@@ -1,8 +1,8 @@
 <template>
-   <div id="page-text-fields">
+   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn color="warning" :to="{ name: 'pages/surat/masuk'}">back</v-btn>
+        <v-btn :round="true" color="warning" :to="{ name: 'pages/surat/masuk'}">back</v-btn>
         <v-flex sm12>
           <v-widget title="Detail Surat Masuk">
             <div slot="widget-content">

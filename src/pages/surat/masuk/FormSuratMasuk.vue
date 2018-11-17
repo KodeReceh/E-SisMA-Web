@@ -3,7 +3,6 @@
     <v-text-field
       v-model="letter.number"
       :rules="nonEmptyRules"
-      :counter="10"
       label="Nomor Surat"
       prepend-icon="format_list_numbered"
       required
@@ -11,7 +10,6 @@
     <v-menu
       :close-on-content-click="false"
       v-model="menu1"
-      :nudge-right="40"
       lazy
       transition="scale-transition"
       offset-y
@@ -25,6 +23,7 @@
         label="Tanggal Surat"
         prepend-icon="event"
         required
+        readonly
       ></v-text-field>
       <v-date-picker v-model="letter.date" @input="menu1 = false"></v-date-picker>
     </v-menu>
@@ -45,26 +44,24 @@
         label="Tanggal Terima Surat"
         prepend-icon="event"
         required
+        readonly
       ></v-text-field>
       <v-date-picker v-model="letter.receipt_date" @input="menu2 = false"></v-date-picker>
     </v-menu>
     <v-text-field
       v-model="letter.subject"
       :rules="nonEmptyRules"
-      :counter="10"
       label="Subjek Surat"
       prepend-icon="title"
       required
     ></v-text-field>
     <v-text-field
       v-model="letter.tendency"
-      :counter="10"
       label="Perihal Surat"
       prepend-icon="error"
     ></v-text-field>
     <v-text-field
       v-model="letter.attachments"
-      :counter="10"
       label="Lampiran Surat"
       prepend-icon="description"
       required
@@ -72,7 +69,6 @@
     <v-text-field
       v-model="letter.sender"
       :rules="nonEmptyRules"
-      :counter="10"
       label="Pengirim Surat"
       prepend-icon="person"
       required
@@ -80,7 +76,6 @@
     <v-text-field
       v-model="letter.to"
       :rules="nonEmptyRules"
-      :counter="10"
       label="Ditujukan Kepada"
       prepend-icon="person_outline"
       required
@@ -113,7 +108,6 @@
     submit
     </v-btn>
     <v-btn @click="clear">clear</v-btn>
-    <v-btn color="warning" :to="{ name: 'pages/surat/masuk'}">back</v-btn>
   </v-form>
 </template>
 
