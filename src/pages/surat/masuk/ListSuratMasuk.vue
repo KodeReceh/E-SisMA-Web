@@ -41,7 +41,7 @@
                         color="primary" 
                         small 
                         :to="{
-                                name: 'pages/surat/masuk/show',
+                                name: 'ShowSuratMasuk',
                                 params: {
                                   id: props.item.id
                                 }
@@ -57,7 +57,7 @@
                         color="primary" 
                         small
                         :to="{
-                                name: 'pages/surat/masuk/edit',
+                                name: 'EditSuratMasuk',
                                 params: {
                                   id: props.item.id
                                 }

@@ -86,7 +86,7 @@ export default [
   {
     path: '/surat/masuk/create',
     meta: { breadcrumb: false },
-    name: 'pages/surat/masuk/create',
+    name: 'CreateSuratMasuk',
     component: () => import(
       `@/pages/surat/masuk/CreateSuratMasuk.vue`
     )
@@ -94,7 +94,7 @@ export default [
   {
     path: '/surat/masuk/:id/edit',
     meta: { breadcrumb: false },
-    name: 'pages/surat/masuk/edit',
+    name: 'EditSuratMasuk',
     component: () => import(
       `@/pages/surat/masuk/EditSuratMasuk.vue`
     )
@@ -102,7 +102,7 @@ export default [
   {
     path: '/surat/masuk/:id',
     meta: { breadcrumb: false },
-    name: 'pages/surat/masuk/show',
+    name: 'ShowSuratMasuk',
     component: () => import(
       `@/pages/surat/masuk/ShowSuratMasuk.vue`
     )
