@@ -2,12 +2,12 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" color="warning" :to="{ name: 'pages/surat/masuk'}">back</v-btn>
+        <v-btn :round="true" color="warning" :to="{ name: 'pages/surat/keluar'}">back</v-btn>
         <v-flex sm12>
-          <v-widget title="Tambah Surat Masuk">
+          <v-widget title="Tambah Surat Keluar">
             <div slot="widget-content">
               <v-container>
-                <FormSuratMasuk :letter="letter" :onSubmit="submit" ></FormSuratMasuk>
+                <FormSuratKeluar :letter="letter" :onSubmit="submit" ></FormSuratKeluar>
               </v-container>
             </div>
           </v-widget>
@@ -18,13 +18,13 @@
 </template>
 
 <script>
-import FormSuratMasuk from './FormSuratMasuk';
+import FormSuratKeluar from './FormSuratKeluar';
 import VWidget from '@/components/VWidget';
-import IncomingLetterAPI from '@/api/incoming-letter';
+import OutcomingLetterAPI from '@/api/outcoming-letter';
 
 export default {
   components: {
-    FormSuratMasuk,
+    FormSuratKeluar,
     VWidget,
   },
   data () {
@@ -32,10 +32,8 @@ export default {
       letter: {
         number: '',
         date: '',
-        receipt_date: '',
         subject: '',
         tendency: '',
-        sender: '',
         to: '',
         attachments: 0,
         letter_code_id: null,
@@ -46,14 +44,8 @@ export default {
   methods: {
     submit () {
       console.log(this.letter);
-      IncomingLetterAPI.store(this.letter).then(response => {
-        this.$router.push(
-          { 
-            name: 'ShowSuratMasuk',
-            params: {
-              id: response.data.data.letter_id
-            } 
-          });
+      OutcomingLetterAPI.store(this.letter).then(response => {
+        this.$router.push({ name: 'ShowSuratMasuk', params: { id: response.data.data.letter_id } });
       }).catch((e) => {
         console.log(e);
       });

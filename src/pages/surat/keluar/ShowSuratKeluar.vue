@@ -2,9 +2,9 @@
    <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" color="warning" :to="{ name: 'pages/surat/masuk'}">back</v-btn>
+        <v-btn :round="true" color="warning" :to="{ name: 'pages/surat/keluar'}">back</v-btn>
         <v-flex sm12>
-          <v-widget title="Detail Surat Masuk">
+          <v-widget title="Detail Surat Keluar">
             <div slot="widget-content">
               <v-container>
                 <v-layout align-center row spacer slot="header">
@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import IncomingLetterAPI from '@/api/incoming-letter';
+import OutcomingLetterAPI from '@/api/outcoming-letter';
 import LetterCodeAPI from '@/api/letter-code';
 import SubLetterCodeAPI from '@/api/sub-letter-code';
 import VWidget from '@/components/VWidget';
@@ -123,12 +123,12 @@ export default {
           LetterCodeAPI.get(val).then(code => {        
             if (this.letter.sub_letter_code_id) {
               SubLetterCodeAPI.get(val, this.letter.sub_letter_code_id).then(subCode => {
-                this.letterCode = code.data.data.code + '.' + subCode.data.data.code + ' - ' + subCode.data.data.title;
+                this.letterCode = code.data.data.code + '.' + subCode.data.data.code + '. ' + subCode.data.data.title;
               }).catch((e) => {
                 console.log(e);
               });
             } else {
-              this.letterCode = code.data.data.code + ' - ' + code.data.data.title;
+              this.letterCode = code.data.data.code + '. ' + code.data.data.title;
             }
           }).catch((e) => {
             console.log(e);
@@ -140,11 +140,11 @@ export default {
   },
   mounted () {
     const { id } = this.$route.params;
-    this.fetchSuratMasuk(id);
+    this.fetchSuratKeluar(id);
   },
   methods: {
-    fetchSuratMasuk (id) {
-      IncomingLetterAPI.get(id).then(response => {
+    fetchSuratKeluar (id) {
+      OutcomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
       }).catch((e) => {
         console.log(e);

@@ -1,15 +1,21 @@
 <template>
-  <div id="suratKeluar">
+  <div>
     <v-container grid-list-xl fluid>
         <v-layout row wrap>
-            Surat Keluar
+          <v-spacer></v-spacer>
+          <v-btn color="info" :to="{ name: 'CreateSuratKeluar'}">Tambah</v-btn>
+          <ListSuratKeluar></ListSuratKeluar>
         </v-layout>
       </v-container>
   </div>
 </template>
 
 <script>
-export default {
+import ListSuratKeluar from './ListSuratKeluar';
 
+export default {
+  components: {
+    ListSuratKeluar,
+  },
 };
 </script>

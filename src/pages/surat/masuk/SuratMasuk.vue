@@ -1,5 +1,5 @@
 <template>
-  <div id="suratMasuk">
+  <div>
     <v-container grid-list-xl fluid>
         <v-layout row wrap>
           <v-spacer></v-spacer>

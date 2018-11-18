@@ -116,6 +116,30 @@ export default [
     )
   },
   {
+    path: '/surat/keluar/create',
+    meta: { breadcrumb: false },
+    name: 'CreateSuratKeluar',
+    component: () => import(
+      `@/pages/surat/keluar/CreateSuratKeluar.vue`
+    )
+  }, 
+  {
+    path: '/surat/keluar/:id/edit',
+    meta: { breadcrumb: false },
+    name: 'EditSuratKeluar',
+    component: () => import(
+      `@/pages/surat/keluar/EditSuratKeluar.vue`
+    )
+  }, 
+  {
+    path: '/surat/keluar/:id',
+    meta: { breadcrumb: false },
+    name: 'ShowSuratKeluar',
+    component: () => import(
+      `@/pages/surat/keluar/ShowSuratKeluar.vue`
+    )
+  }, 
+  {
     path: '/dashboard',
     meta: { breadcrumb: true },
     name: 'Dashboard',
