@@ -12,6 +12,10 @@ import Truncate from 'lodash.truncate';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 
+// uncomment for working offline
+// import 'material-design-icons/iconfont/material-icons.css';
+// import 'roboto-fontface/css/roboto/roboto-fontface.css';
+
 Vue.config.productionTip = false;
 // Helpers
 // Global filters
