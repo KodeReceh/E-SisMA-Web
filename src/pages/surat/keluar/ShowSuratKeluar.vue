@@ -25,14 +25,6 @@
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm2 md3>
-                    <p class="font-weight-bold">Tanggal Terima</p>                        
-                  </v-flex>
-                  <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.receipt_date ? letter.receipt_date : new Date() | moment('DD MMMM YYYY') }}</p>
-                  </v-flex>
-                </v-layout>
-                <v-layout align-center row spacer slot="header">
-                  <v-flex xs4 sm2 md3>
                     <p class="font-weight-bold">Subjek</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
@@ -49,18 +41,10 @@
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm2 md3>
-                    <p class="font-weight-bold">Pengirim</p>                        
-                  </v-flex>
-                  <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.sender }}</p>
-                  </v-flex>
-                </v-layout>
-                <v-layout align-center row spacer slot="header">
-                  <v-flex xs4 sm2 md3>
                     <p class="font-weight-bold">Ditujukan Kepada</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.sender }}</p>
+                    <p class="font-weight-regular">{{ letter.to }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -104,10 +88,8 @@ export default {
         id: '',
         number: '',
         date: '',
-        receipt_date: '',
         subject: '',
         tendency: '',
-        sender: '',
         to: '',
         attachments: 0,
         letter_code_id: null,

@@ -139,6 +139,9 @@ export default {
   created () {
     this.fetchList();
   },
+  updated () {
+    this.fetchList();
+  },
   methods: {
     deleteButtonClicked (id) {
       this.deleteDialog.state = true;
@@ -149,7 +152,6 @@ export default {
         console.log('dihapus');
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
-        this.fetchList();
       }).catch((e) => {
         console.log(e);
       });

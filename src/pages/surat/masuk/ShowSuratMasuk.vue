@@ -60,7 +60,7 @@
                     <p class="font-weight-bold">Ditujukan Kepada</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.sender }}</p>
+                    <p class="font-weight-regular">{{ letter.to }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">

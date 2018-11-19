@@ -56,7 +56,7 @@ export default {
     },
     submit () {
       OutcomingLetterAPI.update(this.letter.id, this.letter).then(response => {
-        this.$router.push({ name: 'ShowSuratMasuk', params: { id: response.data.data.letter_id } });
+        this.$router.push({ name: 'ShowSuratKeluar', params: { id: response.data.data.letter_id }});
       }).catch((e) => {
         console.log(e);
       });
