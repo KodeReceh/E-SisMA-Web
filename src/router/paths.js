@@ -100,6 +100,30 @@ export default [
     )
   }, 
   {
+    path: '/surat/masuk/:id/disposisi',
+    meta: { breadcrumb: false },
+    name: 'ShowDisposisiSuratMasuk',
+    component: () => import(
+      `@/pages/surat/masuk/ShowDisposisiSuratMasuk.vue`
+    )
+  }, 
+  {
+    path: '/surat/masuk/:id/disposisi/create',
+    meta: { breadcrumb: false },
+    name: 'CreateDisposisiSuratMasuk',
+    component: () => import(
+      `@/pages/surat/masuk/CreateDisposisiSuratMasuk.vue`
+    )
+  },
+  {
+    path: '/surat/masuk/:id/disposisi/edit',
+    meta: { breadcrumb: false },
+    name: 'EditDisposisiSuratMasuk',
+    component: () => import(
+      `@/pages/surat/masuk/EditDisposisiSuratMasuk.vue`
+    )
+  },
+  {
     path: '/surat/masuk/:id',
     meta: { breadcrumb: false },
     name: 'ShowSuratMasuk',

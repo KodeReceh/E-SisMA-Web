@@ -91,14 +91,14 @@ export default {
       this.$on(item.name, item.callback);
     });
     window.getApp = this;
-    if (!localStorage.getItem('__token__') || !localStorage.getItem('__email__')) {
+    if (!localStorage.getItem('__token__') || !localStorage.getItem('__id__')) {
       window.getApp.$emit('APP_AUTH_FAILED');
     }
   },
   updated () {
     if (this.$router.currentRoute.path === '/login') return;
     
-    if (!localStorage.getItem('__token__') || !localStorage.getItem('__email__')) {
+    if (!localStorage.getItem('__token__') || !localStorage.getItem('__id__')) {
       window.getApp.$emit('APP_AUTH_FAILED');
     }
   },

@@ -37,5 +37,26 @@ export default {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       },
     });
+  },
+  getDisposition (id) {
+    return axios.get(`${url}/${id}/disposition`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      },
+    });
+  },
+  storeDisposition (id, data) {
+    return axios.post(`${url}/${id}/disposition`, data, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      },
+    });
+  },
+  updateDisposition (id, data) {
+    return axios.put(`${url}/${id}/disposition`, data, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      },
+    });
   }
 };

@@ -49,7 +49,7 @@ export default {
         .then(response => {
           if (response.data.success) {
             localStorage.setItem('__token__', response.data.data.api_token);
-            localStorage.setItem('__email__', response.data.data.user.email);
+            localStorage.setItem('__id__', response.data.data.user.id);
             this.$router.push('dashboard');
           } else {
             vm.errorMsg = response.data.message;

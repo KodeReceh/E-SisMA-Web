@@ -45,7 +45,6 @@ export default {
   },
   methods: {
     submit () {
-      console.log(this.letter);
       IncomingLetterAPI.store(this.letter).then(response => {
         this.$router.push(
           { 

@@ -3,6 +3,14 @@
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
         <v-btn :round="true" color="warning" :to="{ name: 'pages/surat/masuk'}">back</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn color="secondary" outline @click="disposisiButtonClicked">disposisi</v-btn>
+        <v-btn small fab dark color="info" :to="{ name: 'EditSuratMasuk', params: { id: this.$route.params.id }}">
+          <v-icon>edit</v-icon>
+        </v-btn>
+        <v-btn small fab dark color="error" @click="deleteButtonClicked(letter.id)">
+          <v-icon>delete</v-icon>
+        </v-btn>
         <v-flex sm12>
           <v-widget title="Detail Surat Masuk">
             <div slot="widget-content">
@@ -84,6 +92,11 @@
           </v-widget>
         </v-flex>
       </v-layout>
+      <DeleteConfirmation
+          :confirmDeleteDialog="deleteDialog"
+          :onDeleteCancel="deleteCancel"
+          :onDeleteConfirm="deleteConfirm"
+        ></DeleteConfirmation>
     </v-container>
   </div>
 </template>
@@ -93,13 +106,20 @@ import IncomingLetterAPI from '@/api/incoming-letter';
 import LetterCodeAPI from '@/api/letter-code';
 import SubLetterCodeAPI from '@/api/sub-letter-code';
 import VWidget from '@/components/VWidget';
+import DeleteConfirmation from '@/components/DeleteConfirmation';
 
 export default {
   components: {
-    VWidget
+    VWidget,
+    DeleteConfirmation,
   },
   data () {
     return {
+      deleteDialog: {
+        state: false,
+        title: '',
+        detail: {},
+      },
       letter: {
         id: '',
         number: '',
@@ -138,7 +158,7 @@ export default {
       immediate: true,
     },
   },
-  mounted () {
+  beforeMount () {
     const { id } = this.$route.params;
     this.fetchSuratMasuk(id);
   },
@@ -149,6 +169,30 @@ export default {
       }).catch((e) => {
         console.log(e);
       });
+    },
+    disposisiButtonClicked () {
+      IncomingLetterAPI.getDisposition(this.letter.id).then(response => {
+        this.$router.push({ name: 'ShowDisposisiSuratMasuk', params: { id: this.letter.id }});
+      }).catch((e) => {
+        this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: this.letter.id }});
+      });
+    },
+    deleteButtonClicked (id) {
+      this.deleteDialog.state = true;
+      this.deleteDialog.detail = { id: id };
+    },
+    deleteConfirm () {
+      IncomingLetterAPI.delete(this.deleteDialog.detail.id).then(response => {
+        this.deleteDialog.state = false;
+        this.deleteDialog.detail = {};
+        this.$router.push({ name: 'pages/surat/masuk' });
+      }).catch((e) => {
+        console.log(e);
+      });
+    },
+    deleteCancel () {
+      this.deleteDialog.state = false;
+      this.deleteDialog.detail = {};
     },
   }
 };

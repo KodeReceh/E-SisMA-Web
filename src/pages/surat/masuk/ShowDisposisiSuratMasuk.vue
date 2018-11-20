@@ -1,0 +1,144 @@
+<template>
+   <div>
+    <v-container grid-list-xl fluid>
+      <v-layout row wrap>
+        <v-btn :round="true" color="warning" :to="{ name: 'ShowSuratMasuk', id: letter.id }">back</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn :round="true" color="info" :to="{ name: 'EditDisposisiSuratMasuk', id: letter.id }">Edit</v-btn>
+        <v-flex sm12>
+          <v-widget title="Disposisi Surat Masuk">
+            <div slot="widget-content">
+              <v-container>
+                <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">Nomor</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9>
+                    <p class="font-weight-regular" v-html="letter.number"/>
+                  </v-flex>
+                </v-layout>
+                 <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">Subjek Surat</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9>
+                    <p class="font-weight-regular" v-html="letter.subject"/>
+                  </v-flex>
+                </v-layout>
+                 <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">Tanggal Surat</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9>
+                    <p class="font-weight-regular">{{ letter.date ? letter.date : new Date() | moment('DD MMMM YYYY') }}</p>
+                  </v-flex>
+                </v-layout>
+                <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">Tanggal Proses</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9 >
+                    <p class="font-weight-regular">{{ disposition.processing_date ? disposition.processing_date : new Date() | moment('DD MMMM YYYY') }}</p>
+                  </v-flex>
+                </v-layout>
+                <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">Informasi</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9 >
+                    <p class="font-weight-regular">{{ disposition.information }}</p>
+                  </v-flex>
+                </v-layout>
+                <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">Ringkasan</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9 >
+                    <p class="font-weight-regular">{{ disposition.summary }}</p>
+                  </v-flex>
+                </v-layout>
+                <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">Pegawai</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9 >
+                    <p class="font-weight-regular">{{ user.name }}</p>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </div>
+          </v-widget>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
+</template>
+
+<script>
+import IncomingLetterAPI from '@/api/incoming-letter';
+import UserAPI from '@/api/user';
+import VWidget from '@/components/VWidget';
+
+export default {
+  components: {
+    VWidget
+  },
+  data () {
+    return {
+      letter: {
+        number: '',
+        subject: '',
+        date: '',
+      },
+      disposition: {
+        incoming_letter_id: '',
+        processing_date: '',
+        information: '',
+        summary: '',
+        user_id: '',
+      }, 
+      user: {
+        id: '',
+        name: '',
+      }
+
+    };
+  },
+  watch: {
+    'disposition.user_id': {
+      handler: function (val, oldVal) {
+        if (val) {
+          UserAPI.get(val).then(response => {        
+            this.user = response.data.data;
+          }).catch((e) => {
+            console.log(e);
+          });
+        }
+      },
+      immediate: true,
+    },
+  },
+  mounted () {
+    const { id } = this.$route.params;
+    this.fetchSuratMasuk(id);
+    this.fetchDisposisiSuratMasuk(id); 
+  },
+  methods: {
+    fetchSuratMasuk (id) {
+      IncomingLetterAPI.get(id).then(response => {
+        this.letter = response.data.data;
+      }).catch((e) => {
+        console.log(e);
+      });
+    },
+    fetchDisposisiSuratMasuk (id) {
+      IncomingLetterAPI.getDisposition(id).then(response => {
+        this.disposition = response.data.data;
+      }).catch((e) => {
+        console.log(e);
+        this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: id }});
+      });
+    },
+  }
+};
+</script>
