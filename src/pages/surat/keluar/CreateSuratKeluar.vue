@@ -43,7 +43,6 @@ export default {
   },
   methods: {
     submit () {
-      console.log(this.letter);
       OutcomingLetterAPI.store(this.letter).then(response => {
         this.$router.push({ name: 'ShowSuratKeluar', params: { id: response.data.data.letter_id }});
       }).catch((e) => {
