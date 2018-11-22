@@ -46,7 +46,7 @@
                     <p class="font-weight-bold">Informasi</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ disposition.information }}</p>
+                    <p class="font-weight-regular" style="white-space: pre-line;">{{ disposition.information }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -54,7 +54,7 @@
                     <p class="font-weight-bold">Ringkasan</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ disposition.summary }}</p>
+                    <p class="font-weight-regular" style="white-space: pre-line;">{{ disposition.summary }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">

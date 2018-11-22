@@ -29,11 +29,13 @@
       ></v-text-field>
       <v-date-picker v-model="disposition.processing_date" @input="menu = false"></v-date-picker>
     </v-menu>
-    <v-text-field
+    <v-textarea
       v-model="disposition.information"
       label="Informasi"
       prepend-icon="info"
-    ></v-text-field>
+      auto-grow
+      box
+    ></v-textarea>
     <v-btn
       :disabled="!valid"
       @click="submit"
