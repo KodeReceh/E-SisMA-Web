@@ -183,4 +183,24 @@ export default [
       `@/pages/dokumen/Dokumen.vue`
     )
   },
+  {
+    path: '/dokumen/create',
+    meta: { breadcrumb: false },
+    name: 'CreateDokumen',
+    component: () => import(
+      /* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+      `@/pages/dokumen/CreateDokumen.vue`
+    )
+  },
+  {
+    path: '/dokumen/:id',
+    meta: { breadcrumb: false },
+    name: 'ShowDokumen',
+    component: () => import(
+      /* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+      `@/pages/dokumen/ShowDokumen.vue`
+    )
+  },
 ];
