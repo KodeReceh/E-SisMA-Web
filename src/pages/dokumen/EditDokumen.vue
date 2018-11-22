@@ -43,7 +43,7 @@ export default {
   },
   methods: {
     submit () {
-      DocumentAPI.update(this.document).then(response => {
+      DocumentAPI.update(this.document.id, this.document).then(response => {
         this.$router.push({ name: 'ShowDokumen', params: { id: response.data.data.id }});
       }).catch((e) => {
         console.log(e);

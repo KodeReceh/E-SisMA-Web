@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'api/documents/1';
+const url = 'api/documents';
 const authorization = 'bearer ' + localStorage.getItem('__token__');
 
 export default {

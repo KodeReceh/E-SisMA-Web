@@ -194,6 +194,16 @@ export default [
     )
   },
   {
+    path: '/dokumen/:id/edit',
+    meta: { breadcrumb: false },
+    name: 'EditDokumen',
+    component: () => import(
+      /* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+      `@/pages/dokumen/EditDokumen.vue`
+    )
+  },
+  {
     path: '/dokumen/:id',
     meta: { breadcrumb: false },
     name: 'ShowDokumen',
