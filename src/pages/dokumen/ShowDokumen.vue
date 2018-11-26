@@ -37,16 +37,19 @@
         </v-flex>
       </v-layout>
     </v-container>
+    <FilesDokumen></FilesDokumen>
   </div>
 </template>
 
 <script>
 import DocumentAPI from '@/api/document';
 import VWidget from '@/components/VWidget';
+import FilesDokumen from './FilesDokumen';
 
 export default {
   components: {
-    VWidget
+    VWidget,
+    FilesDokumen
   },
   data () {
     return {
