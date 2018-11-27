@@ -2,7 +2,7 @@
   <div id="media" class="media">
     <v-toolbar class="elevation-0 transparent media-toolbar">
       <v-btn-toggle>
-        <v-btn flat>
+        <v-btn flat @click="uploadButtonClicked">
           <v-icon color="primary">cloud_upload</v-icon>
           &nbsp;Upload
         </v-btn>
@@ -70,6 +70,7 @@
               </v-list-tile>
             </v-list>
           </v-layout>
+          <InputFileDialog :dialog="dialog"></InputFileDialog>
         </vue-perfect-scrollbar>
       </div>
     </div>
@@ -78,11 +79,15 @@
 
 <script>
 import Bytes from 'bytes';
-import { getFileMenu, getFile } from '@/api/file';
+import { getFileMenu, getFile } from '@/api/filemock';
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
+import InputFileDialog from './InputFileDialog';
+import FileAPI from '@/api/file';
+
 export default {
   components: {
-    VuePerfectScrollbar
+    VuePerfectScrollbar,
+    InputFileDialog
   },  
   props: {
     type: {
@@ -91,6 +96,10 @@ export default {
     },
   },
   data: () => ({
+    dialog: {
+      state: false,
+      title: 'Input File'
+    },
     size: 'lg',
     view: 'grid',
     selectedFile: {
@@ -129,6 +138,9 @@ export default {
 
 
   methods: {
+    uploadButtonClicked () {
+      this.dialog.state = true;
+    },
     isImage (file) {
       return this.imageMime.includes(file.fileType);
     },
