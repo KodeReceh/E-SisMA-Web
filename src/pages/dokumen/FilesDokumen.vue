@@ -125,6 +125,7 @@ export default {
         lastModified: '2018-03-03'
       }
     ],
+    lastOrdinal: 0,
   }),
   computed: {
     mediaMenu () {
@@ -134,9 +135,10 @@ export default {
       return getFile();
     }
   },
-
-
-
+  mounted () {
+    const { id } = this.$route.params;
+    this.getLastOrdinal(id);
+  },
   methods: {
     uploadButtonClicked () {
       this.dialog.state = true;
@@ -158,6 +160,13 @@ export default {
     },
     computeFileImage (file) {
       return this.isImage(file) ? file.path : '/static/icon/file_empty.svg';
+    },
+    getLastOrdinal (document) {
+      return FileAPI.getLastOrdinal(document).then(response => {
+        this.lastOrdinal = response.data.data;
+      }).catch((e) => {
+        console.log(e);
+      });
     }
   },  
 };

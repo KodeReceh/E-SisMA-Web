@@ -1,10 +1,9 @@
 import axios from 'axios';
 
 const url = 'api/files';
-const token = localStorage.getItem('__token___');
-const headers = {
+let headers = {
   headers: {
-    Authorization: 'bearer ' + token,
+    Authorization: 'bearer ' + localStorage.getItem('__token__'),
   },
 };
 
@@ -26,5 +25,8 @@ export default {
   },
   getByDocument (document) {
     return axios.get(`api/documents/${document}/files`, headers);
+  },
+  getLastOrdinal (document) {
+    return axios.get(`api/documents/${document}/getLastOrdinal`, headers);
   }
 };
