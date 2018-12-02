@@ -36,8 +36,10 @@
           </v-widget>
         </v-flex>
       </v-layout>
+      <v-layout row wrap>
+        <FilesDokumen></FilesDokumen>
+      </v-layout>
     </v-container>
-    <FilesDokumen></FilesDokumen>
   </div>
 </template>
 
