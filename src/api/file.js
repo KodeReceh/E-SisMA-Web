@@ -3,6 +3,7 @@ import axios from 'axios';
 const url = 'api/files';
 let headers = {
   headers: {
+    'Content-Type': 'multipart/form-data',
     Authorization: 'bearer ' + localStorage.getItem('__token__'),
   },
 };

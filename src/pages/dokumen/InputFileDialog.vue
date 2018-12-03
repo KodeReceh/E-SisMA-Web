@@ -35,23 +35,38 @@
 </template>
 
 <script>
+import FileAPI from '@/api/file';
+
 export default {
   props: {
     dialog: {
       type: Object,
       default: null,
-    }
+    },
+    lastOrdinal: {
+      type: Promise,
+      default: 0,
+    },
   },
   data () {
     return {
       file: {
         document_id: '',
         caption: '',
-        ordinal: '',
+        ordinal: 0,
         file: '',
         fileName: '',
       }
     };
+  },
+  computed: {
+    'file.ordinal': function () {
+      return this.lastOrdinal + 1;
+    }
+  },
+  mounted () {
+    const { id } = this.$route.params;
+    this.file.document_id = id;
   },
   methods: {
     pickFile () {
@@ -67,8 +82,15 @@ export default {
       }
     },
     save () {
-      return;
-    }
+      let formData = new FormData();
+      formData.append('file', this.file.file);
+      formData.append('caption', this.file.caption);
+      formData.append('document_id', this.file.document_id);
+      formData.append('ordinal', this.file.ordinal);
+      FileAPI.store(formData).then(response => {
+        console.log(response);
+      });
+    },
   }
 };
 </script>
