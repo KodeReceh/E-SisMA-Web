@@ -85,7 +85,7 @@
         </v-data-table>
         </v-card-text>
     </v-card>
-  <InputFileDialog :dialog="dialog" :lastOrdinal="lastOrdinal"></InputFileDialog> 
+  <InputFileDialog :dialog="dialog"></InputFileDialog> 
 </v-flex>
 </template>
 
@@ -131,23 +131,10 @@ export default {
       items: []
     },
   }),
-  computed: {
-    lastOrdinal () {
-      const { id } = this.$route.params;
-      return this.getLastOrdinal(id);
-    }
-  }, 
   methods: {
     uploadButtonClicked () {
       this.dialog.state = true;
     },
-    getLastOrdinal (document) {
-      return FileAPI.getLastOrdinal(document).then(response => {
-        return response.data.data;
-      }).catch((e) => {
-        console.log(e);
-      });
-    }
   },
 };
 </script>
