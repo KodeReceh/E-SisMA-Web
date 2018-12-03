@@ -34,7 +34,7 @@
             item-key="name"
             >
             <template slot="items" slot-scope="props">            
-            <td>{{ props.item.date }}</td>
+            <td>{{ timeAgo.format(new Date(props.item.updated_at)) }}</td>
             <td>{{ props.item.caption }}</td>
             <td>
                 <v-btn 
@@ -116,7 +116,7 @@ export default {
       selected: [],
       headers: [
         {
-          text: 'Tanggal',
+          text: 'Diupload',
           value: 'updated_at'
         },
         {
@@ -131,10 +131,21 @@ export default {
       items: []
     },
   }),
+  mounted () {
+    this.fetchFiles();
+  },
   methods: {
     uploadButtonClicked () {
       this.dialog.state = true;
     },
+    fetchFiles () {
+      const { id } = this.$route.params;
+      FileAPI.getByDocument(id).then(response => {
+        console.log(response.data.data);
+        
+        this.table.items = response.data.data;
+      });
+    }
   },
 };
 </script>

@@ -11,17 +11,22 @@ import colors from 'vuetify/es5/util/colors';
 import Truncate from 'lodash.truncate';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
+import VueMomentLib from 'vue-moment-lib';
+import TimeAgo from 'javascript-time-ago';
+import id from 'javascript-time-ago/locale/id';
 
 // uncomment for working offline
 // import 'material-design-icons/iconfont/material-icons.css';
 // import 'roboto-fontface/css/roboto/roboto-fontface.css';
-
+TimeAgo.addLocale(id);
+const timeAgo = new TimeAgo('id-ID');
+Vue.prototype.timeAgo = timeAgo;
 Vue.config.productionTip = false;
 // Helpers
 // Global filters
 Vue.filter('truncate', Truncate);
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' });
-Vue.use(require('vue-moment'));
+Vue.use(VueMomentLib);
 Vue.use(Vuetify, {
   // theme: {
   //   primary: colors.indigo.base, // #E53935
