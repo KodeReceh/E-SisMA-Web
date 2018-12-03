@@ -1,12 +1,10 @@
 <template>
   <v-flex lg12>
     <v-toolbar class="elevation-0 transparent media-toolbar">
-      <v-btn-toggle>
-        <v-btn flat @click="uploadButtonClicked">
-          <v-icon color="primary">cloud_upload</v-icon>
-          &nbsp;Upload
-        </v-btn>
-      </v-btn-toggle>
+      <v-btn flat @click="uploadButtonClicked">
+        <v-icon color="primary">cloud_upload</v-icon>
+        &nbsp;Upload
+      </v-btn>
     </v-toolbar>
     <v-card>
         <v-toolbar card color="white">
@@ -85,7 +83,7 @@
         </v-data-table>
         </v-card-text>
     </v-card>
-  <InputFileDialog :dialog="dialog"></InputFileDialog> 
+  <InputFileDialog :dialog="dialog" :fetchFiles="fetchFiles"></InputFileDialog> 
 </v-flex>
 </template>
 
@@ -141,8 +139,6 @@ export default {
     fetchFiles () {
       const { id } = this.$route.params;
       FileAPI.getByDocument(id).then(response => {
-        console.log(response.data.data);
-        
         this.table.items = response.data.data;
       });
     }

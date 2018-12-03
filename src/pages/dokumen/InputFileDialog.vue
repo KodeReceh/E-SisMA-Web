@@ -45,6 +45,10 @@ export default {
       type: Object,
       default: null,
     },
+    fetchFiles: {
+      type: Function,
+      default: null
+    }
   },
   data () {
     return {
@@ -64,8 +68,6 @@ export default {
     const { id } = this.$route.params;
     this.file.document_id = id;
     this.setOrdinal();
-    console.log(this.$refs.file);
-    
   },
   updated () {
     this.setOrdinal();
@@ -92,10 +94,10 @@ export default {
         formData.append('document_id', this.file.document_id);
         formData.append('ordinal', this.file.ordinal);
         FileAPI.store(formData).then(response => {
-          console.log(response);
           this.clearFileObject();
           this.dialog.state = false;
           this.loading = false;
+          this.fetchFiles();
         });
       }
     },
@@ -109,7 +111,7 @@ export default {
       this.$refs.formFile.reset();
       this.file.file = '';
       this.valid = false;
-    }
+    },
   }
 };
 </script>
