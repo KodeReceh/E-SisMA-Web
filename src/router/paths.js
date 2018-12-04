@@ -213,4 +213,14 @@ export default [
       `@/pages/dokumen/ShowDokumen.vue`
     )
   },
+  {
+    path: '/dokumen/:document/files/:file',
+    meta: { breadcrumb: false },
+    name: 'ShowFileDokumen',
+    component: () => import(
+      /* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+      `@/pages/dokumen/ShowFileDokumen.vue`
+    )
+  },
 ];

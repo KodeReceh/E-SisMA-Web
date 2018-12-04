@@ -44,9 +44,10 @@
                     color="primary" 
                     small 
                     :to="{
-                            name: 'ShowDokumen',
+                            name: 'ShowFileDokumen',
                             params: {
-                              id: props.item.id
+                              document: props.item.document_id,
+                              file: props.item.id
                             }
                         }">
                 <v-icon>visibility</v-icon>
@@ -140,6 +141,7 @@ export default {
       const { id } = this.$route.params;
       FileAPI.getByDocument(id).then(response => {
         this.table.items = response.data.data;
+        console.log(response.data.data);
       });
     }
   },
