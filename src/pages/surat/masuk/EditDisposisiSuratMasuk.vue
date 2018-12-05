@@ -54,22 +54,22 @@ export default {
     fetchSuratMasuk (id) {
       IncomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
-      }).catch((e) => {
-        console.log(e);
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     fetchDisposisiSuratMasuk (id) {
       IncomingLetterAPI.getDisposition(id).then(response => {
         this.disposition = response.data.data;
-      }).catch((e) => {
-        console.log(e);
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     fetchUser () {
       UserAPI.get(localStorage.getItem('__id__')).then(response => {
         this.disposition.user_id = response.data.data.id;
-      }).catch((e) => {
-        console.log(e);
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     submit () {
@@ -86,8 +86,9 @@ export default {
               id: response.data.data.incoming_letter_id
             } 
           });
-      }).catch((e) => {
-        console.log(e);
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
+        loader.hide();
       });
     }
   }

@@ -59,6 +59,8 @@ export default {
       const { document, file } = this.$route.params;
       FileAPI.get(file).then(response => {
         this.file = response.data.data;
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
   },

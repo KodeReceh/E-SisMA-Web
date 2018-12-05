@@ -16,6 +16,8 @@ import TimeAgo from 'javascript-time-ago';
 import id from 'javascript-time-ago/locale/id';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+import VTooltip from 'v-tooltip';
+import './theme/tooltip.css';
 
 // uncomment for working offline
 // import 'material-design-icons/iconfont/material-icons.css';
@@ -29,6 +31,7 @@ Vue.config.productionTip = false;
 Vue.filter('truncate', Truncate);
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' });
 Vue.use(VueMomentLib);
+Vue.use(VTooltip);
 Vue.use(Loading, {
   // props
   color: 'red',

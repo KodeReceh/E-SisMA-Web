@@ -153,9 +153,8 @@ export default {
           if (response.data.success) {
             this.letterCodes = response.data.data;
           }
-        })
-        .catch(e => {
-          console.log(e);
+        }).catch(e => {
+          alert(e.response.status + ': ' + e.response.statusText);
         });
     },
     fetchNewSubLetterCodeItems () {
@@ -168,9 +167,8 @@ export default {
               'code_title': '--Tidak Menggunakan Sub Kode Surat--',
             });
           }
-        })
-        .catch(e => {
-          console.log(e);
+        }).catch(e => {
+          alert(e.response.status + ': ' + e.response.statusText);
         });
     }
   }

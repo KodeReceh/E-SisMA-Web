@@ -380,8 +380,9 @@ export default {
       }).then(response => {
         vm.complex.items = response.data.data;
         loader.hide();
-      }).catch(function (e) {
-        console.log(e.message);
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
+        loader.hide();
       });
     },
     addButtonClicked () {
@@ -406,10 +407,10 @@ export default {
         vm.pushAlert('success', 'Data user ' + response.data.data.name + ' berhasil disimpan!');
         vm.clearForm();
         this.fetchUsers();
-      }).catch(function (e) {
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
         loader.hide();
         vm.pushAlert('error', 'Data user gagal disimpan, periksa kembali data yang diinput!');
-        console.log(e.message);
       });
       
     },
@@ -475,11 +476,11 @@ export default {
           vm.userExists = true;
           return true;
         }
-      }).catch((e) => {
-        console.log(e);
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
         vm.userExists = false;
         return false;
-      });
+      });    
     },
     deleteButtonClicked (userId) {
       if (this.getUserById(userId)) this.confirmDialog.state = true;
@@ -502,9 +503,10 @@ export default {
           loader.hide();
           this.fetchUsers();
         }
-      }).catch((e) => {
-        vm.pushAlert('error', 'Data user gagal dihapus!');
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
         loader.hide();
+        vm.pushAlert('error', 'Data user gagal dihapus!');
       });
     },
     onDeleteCancel () {
@@ -526,8 +528,8 @@ export default {
             });
           });
         }
-      }).catch((e) => {
-        console.log(e.message);
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     changeUserStatus (id) {
@@ -545,8 +547,8 @@ export default {
       }).then(response => {
         console.log('berhasil rubah status user');
         loader.hide();
-      }).catch((e) => {
-        console.log('gagal rubah status');
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
         loader.hide();
       });
     },

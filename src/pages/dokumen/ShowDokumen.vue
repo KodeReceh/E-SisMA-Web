@@ -2,32 +2,42 @@
    <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" color="warning" :to="{ name: 'Dokumen'}">back</v-btn>
-        <v-flex sm12>
+        <v-toolbar class="elevation-0 transparent media-toolbar">
+          <v-btn :round="true" color="warning" :to="{ name: 'Dokumen'}">back</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn flat @click="uploadButtonClicked">
+            <v-icon color="primary">cloud_upload</v-icon>
+            &nbsp;Upload
+          </v-btn>
+        </v-toolbar>
+        <v-flex sm4>
           <v-widget title="Detail Dokumen">
             <div slot="widget-content">
               <v-container>
                 <v-layout align-center row spacer slot="header">
-                  <v-flex xs4 sm2 md3>
+                  <v-flex xs4 sm4 md4>
                     <p class="font-weight-bold">Nama Dokumen</p>                        
                   </v-flex>
-                  <v-flex xs8 sm10 md9>
+                  <v-spacer></v-spacer>
+                  <v-flex xs8 sm8 md8>
                     <p class="font-weight-regular" v-html="document.title"/>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
-                  <v-flex xs4 sm2 md3>
+                  <v-flex xs4 sm4 md4>
                     <p class="font-weight-bold">Tanggal</p>                        
                   </v-flex>
-                  <v-flex xs8 sm10 md9 >
+                  <v-spacer></v-spacer>
+                  <v-flex xs8 sm8 md8>
                     <p class="font-weight-regular">{{ document.date ? document.date : new Date() | moment().format('DD MMMM YYYY') }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
-                  <v-flex xs4 sm2 md3>
+                  <v-flex xs4 sm4 md4>
                     <p class="font-weight-bold">Keterangan</p>                        
                   </v-flex>
-                  <v-flex xs8 sm10 md9 >
+                  <v-spacer></v-spacer>
+                  <v-flex xs8 sm8 md8>
                     <p class="font-weight-regular">{{ document.description }}</p>
                   </v-flex>
                 </v-layout>
@@ -35,10 +45,11 @@
             </div>
           </v-widget>
         </v-flex>
+        <v-flex sm8>
+            <FilesDokumen ref="filesDokumen"></FilesDokumen>
+        </v-flex>
       </v-layout>
-      <v-layout row wrap>
-        <FilesDokumen></FilesDokumen>
-      </v-layout>
+      
     </v-container>
   </div>
 </template>
@@ -76,10 +87,15 @@ export default {
       DocumentAPI.get(id).then(response => {
         this.document = response.data.data;
         loader.hide();
-      }).catch((e) => {
-        console.log(e);
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
+        loader.hide();
       });
     },
+    uploadButtonClicked () {
+      let files = this.$refs.filesDokumen;
+      files.uploadButtonClicked();
+    }
   }
 };
 </script>

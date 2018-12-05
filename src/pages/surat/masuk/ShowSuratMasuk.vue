@@ -144,14 +144,14 @@ export default {
             if (this.letter.sub_letter_code_id) {
               SubLetterCodeAPI.get(val, this.letter.sub_letter_code_id).then(subCode => {
                 this.letterCode = code.data.data.code + '.' + subCode.data.data.code + ' - ' + subCode.data.data.title;
-              }).catch((e) => {
-                console.log(e);
+              }).catch(e => {
+                alert(e.response.status + ': ' + e.response.statusText);
               });
             } else {
               this.letterCode = code.data.data.code + ' - ' + code.data.data.title;
             }
-          }).catch((e) => {
-            console.log(e);
+          }).catch(e => {
+            alert(e.response.status + ': ' + e.response.statusText);
           });
         }
       },
@@ -171,8 +171,9 @@ export default {
       IncomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
         loader.hide();
-      }).catch((e) => {
-        console.log(e);
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
+        loader.hide();
       });
     },
     disposisiButtonClicked () {
@@ -185,7 +186,11 @@ export default {
         this.$router.push({ name: 'ShowDisposisiSuratMasuk', params: { id: this.letter.id }});
       }).catch((e) => {
         loader.hide();
-        this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: this.letter.id }});
+        if (e.response.status === 404) {
+          this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: this.letter.id }});
+          return;
+        }
+        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     deleteButtonClicked (id) {
@@ -193,17 +198,12 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       IncomingLetterAPI.delete(this.deleteDialog.detail.id).then(response => {
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
-        loader.hide();
         this.$router.push({ name: 'pages/surat/masuk' });
-      }).catch((e) => {
-        console.log(e);
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     deleteCancel () {

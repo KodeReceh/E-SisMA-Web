@@ -140,8 +140,11 @@ export default {
         this.disposition = response.data.data;
         loader.hide();
       }).catch((e) => {
-        console.log(e);
-        this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: id }});
+        if (e.response.status === 404) {
+          this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: id }});
+          return;
+        }
+        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
   }

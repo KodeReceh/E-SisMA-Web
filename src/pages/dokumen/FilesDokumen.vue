@@ -1,11 +1,4 @@
 <template>
-  <v-flex lg12>
-    <v-toolbar class="elevation-0 transparent media-toolbar">
-      <v-btn flat @click="uploadButtonClicked">
-        <v-icon color="primary">cloud_upload</v-icon>
-        &nbsp;Upload
-      </v-btn>
-    </v-toolbar>
     <v-card>
         <v-toolbar card color="white">
         <v-text-field
@@ -34,6 +27,7 @@
             <template slot="items" slot-scope="props">            
             <td>{{ timeAgo.format(new Date(props.item.updated_at)) }}</td>
             <td>{{ props.item.caption }}</td>
+            <td>{{ props.item.file_extension }}</td>
             <td>
                 <v-btn 
                     depressed 
@@ -44,7 +38,8 @@
                     color="primary" 
                     small
                     :href="downloadUrl + props.item.path"
-                    target="_blank">
+                    target="_blank"
+                    v-tooltip.auto="`Download`">
                 <v-icon>cloud_download</v-icon>
                 </v-btn>
                 <v-btn 
@@ -55,12 +50,8 @@
                     dark 
                     color="primary" 
                     small
-                    :to="{
-                            name: 'EditDokumen',
-                            params: {
-                              id: props.item.id
-                            }
-                        }" 
+                    @click="editFileClicked(props.item.id)"
+                    v-tooltip.auto="`Edit`"
                     >
                 <v-icon>edit</v-icon>
                 </v-btn>
@@ -71,16 +62,21 @@
                     fab 
                     dark 
                     color="warning" 
-                    small @click="deleteButtonClicked(props.item.id)">
+                    small @click="deleteButtonClicked(props.item.id)"
+                    v-tooltip.auto="`Hapus`">
                 <v-icon>delete</v-icon>
                 </v-btn>
             </td>
             </template>
         </v-data-table>
         </v-card-text>
+        <InputFileDialog :dialog="dialog" :fetchFiles="fetchFiles" :file="file"></InputFileDialog> 
+        <DeleteConfirmation
+          :confirmDeleteDialog="deleteDialog"
+          :onDeleteCancel="deleteCancel"
+          :onDeleteConfirm="deleteConfirm"
+        ></DeleteConfirmation>
     </v-card>
-  <InputFileDialog :dialog="dialog" :fetchFiles="fetchFiles"></InputFileDialog> 
-</v-flex>
 </template>
 
 <script>
@@ -88,11 +84,13 @@ import Bytes from 'bytes';
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
 import InputFileDialog from './InputFileDialog';
 import FileAPI from '@/api/file';
+import DeleteConfirmation from '@/components/DeleteConfirmation';
 
 export default {
   components: {
     VuePerfectScrollbar,
-    InputFileDialog
+    InputFileDialog,
+    DeleteConfirmation
   },  
   props: {
     type: {
@@ -103,9 +101,19 @@ export default {
   data: () => ({
     dialog: {
       state: false,
-      title: 'Input File'
+      title: 'Input File',
+      data: null,
+      isUpdate: false,
     },
     search: '',
+    file: {
+      id: '',
+      document_id: '',
+      ordinal: '',
+      caption: '',
+      file: '',
+      fileName: '',
+    },
     table: {
       selected: [],
       headers: [
@@ -114,8 +122,12 @@ export default {
           value: 'updated_at'
         },
         {
-          text: 'Nama File',
+          text: 'Keterangan',
           value: 'caption'
+        },
+        {
+          text: 'Extensi File',
+          value: 'file_extension'
         },
         {
           text: 'Action',
@@ -125,6 +137,11 @@ export default {
       items: [],
     },
     downloadUrl: 'download/',
+    deleteDialog: {
+      state: false,
+      title: '',
+      detail: {},
+    },
   }),
   mounted () {
     this.fetchFiles();
@@ -132,6 +149,19 @@ export default {
   methods: {
     uploadButtonClicked () {
       this.dialog.state = true;
+    },
+    editFileClicked (id) {
+      FileAPI.get(id).then(response => {
+        this.file.document_id = response.data.data.document_id;
+        this.file.ordinal = response.data.data.ordinal;
+        this.file.caption = response.data.data.caption;
+        this.file.fileName = response.data.data.path;
+        this.file.id = response.data.data.id;
+        this.dialog.isUpdate = true;
+        this.dialog.state = true;
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
+      });
     },
     fetchFiles () {
       let loader = this.$loading.show({
@@ -142,8 +172,28 @@ export default {
       FileAPI.getByDocument(id).then(response => {
         this.table.items = response.data.data;
         loader.hide();
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
+        loader.hide();
       });
-    }
+    },
+    deleteButtonClicked (id) {
+      this.deleteDialog.state = true;
+      this.deleteDialog.detail = { id: id };
+    },
+    deleteConfirm () {
+      FileAPI.delete(this.deleteDialog.detail.id).then(response => {
+        this.fetchFiles();
+        this.deleteDialog.state = false;
+        this.deleteDialog.detail = {};
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
+      });
+    },
+    deleteCancel () {
+      this.deleteDialog.state = false;
+      this.deleteDialog.detail = {};
+    },
   },
 };
 </script>

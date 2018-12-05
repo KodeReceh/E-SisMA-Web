@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog.state" scrollable max-width="500px">
+  <v-dialog v-model="dialog.state" scrollable max-width="500px" persistent>
     <v-card>
       <v-card-title class="justify-center" :style="{ backgroundColor: this.$vuetify.theme.primary}">
         <span class="headline" :style="{ color: 'white', fontWeight: 'bold'}">{{ dialog.title }}</span>
@@ -10,7 +10,7 @@
           <v-layout wrap>
             <v-form ref="formFile" v-model="valid" lazy-validation>
               <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
-                <v-text-field label="Select File" @click="pickFile" :rules="nonEmptyRules" v-model="file.fileName" prepend-icon="attach_file" readonly required></v-text-field>
+                <v-text-field label="Pilih File" @click="pickFile" :rules="nonEmptyRules" v-model="file.fileName" prepend-icon="attach_file" readonly :required="!dialog.isUpdate"></v-text-field>
                 <input
                   type="file"
                   style="display: none"
@@ -20,7 +20,7 @@
                 >
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="Nama File" :rules="nonEmptyRules" required v-model="file.caption" prepend-icon="title"></v-text-field>
+                <v-text-field label="Keterangan File" :rules="nonEmptyRules" required v-model="file.caption" prepend-icon="title"></v-text-field>
               </v-flex>
             </v-form>
           </v-layout>
@@ -48,6 +48,16 @@ export default {
     fetchFiles: {
       type: Function,
       default: null
+    },
+    file: {
+      type: Object,
+      default: {
+        document_id: '',
+        ordinal: '',
+        caption: '',
+        file: '',
+        fileName: '',
+      }
     }
   },
   data () {
@@ -55,13 +65,6 @@ export default {
       loading: false,
       valid: false,
       nonEmptyRules: [v => !!v || 'Isian ini tidak boleh kosong.'],
-      file: {
-        document_id: '',
-        ordinal: '',
-        caption: '',
-        file: '',
-        fileName: '',
-      }
     };
   },
   mounted () {
@@ -93,24 +96,44 @@ export default {
         formData.append('caption', this.file.caption);
         formData.append('document_id', this.file.document_id);
         formData.append('ordinal', this.file.ordinal);
-        FileAPI.store(formData).then(response => {
-          this.clearFileObject();
-          this.dialog.state = false;
-          this.loading = false;
-          this.fetchFiles();
-        });
+
+        if (this.dialog.isUpdate) {
+          FileAPI.update(this.file.id, formData).then(response => {
+            this.onClosedDialog();
+          }).catch(e => {
+            alert(e.response.status + ': ' + e.response.statusText);
+            this.onClosedDialog();
+          });
+        } else {
+          FileAPI.store(formData).then(response => {
+            this.onClosedDialog();
+          }).catch(e => {
+            alert(e.response.status + ': ' + e.response.statusText);
+            this.onClosedDialog();
+          });
+        }
       }
+    },
+    onClosedDialog () {
+      this.clearFileObject();
+      this.dialog.state = false;
+      this.loading = false;
+      this.fetchFiles();
     },
     setOrdinal () {
       const { id } = this.$route.params;
       return FileAPI.getLastOrdinal(id).then(response => {
         this.file.ordinal = parseInt(response.data.data, 10) + 1;
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     clearFileObject () {
       this.$refs.formFile.reset();
       this.file.file = '';
       this.valid = false;
+      this.dialog.isUpdate = false;
+      this.dialog.data = null;
     },
   }
 };

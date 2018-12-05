@@ -50,15 +50,10 @@ export default {
   },
   methods: {
     fetchSuratMasuk (id) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       IncomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
-        loader.hide();
-      }).catch((e) => {
-        console.log(e);
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     submit () {
@@ -75,8 +70,9 @@ export default {
               id: response.data.data.letter_id
             } 
           });
-      }).catch((e) => {
-        console.log(e);
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
+        loader.hide();
       });
     }
   }

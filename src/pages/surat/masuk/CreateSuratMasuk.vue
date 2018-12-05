@@ -58,8 +58,9 @@ export default {
               id: response.data.data.letter_id
             } 
           });
-      }).catch((e) => {
-        console.log(e);
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
+        loader.hide();
       });
     }
   }
