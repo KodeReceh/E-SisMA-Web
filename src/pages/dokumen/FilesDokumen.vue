@@ -42,15 +42,10 @@
                     fab 
                     dark 
                     color="primary" 
-                    small 
-                    :to="{
-                            name: 'ShowFileDokumen',
-                            params: {
-                              document: props.item.document_id,
-                              file: props.item.id
-                            }
-                        }">
-                <v-icon>visibility</v-icon>
+                    small
+                    :href="downloadUrl + props.item.path"
+                    target="_blank">
+                <v-icon>cloud_download</v-icon>
                 </v-btn>
                 <v-btn 
                     depressed 
@@ -127,8 +122,9 @@ export default {
           value: ''
         }
       ],
-      items: []
+      items: [],
     },
+    downloadUrl: 'download/',
   }),
   mounted () {
     this.fetchFiles();

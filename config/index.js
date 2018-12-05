@@ -17,7 +17,14 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
-      }
+      },
+      '/download': {
+        target: 'http://restapi.fz',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/download': '/get-file/'
+        }
+      },
     },
 
     // Various Dev Server settings
