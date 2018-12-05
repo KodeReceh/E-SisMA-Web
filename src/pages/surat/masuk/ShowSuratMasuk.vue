@@ -2,7 +2,7 @@
    <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" color="warning" :to="{ name: 'pages/surat/masuk'}">back</v-btn>
+        <v-btn :round="true" flat :to="{ name: 'pages/surat/masuk'}"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
         <v-spacer></v-spacer>
         <v-btn color="secondary" outline @click="disposisiButtonClicked">disposisi</v-btn>
         <v-btn small fab dark color="info" :to="{ name: 'EditSuratMasuk', params: { id: this.$route.params.id }}">

@@ -3,7 +3,7 @@
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
         <v-toolbar class="elevation-0 transparent media-toolbar">
-          <v-btn :round="true" color="warning" :to="{ name: 'Dokumen'}">back</v-btn>
+          <v-btn :round="true" flat :to="{ name: 'Dokumen'}"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
           <v-spacer></v-spacer>
           <v-btn flat @click="uploadButtonClicked">
             <v-icon color="primary">cloud_upload</v-icon>

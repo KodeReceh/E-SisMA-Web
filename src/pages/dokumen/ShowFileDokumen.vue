@@ -2,7 +2,7 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" color="warning" :to="{ name: 'Dokumen'}">back</v-btn>
+        <v-btn :round="true" flat :to="{ name: 'Dokumen'}"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
         <v-flex sm12>
           <v-widget title="Detail File">
             <div slot="widget-content">
