@@ -14,6 +14,8 @@ import VueAxios from 'vue-axios';
 import VueMomentLib from 'vue-moment-lib';
 import TimeAgo from 'javascript-time-ago';
 import id from 'javascript-time-ago/locale/id';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 // uncomment for working offline
 // import 'material-design-icons/iconfont/material-icons.css';
@@ -27,6 +29,16 @@ Vue.config.productionTip = false;
 Vue.filter('truncate', Truncate);
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' });
 Vue.use(VueMomentLib);
+Vue.use(Loading, {
+  // props
+  color: 'red',
+  height: 128,
+  width: 128,
+  loader: 'spinner',
+  backgroundColor: '#ffffff'
+}, {
+  // slots
+});
 Vue.use(Vuetify, {
   // theme: {
   //   primary: colors.indigo.base, // #E53935

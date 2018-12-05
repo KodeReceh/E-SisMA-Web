@@ -134,10 +134,14 @@ export default {
       this.dialog.state = true;
     },
     fetchFiles () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       const { id } = this.$route.params;
       FileAPI.getByDocument(id).then(response => {
         this.table.items = response.data.data;
-        console.log(response.data.data);
+        loader.hide();
       });
     }
   },

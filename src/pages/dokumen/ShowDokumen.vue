@@ -69,8 +69,13 @@ export default {
   },
   methods: {
     fetchDokumen (id) {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       DocumentAPI.get(id).then(response => {
         this.document = response.data.data;
+        loader.hide();
       }).catch((e) => {
         console.log(e);
       });

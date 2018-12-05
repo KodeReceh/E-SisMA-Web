@@ -164,16 +164,27 @@ export default {
   },
   methods: {
     fetchSuratMasuk (id) {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       IncomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
+        loader.hide();
       }).catch((e) => {
         console.log(e);
       });
     },
     disposisiButtonClicked () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       IncomingLetterAPI.getDisposition(this.letter.id).then(response => {
+        loader.hide();
         this.$router.push({ name: 'ShowDisposisiSuratMasuk', params: { id: this.letter.id }});
       }).catch((e) => {
+        loader.hide();
         this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: this.letter.id }});
       });
     },
@@ -182,9 +193,14 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       IncomingLetterAPI.delete(this.deleteDialog.detail.id).then(response => {
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
+        loader.hide();
         this.$router.push({ name: 'pages/surat/masuk' });
       }).catch((e) => {
         console.log(e);

@@ -43,8 +43,13 @@ export default {
   },
   methods: {
     submit () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       OutcomingLetterAPI.store(this.letter).then(response => {
         this.$router.push({ name: 'ShowSuratKeluar', params: { id: response.data.data.letter_id }});
+        loader.hide();
       }).catch((e) => {
         console.log(e);
       });

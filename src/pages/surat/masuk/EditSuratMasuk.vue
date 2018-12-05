@@ -50,14 +50,24 @@ export default {
   },
   methods: {
     fetchSuratMasuk (id) {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       IncomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
+        loader.hide();
       }).catch((e) => {
         console.log(e);
       });
     },
     submit () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       IncomingLetterAPI.update(this.letter.id, this.letter).then(response => {
+        loader.hide();
         this.$router.push(
           { 
             name: 'ShowSuratMasuk',

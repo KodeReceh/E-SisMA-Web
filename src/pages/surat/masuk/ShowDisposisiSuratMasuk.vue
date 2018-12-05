@@ -132,8 +132,13 @@ export default {
       });
     },
     fetchDisposisiSuratMasuk (id) {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       IncomingLetterAPI.getDisposition(id).then(response => {
         this.disposition = response.data.data;
+        loader.hide();
       }).catch((e) => {
         console.log(e);
         this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: id }});

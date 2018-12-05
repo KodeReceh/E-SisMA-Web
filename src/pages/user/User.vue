@@ -361,16 +361,16 @@ export default {
       if (this.dialog === 'update' && !v) this.clearForm();
     }
   },
-  created () {
+  mounted () {
     this.fetchUsers();  
     this.fetchRoles();  
   },
-
-  updated () {
-    this.fetchUsers();
-  },
   methods: {
     fetchUsers () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       let vm = this;
       let token = localStorage.getItem('__token__');
       this.axios.get('/api/users', {
@@ -379,6 +379,7 @@ export default {
         }
       }).then(response => {
         vm.complex.items = response.data.data;
+        loader.hide();
       }).catch(function (e) {
         console.log(e.message);
       });
@@ -389,6 +390,10 @@ export default {
       this.dialog.state = true;
     },
     save () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       let token = localStorage.getItem('__token__');
       let vm = this;
       
@@ -397,9 +402,12 @@ export default {
           'Authorization': 'bearer ' + token
         }
       }).then(response => {
+        loader.hide();
         vm.pushAlert('success', 'Data user ' + response.data.data.name + ' berhasil disimpan!');
         vm.clearForm();
+        this.fetchUsers();
       }).catch(function (e) {
+        loader.hide();
         vm.pushAlert('error', 'Data user gagal disimpan, periksa kembali data yang diinput!');
         console.log(e.message);
       });
@@ -477,6 +485,10 @@ export default {
       if (this.getUserById(userId)) this.confirmDialog.state = true;
     },
     onDeleteConfirm () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       this.confirmDialog.state = false;
       let vm = this;
       this.axios.delete('api/users/delete/' + this.user.id, {
@@ -487,9 +499,12 @@ export default {
         if (response.data.success) {
           vm.pushAlert('success', 'Data user ' + vm.user.name + ' berhasil dihapus!');
           vm.clearForm();
+          loader.hide();
+          this.fetchUsers();
         }
       }).catch((e) => {
         vm.pushAlert('error', 'Data user gagal dihapus!');
+        loader.hide();
       });
     },
     onDeleteCancel () {
@@ -517,6 +532,10 @@ export default {
     },
     changeUserStatus (id) {
       let data = new FormData();
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       data.append('user_id', id);
       this.axios.post('api/users/change_status', data, {
         headers: {
@@ -525,8 +544,10 @@ export default {
         }
       }).then(response => {
         console.log('berhasil rubah status user');
+        loader.hide();
       }).catch((e) => {
         console.log('gagal rubah status');
+        loader.hide();
       });
     },
     showButtonClicked (userId) {

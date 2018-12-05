@@ -139,7 +139,7 @@ export default {
   created () {
     this.fetchList();
   },
-  updated () {
+  mounted () {
     this.fetchList();
   },
   methods: {
@@ -148,10 +148,16 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       IncomingLetterAPI.delete(this.deleteDialog.detail.id).then(response => {
         console.log('dihapus');
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
+        loader.hide();
+        this.fetchList();
       }).catch((e) => {
         console.log(e);
       });
@@ -162,9 +168,14 @@ export default {
     },
     fetchList () {
       let vm = this;
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       IncomingLetterAPI.getList().then(response => {
         if (response.data.success) {
           vm.table.items = response.data.data;
+          loader.hide();
         }
       }).catch((e) => {
         console.log(e);

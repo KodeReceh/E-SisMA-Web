@@ -48,15 +48,25 @@ export default {
   },
   methods: {
     fetchSuratKeluar (id) {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       OutcomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
+        loader.hide();
       }).catch((e) => {
         console.log(e);
       });
     },
     submit () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       OutcomingLetterAPI.update(this.letter.id, this.letter).then(response => {
         this.$router.push({ name: 'ShowSuratKeluar', params: { id: response.data.data.letter_id }});
+        loader.hide();
       }).catch((e) => {
         console.log(e);
       });

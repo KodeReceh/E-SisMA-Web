@@ -43,15 +43,25 @@ export default {
   },
   methods: {
     submit () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       DocumentAPI.update(this.document.id, this.document).then(response => {
         this.$router.push({ name: 'ShowDokumen', params: { id: response.data.data.id }});
+        loader.hide();
       }).catch((e) => {
         console.log(e);
       });
     },
     fetchDokumen (id) {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       DocumentAPI.get(id).then(response => {
         this.document = response.data.data;
+        loader.hide();
       }).catch((e) => {
         console.log(e);
       });

@@ -38,8 +38,13 @@ export default {
   },
   methods: {
     submit () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       DocumentAPI.store(this.document).then(response => {
         this.$router.push({ name: 'ShowDokumen', params: { id: response.data.data.id }});
+        loader.hide();
       }).catch((e) => {
         console.log(e);
       });

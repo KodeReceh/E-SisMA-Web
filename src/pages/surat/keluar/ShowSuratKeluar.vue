@@ -126,7 +126,12 @@ export default {
   },
   methods: {
     fetchSuratKeluar (id) {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       OutcomingLetterAPI.get(id).then(response => {
+        loader.hide();
         this.letter = response.data.data;
       }).catch((e) => {
         console.log(e);
