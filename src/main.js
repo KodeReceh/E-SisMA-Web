@@ -25,7 +25,7 @@ import './theme/tooltip.css';
 TimeAgo.addLocale(id);
 const timeAgo = new TimeAgo('id-ID');
 Vue.prototype.timeAgo = timeAgo;
-Vue.config.productionTip = process.env.NODE_ENV === 'production';
+Vue.config.productionTip = false;
 
 
 // Helpers
