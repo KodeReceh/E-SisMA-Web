@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://restapi.fz',
+        target: process.env.API_URL,
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
