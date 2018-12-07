@@ -14,16 +14,12 @@ module.exports = {
       '/api': {
         target: process.env.API_URL,
         changeOrigin: true,
-        pathRewrite: {
-          '^/api': ''
-        }
+        pathRewrite: process.env.API_PATH_REWRITE
       },
       '/download': {
-        target: 'http://restapi.fz',
+        target: process.env.API_URL,
         changeOrigin: true,
-        pathRewrite: {
-          '^/download': '/get-file/'
-        }
+        pathRewrite: process.env.DOWNLOAD_PATH_REWRITE
       },
     },
 
