@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'api/letter-codes';
+const url = process.env.API_URL + '/letter-codes';
 const subUrl = 'sub-letter-codes';
 
 export default {

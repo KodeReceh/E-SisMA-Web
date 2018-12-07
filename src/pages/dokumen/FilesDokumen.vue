@@ -136,7 +136,7 @@ export default {
       ],
       items: [],
     },
-    downloadUrl: 'download/',
+    downloadUrl: process.env.API_URL + '/get-file/',
     deleteDialog: {
       state: false,
       title: '',

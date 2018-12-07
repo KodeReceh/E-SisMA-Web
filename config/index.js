@@ -11,16 +11,6 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/api': {
-        target: process.env.API_URL,
-        changeOrigin: true,
-        pathRewrite: process.env.API_PATH_REWRITE
-      },
-      '/download': {
-        target: process.env.API_URL,
-        changeOrigin: true,
-        pathRewrite: process.env.DOWNLOAD_PATH_REWRITE
-      },
     },
 
     // Various Dev Server settings

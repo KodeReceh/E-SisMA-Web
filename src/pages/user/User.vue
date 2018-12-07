@@ -373,7 +373,7 @@ export default {
       });
       let vm = this;
       let token = localStorage.getItem('__token__');
-      this.axios.get('/api/users', {
+      this.axios.get(`${process.env.API_URL}/users`, {
         headers: {
           'Authorization': 'bearer ' + token
         }
@@ -398,7 +398,7 @@ export default {
       let token = localStorage.getItem('__token__');
       let vm = this;
       
-      this.axios.post('/api/users/' + (this.dialog.type === 'update' ? this.dialog.type + '/' + this.user.id : this.dialog.type), vm.user, {
+      this.axios.post(`${process.env.API_URL}/users/` + (this.dialog.type === 'update' ? this.dialog.type + '/' + this.user.id : this.dialog.type), vm.user, {
         headers: {
           'Authorization': 'bearer ' + token
         }
@@ -453,7 +453,7 @@ export default {
       let vm = this;
       let token = localStorage.getItem('__token__');
       let success = false;
-      return this.axios.get('api/users/' + userId, {
+      return this.axios.get(`${process.env.API_URL}/users/` + userId, {
         headers: {
           'Authorization': 'bearer ' + token
         }
@@ -492,7 +492,7 @@ export default {
       });
       this.confirmDialog.state = false;
       let vm = this;
-      this.axios.delete('api/users/delete/' + this.user.id, {
+      this.axios.delete(`${process.env.API_URL}/users/delete/` + this.user.id, {
         headers: {
           Authorization: 'bearer ' + localStorage.getItem('__token__')
         }
@@ -515,7 +515,7 @@ export default {
     },
     fetchRoles () {
       let vm = this;
-      this.axios.get('api/roles', {
+      this.axios.get(`${process.env.API_URL}/roles`, {
         headers: {
           Authorization: 'bearer ' + localStorage.getItem('__token__')
         }
@@ -539,7 +539,7 @@ export default {
         canCancel: false,
       });
       data.append('user_id', id);
-      this.axios.post('api/users/change_status', data, {
+      this.axios.post(`${process.env.API_URL}/users/change_status`, data, {
         headers: {
           Authorization: 'bearer ' + localStorage.getItem('__token__'),
           'Content-Type': 'application/x-www-form-urlencoded'

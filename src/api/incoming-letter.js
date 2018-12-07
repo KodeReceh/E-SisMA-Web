@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'api/letters/incoming-letter';
+const url = process.env.API_URL + '/letters/incoming-letter';
 
 export default {
   getList () {

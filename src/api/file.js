@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'api/files';
+const url = process.env.API_URL + '/files';
 let headers = {
   headers: {
     'Content-Type': 'multipart/form-data',
@@ -25,9 +25,9 @@ export default {
     return axios.put(`${url}/${id}`, data, headers);
   },
   getByDocument (document) {
-    return axios.get(`api/documents/${document}/files`, headers);
+    return axios.get(`${process.env.API_URL}/documents/${document}/files`, headers);
   },
   getLastOrdinal (document) {
-    return axios.get(`api/documents/${document}/getLastOrdinal`, headers);
+    return axios.get(`${process.env.API_URL}/documents/${document}/getLastOrdinal`, headers);
   }
 };

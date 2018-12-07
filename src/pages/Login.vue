@@ -45,7 +45,7 @@ export default {
       this.loading = true;
       let vm = this;
       this.axios
-        .post('api/login', vm.form)
+        .post(`${process.env.API_URL}/login`, vm.form)
         .then(response => {
           if (response.data.success) {
             localStorage.setItem('__token__', response.data.data.api_token);

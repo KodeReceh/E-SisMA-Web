@@ -25,7 +25,9 @@ import './theme/tooltip.css';
 TimeAgo.addLocale(id);
 const timeAgo = new TimeAgo('id-ID');
 Vue.prototype.timeAgo = timeAgo;
-Vue.config.productionTip = false;
+Vue.config.productionTip = process.env.NODE_ENV === 'production';
+
+
 // Helpers
 // Global filters
 Vue.filter('truncate', Truncate);

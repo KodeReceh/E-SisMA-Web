@@ -1,8 +1,8 @@
 {
-  "name": "vue-material-admin",
+  "name": "e-sisma-eagari",
   "version": "1.0.0",
-  "description": "A Vue Material Admin Template",
-  "author": "Micahel Wang <wangqiangshen@gmail.com>",
+  "description": "E-SisMA Nagari",
+  "author": "efzet",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
@@ -69,6 +69,7 @@
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
     "eslint-plugin-vue": "^4.7.1",
+    "express": "^4.16.4",
     "extract-text-webpack-plugin": "^3.0.0",
     "faker": "^4.1.0",
     "file-loader": "^1.1.11",
@@ -98,6 +99,7 @@
     "sass-loader": "^7.1.0",
     "selenium-server": "^3.141.59",
     "semver": "^5.6.0",
+    "serve-static": "^1.13.2",
     "shelljs": "^0.7.6",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
