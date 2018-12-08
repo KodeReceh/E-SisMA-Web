@@ -138,7 +138,7 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm () {
-      ArchieveAPI.delete(this.deleteDialog.detail.id).then(response => {
+      ArchiveAPI.delete(this.deleteDialog.detail.id).then(response => {
         console.log('dihapus');
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
@@ -158,7 +158,7 @@ export default {
         container: null,
         canCancel: false,
       });
-      ArchieveAPI.getList().then(response => {
+      ArchiveAPI.getList().then(response => {
         if (response.data.success) {
           vm.table.items = response.data.data;
           loader.hide();
