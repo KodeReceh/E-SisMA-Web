@@ -223,4 +223,14 @@ export default [
       `@/pages/dokumen/ShowFileDokumen.vue`
     )
   },
+  {
+    path: '/arsip',
+    meta: { breadcrumb: true },
+    name: 'Arsip',
+    component: () => import(
+      /* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+      `@/pages/arsip/Arsip.vue`
+    )
+  },
 ];

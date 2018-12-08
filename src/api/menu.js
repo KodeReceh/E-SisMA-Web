@@ -23,6 +23,12 @@ const Menu =  [
     name: 'Dokumen'
   },
   {
+    title: 'Arsip',
+    group: 'apps',
+    icon: 'folder',
+    name: 'Arsip'
+  },
+  {
     title: 'User',
     group: 'apps',
     icon: 'account_box',
