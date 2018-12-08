@@ -3,7 +3,7 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-const ASSET_PATH = process.env.GH_PAGES ? '' : '/';
+const ASSET_PATH = process.env.GH_PAGES ? 'E-SisMA-Web/static' : 'static';
 
 module.exports = {
   dev: {
@@ -51,8 +51,8 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
-    assetsPublicPath: ASSET_PATH,
+    assetsSubDirectory: ASSET_PATH,
+    assetsPublicPath: '/',
 
     /**
      * Source Maps
