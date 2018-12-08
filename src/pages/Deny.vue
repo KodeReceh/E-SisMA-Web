@@ -3,7 +3,7 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <div class="mr-3 hidden-sm-and-down">
-            <img src="/static/error/403.svg" alt="">
+            <img :src="img" alt="">
           </div>          
           <div class="text-md-center">
             <h1>403</h1>
@@ -19,6 +19,11 @@
 
 <script>
 export default {
+  data () {
+    return {
+      img: (process.env.ASSET_PATH || '/static') + '/error/403.svg',
+    };
+  },
   methods: {
     goHome () {
       this.$router.push({ path: '/' });

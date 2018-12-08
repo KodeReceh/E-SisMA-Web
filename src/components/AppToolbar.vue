@@ -24,7 +24,7 @@
       <v-menu offset-y origin="center center" :nudge-bottom="10" transition="scale-transition">
         <v-btn icon large flat slot="activator">
           <v-avatar size="30px">
-            <img src="/static/avatar/man_4.jpg" alt="Michael Wang"/>
+            <img :src="avatar" alt="Michael Wang"/>
           </v-avatar>
         </v-btn>
         <v-list class="pa-0">
@@ -49,6 +49,7 @@ export default {
     NotificationList
   },
   data: () => ({
+    avatar: (process.env.ASSET_PATH || '/static') + '/avatar/man_4.jpg',
     items: [
       {
         icon: 'account_circle',

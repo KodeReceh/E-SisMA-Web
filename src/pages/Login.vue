@@ -7,7 +7,7 @@
             <v-card class="elevation-1 pa-3">
               <v-card-text>
                 <div class="layout column align-center">
-                  <img src="/static/agam.png" alt="E-SisMA Nagari" width="120">
+                  <img :src="logoPath" alt="E-SisMA Nagari" width="120">
                   <h1 class="flex my-4 primary--text">E-SisMA Login</h1>
                 </div>                
                 <v-form>
@@ -32,6 +32,7 @@
 <script>
 export default {
   data: () => ({
+    logoPath: (process.env.ASSET_PATH || '/static') + '/agam.png',
     loading: false,
     form: {
       email: '',

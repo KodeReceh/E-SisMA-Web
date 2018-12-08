@@ -236,7 +236,7 @@
             </div>
           </v-widget>
           <v-card class="mt-3">
-            <v-card-media src="/static/bg/15.jpg" height="300px">
+            <v-card-media :src="card" height="300px">
               <v-layout column class="media">
                 <v-card-title>
                   <v-btn dark icon>
@@ -323,6 +323,7 @@ export default {
   },
   data () {
     return {
+      card: (process.env.ASSET_PATH || '/static') + '/bg/15.jpg',
       notifications: false,
       sound: false,
       video: false,

@@ -13,7 +13,7 @@
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js",
-    "deploy": "API_URL=https://esismaapi.herokuapp.com GH_PAGE=true node ./node_modules/vue-gh-pages/index.js -b gh-pages"
+    "deploy": "API_URL=https://esismaapi.herokuapp.com ASSET_PATH=/E-SisMA-Web/static node ./node_modules/vue-gh-pages/index.js -b gh-pages"
   },
   "dependencies": {
     "ajv": "^6.6.1",

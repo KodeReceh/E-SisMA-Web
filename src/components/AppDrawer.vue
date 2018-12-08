@@ -98,7 +98,7 @@ export default {
       return true;
     },
     computeLogo () {
-      return '/static/agam.png';
+      return (process.env.ASSET_PATH || '/static') + '/agam.png';
     },
 
     sideToolbarColor () {

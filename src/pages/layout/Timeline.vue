@@ -19,7 +19,7 @@
                   </div>                  
                   <div class="timeline-point">
                     <v-avatar>
-                      <img src="/static/avatar/me.jpeg" alt="">
+                      <img :src="`${path}/avatar/me.jpeg`" alt="">
                     </v-avatar>
                   </div>
                   <div class="timeline-detail">
@@ -34,7 +34,7 @@
                         <v-container grid-list-md>
                           <div class="layout row align-center ma-0">
                             <v-avatar class="mx-auto" color="info">
-                              <img src="/static/avatar/a1.jpg">
+                              <img :src="`${path}/avatar/a1.jpg`">
                             </v-avatar>
                             <div class="text-center flex ml-2">
                               <div class="subheading">John Doe</div>
@@ -59,7 +59,7 @@
                   <div class="timeline-content">
                   <v-card>
                     <v-card-media
-                      src="/static/bg/5.jpg"
+                      :src="`${path}/bg/5.jpg`"
                       height="200px"
                     >
                     </v-card-media>
@@ -73,7 +73,7 @@
                   </div>                  
                   <div class="timeline-point">
                     <v-avatar>
-                      <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="">
+                      <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="">
                     </v-avatar>
                   </div>
                   <div class="timeline-detail">
@@ -118,6 +118,7 @@ export default {
   },
   data () {
     return {
+      path: process.env.ASSET_PATH || '/static',
     };
   },
   computed: {

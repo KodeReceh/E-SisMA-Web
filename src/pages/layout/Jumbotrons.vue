@@ -57,7 +57,7 @@
             <div slot="widget-content">
               <v-text-field label="Gradient" v-model="gradient2"></v-text-field>
               <v-jumbotron
-                src="/static/bg/16.jpg"
+                :src="jumbo"
                 :gradient="gradient2"
                 dark
               >
@@ -85,6 +85,7 @@ export default {
   },
   data () {
     return {
+      jumbo: (process.env.ASSET_PATH || '/static') + '/bg/16.jpg',
       gradient: 'to top, #7B1FA2, #E1BEE7',
       gradient2: 'to top right, rgba(63,81,181, .7), rgba(25,32,72, .7)'
     };

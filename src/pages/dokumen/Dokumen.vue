@@ -11,8 +11,6 @@
 </template>
 
 <script>
-console.log(localStorage.getItem('__token__'));
-
 import ListDokumen from './ListDokumen';
 
 export default {

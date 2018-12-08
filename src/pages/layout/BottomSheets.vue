@@ -53,7 +53,7 @@
                     >
                       <v-list-tile-avatar>
                         <v-avatar size="32px" tile>
-                          <img :src="`/static/icon/${tile.img}`" :alt="tile.title">
+                          <img :src="`${iconPath}/${tile.img}`" :alt="tile.title">
                         </v-avatar>
                       </v-list-tile-avatar>
                       <v-list-tile-title>{{ tile.title }}</v-list-tile-title>
@@ -77,6 +77,7 @@ export default {
   },
   data () {
     return {
+      iconPath: (process.env.ASSET_PATH || '/static') + '/icon',
       sheet: false,
       tiles: [
         { img: 'keep.png', title: 'Keep' },
