@@ -23,51 +23,53 @@
                   <!-- form  -->
                   <v-card-text>
                     <v-container grid-list-md>
-                      <v-layout wrap>
-                        <v-flex xs12>
-                          <v-text-field label="Nama Lengkap" required v-model="user.name"></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                          <v-text-field label="Email" required v-model="user.email"></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                          <v-text-field label="Password" type="password" required v-model="user.password"></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                          <v-text-field label="Tempat Lahir" required v-model="user.birthplace"></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                          <v-text-field
-                            class="mr-2"
-                            label="Tanggal Lahir"       
-                            append-icon="today"
-                            type="date"
-                            v-model="user.birthdate"
-                            required
-                          ></v-text-field> 
-                        </v-flex>
-                        <v-flex xs12>
-                          <v-select
-                            label="Jenis Kelamin"
-                            required
-                            :items="sex"
-                            v-model="user.sex"
-                          ></v-select>
-                        </v-flex>
-                        <v-flex xs12>
-                          <v-text-field label="Alamat" v-model="user.address"></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                          <v-text-field label="Handphone" v-model="user.handphone"></v-text-field>
-                        </v-flex>
-                        <v-flex xs12>
-                          <v-select
-                            label="Jabatan"
-                            :items="roles"
-                            v-model="user.role_id"
-                          ></v-select>
-                        </v-flex>
-                      </v-layout>
+                     <v-form ref="formUser" v-model="valid" lazy-validation> 
+                       <v-layout wrap>
+                          <v-flex xs12>
+                            <v-text-field label="Nama Lengkap" required v-model="user.name"></v-text-field>
+                          </v-flex>
+                          <v-flex xs12>
+                            <v-text-field label="Email" required v-model="user.email"></v-text-field>
+                          </v-flex>
+                          <v-flex xs12>
+                            <v-text-field label="Password" type="password" required v-model="user.password" autocomplete="false"></v-text-field>
+                          </v-flex>
+                          <v-flex xs12>
+                            <v-text-field label="Tempat Lahir" required v-model="user.birthplace"></v-text-field>
+                          </v-flex>
+                          <v-flex xs12>
+                            <v-text-field
+                              class="mr-2"
+                              label="Tanggal Lahir"       
+                              append-icon="today"
+                              type="date"
+                              v-model="user.birthdate"
+                              required
+                            ></v-text-field> 
+                          </v-flex>
+                          <v-flex xs12>
+                            <v-select
+                              label="Jenis Kelamin"
+                              required
+                              :items="sex"
+                              v-model="user.sex"
+                            ></v-select>
+                          </v-flex>
+                          <v-flex xs12>
+                            <v-text-field label="Alamat" v-model="user.address"></v-text-field>
+                          </v-flex>
+                          <v-flex xs12>
+                            <v-text-field label="Handphone" v-model="user.handphone"></v-text-field>
+                          </v-flex>
+                          <v-flex xs12>
+                            <v-select
+                              label="Jabatan"
+                              :items="roles"
+                              v-model="user.role_id"
+                            ></v-select>
+                          </v-flex>
+                        </v-layout>
+                      </v-form>
                     </v-container>
                     <small>*wajib diisi</small>
                   </v-card-text>
@@ -268,6 +270,7 @@
 export default {
   data () {
     return {
+      valid: false,
       confirmDialog: {
         state: false,
         title: ''
@@ -391,28 +394,29 @@ export default {
       this.dialog.state = true;
     },
     save () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
-      let token = localStorage.getItem('__token__');
-      let vm = this;
-      
-      this.axios.post(`${process.env.API_URL}/users/` + (this.dialog.type === 'update' ? this.dialog.type + '/' + this.user.id : this.dialog.type), vm.user, {
-        headers: {
-          'Authorization': 'bearer ' + token
-        }
-      }).then(response => {
-        loader.hide();
-        vm.pushAlert('success', 'Data user ' + response.data.data.name + ' berhasil disimpan!');
-        vm.clearForm();
-        this.fetchUsers();
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
-        vm.pushAlert('error', 'Data user gagal disimpan, periksa kembali data yang diinput!');
-      });
-      
+      if (this.$refs.formUser.validate()) {
+        let loader = this.$loading.show({
+          container: null,
+          canCancel: false,
+        });
+        let token = localStorage.getItem('__token__');
+        let vm = this;
+        
+        this.axios.post(`${process.env.API_URL}/users/` + (this.dialog.type === 'update' ? this.dialog.type + '/' + this.user.id : this.dialog.type), vm.user, {
+          headers: {
+            'Authorization': 'bearer ' + token
+          }
+        }).then(response => {
+          loader.hide();
+          vm.pushAlert('success', 'Data user ' + response.data.data.name + ' berhasil disimpan!');
+          vm.clearForm();
+          this.fetchUsers();
+        }).catch(e => {
+          alert(e.response.status + ': ' + e.response.statusText);
+          loader.hide();
+          vm.pushAlert('error', 'Data user gagal disimpan, periksa kembali data yang diinput!');
+        });
+      }
     },
     clearForm () {
       this.user = {

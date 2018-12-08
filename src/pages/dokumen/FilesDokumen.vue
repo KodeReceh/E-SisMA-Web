@@ -37,8 +37,7 @@
                     dark 
                     color="primary" 
                     small
-                    :href="downloadUrl + props.item.path"
-                    target="_blank"
+                    @click="downloadFile(props.item)"
                     v-tooltip.auto="`Download`">
                 <v-icon>cloud_download</v-icon>
                 </v-btn>
@@ -136,7 +135,6 @@ export default {
       ],
       items: [],
     },
-    downloadUrl: process.env.API_URL + '/get-file/',
     deleteDialog: {
       state: false,
       title: '',
@@ -194,6 +192,26 @@ export default {
       this.deleteDialog.state = false;
       this.deleteDialog.detail = {};
     },
+    downloadFile (file) {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
+      FileAPI.download(file.path).then(response => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        const uName = file.path.substr(0, file.path.indexOf('.')) ? 
+          file.path.substr(0, file.path.indexOf('.')) : file.path;
+        link.setAttribute('download', uName + '-' + file.caption + '.' + file.file_extension);
+        document.body.appendChild(link);
+        link.click();
+        loader.hide();
+      }).catch(e => {
+        loader.hide();
+        alert(e.response.status + ': ' + e.response.statusText);
+      });
+    }
   },
 };
 </script>
