@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'api/users';
+const url = process.env.API_URL + '/users';
 
 export default {
   get (id) {

@@ -130,6 +130,30 @@ export default [
     component: () => import(
       `@/pages/surat/masuk/ShowSuratMasuk.vue`
     )
+  },
+  {
+    path: '/surat/keluar/template',
+    meta: { breadcrumb: false },
+    name: 'Template',
+    component: () => import(
+      `@/pages/surat/keluar/template/Template.vue`
+    )
+  }, 
+  {
+    path: '/surat/keluar/template/create',
+    meta: { breadcrumb: false },
+    name: 'CreateTemplate',
+    component: () => import(
+      `@/pages/surat/keluar/template/CreateTemplate.vue`
+    )
+  }, 
+  {
+    path: '/surat/keluar/template/:id',
+    meta: { breadcrumb: false },
+    name: 'ShowTemplate',
+    component: () => import(
+      `@/pages/surat/keluar/template/ShowTemplate.vue`
+    )
   }, 
   {
     path: '/surat/keluar',

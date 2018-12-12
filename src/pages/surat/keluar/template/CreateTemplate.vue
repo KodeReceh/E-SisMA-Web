@@ -1,0 +1,62 @@
+<template>
+  <div>
+    <v-container grid-list-xl fluid>
+      <v-layout row wrap>
+        <v-btn :round="true" flat :to="{ name: 'pages/surat/keluar'}"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
+        <v-flex sm12>
+          <v-widget title="Tambah Template">
+            <div slot="widget-content">
+              <v-container>
+                <FormTemplate :template="template" :onSubmit="submit" ></FormTemplate>
+              </v-container>
+            </div>
+          </v-widget>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
+</template>
+
+<script>
+import FormTemplate from './FormTemplate';
+import VWidget from '@/components/VWidget';
+import TemplateAPI from '@/api/template';
+
+export default {
+  components: {
+    FormTemplate,
+    VWidget,
+  },
+  data () {
+    return {
+      template: {
+        title: '',
+        needs_villager_data: '',
+        template_file: '',
+        fileName: ''
+      }
+    };
+  },
+  methods: {
+    submit () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
+
+      let formData = new FormData();
+      formData.append('title', this.template.title);
+      formData.append('needs_villager_data', this.template.needs_villager_data);
+      formData.append('template_file', this.template.template_file);
+
+      TemplateAPI.store(formData).then(response => {
+        this.$router.push({ name: 'ShowTemplate', params: { id: response.data.data.id }});
+        loader.hide();
+      }).catch(e => {
+        alert(e.response.status + ': ' + e.response.statusText);
+        loader.hide();
+      });
+    }
+  }
+};
+</script>
