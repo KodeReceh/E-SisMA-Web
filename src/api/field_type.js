@@ -1,24 +1,26 @@
 const type = [
   {
     text: 'Text',
-    value: 0
-  },
-  {
-    text: 'Gambar',
     value: 1
   },
   {
-    text: 'Data Penduduk',
+    text: 'Gambar',
     value: 2
   },
   {
-    text: 'Tanda Tangan',
+    text: 'Data Penduduk',
     value: 3
+  },
+  {
+    text: 'Tanda Tangan',
+    value: 4
   }
 ];
 
+const getTypes = () => {
+  return type;
+};
+
 export default {
-  getTypes () {
-    return type;
-  }
+  getTypes
 };

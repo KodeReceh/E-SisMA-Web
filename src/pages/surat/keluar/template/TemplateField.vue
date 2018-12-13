@@ -26,8 +26,8 @@
             >
             <template slot="items" slot-scope="props">            
             <td>{{ props.item.name }}</td>
-            <td>{{ getType(props.item.type) }}</td>
-            <td>{{ getRole(props.item.role_id) }}</td>
+            <td>{{ props.item.type_name }}</td>
+            <td>{{ props.item.role_name }}</td>
             <td>
                 <v-btn 
                     depressed 
@@ -44,7 +44,7 @@
             </template>
         </v-data-table>
         </v-card-text>
-        <InputFieldDialog :dialog="dialog" :fetchFiles="fetchFiles" :file="file"></InputFieldDialog> 
+        <!-- <InputFieldDialog :dialog="dialog" :fetchFiles="fetchFiles" :file="file"></InputFieldDialog>  -->
         <DeleteConfirmation
           :confirmDeleteDialog="deleteDialog"
           :onDeleteCancel="deleteCancel"
@@ -55,16 +55,16 @@
 
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
-import InputFieldDialog from './InputFieldDialog';
-import LetterTemplateAPI from '@/api/letter-template';
+// import InputFieldDialog from './InputFieldDialog';
+import TemplateFieldAPI from '@/api/template-field';
 import DeleteConfirmation from '@/components/DeleteConfirmation';
-import { getTypes } from '@/api/file_type';
+import { getTypes } from '@/api/field_type';
 import RoleAPI from '@/api/role';
 
 export default {
   components: {
     VuePerfectScrollbar,
-    InputFieldDialog,
+    // InputFieldDialog,
     DeleteConfirmation
   },  
   props: {
@@ -101,7 +101,7 @@ export default {
         },
         {
           text: 'Penanda Tangan',
-          value: 'role'
+          value: ''
         },
         {
           text: 'Action',
@@ -118,33 +118,34 @@ export default {
     },
   }),
   mounted () {
-    this.fetchFiles();
+    this.fetchFields();
   },
   methods: {
     uploadButtonClicked () {
       this.dialog.state = true;
     },
     editFileClicked (id) {
-      FileAPI.get(id).then(response => {
-        this.file.document_id = response.data.data.document_id;
-        this.file.ordinal = response.data.data.ordinal;
-        this.file.caption = response.data.data.caption;
-        this.file.fileName = response.data.data.path;
+      TemplateFieldAPI.get(id).then(response => {
         this.file.id = response.data.data.id;
+        this.file.name = response.data.data.name;
+        this.file.type = response.data.data.type;
+        this.file.role_id = response.data.data.role_id;
         this.dialog.isUpdate = true;
         this.dialog.state = true;
       }).catch(e => {
         alert(e.response.status + ': ' + e.response.statusText);
       });
     },
-    fetchFiles () {
+    fetchFields () {
       let loader = this.$loading.show({
         container: null,
         canCancel: false,
       });
       const { id } = this.$route.params;
-      FileAPI.getByDocument(id).then(response => {
+      TemplateFieldAPI.getList(id).then(response => {
         this.table.items = response.data.data;
+        console.log(this.table.items);
+        
         loader.hide();
       }).catch(e => {
         alert(e.response.status + ': ' + e.response.statusText);
@@ -156,7 +157,7 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm () {
-      FileAPI.delete(this.deleteDialog.detail.id).then(response => {
+      TemplateFieldAPI.delete(this.deleteDialog.detail.id).then(response => {
         this.fetchFiles();
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
@@ -168,30 +169,12 @@ export default {
       this.deleteDialog.state = false;
       this.deleteDialog.detail = {};
     },
-    downloadFile (file) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
-      FileAPI.download(file.path).then(response => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        const uName = file.path.substr(0, file.path.indexOf('.')) ? 
-          file.path.substr(0, file.path.indexOf('.')) : file.path;
-        link.setAttribute('download', uName + '-' + file.caption + '.' + file.file_extension);
-        document.body.appendChild(link);
-        link.click();
-        loader.hide();
-      }).catch(e => {
-        loader.hide();
-        alert(e.response.status + ': ' + e.response.statusText);
-      });
-    },
     getType (value) {
-      return getTypes().map(t => {
+      let type = getTypes().find(t => {
         return t.value === value;
       });
+
+      return type.value;
     },
     fetchRoles () {
       RoleAPI.getList().then(response => {
@@ -203,11 +186,11 @@ export default {
       });
     },
     getRoleName (roleId) {
-      let role = this.roles.map(r => {
+      let role = this.roles.find(function (r) {
         return r.id === roleId;
       });
 
-      return role ? role : 'Tidak ada';
+      return role ? role.title : 'Tidak ada';
     }
   },
 };

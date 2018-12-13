@@ -36,6 +36,13 @@
           </v-widget>
         </v-flex>
       </v-layout>
+      <v-layout row wrap>
+        <v-spacer></v-spacer>
+        <v-btn color="info" @click="addButtonClicked">Tambah</v-btn>
+        <v-flex sm12>
+          <template-field></template-field>
+        </v-flex>
+      </v-layout>
     </v-container>
   </div>
 </template>
@@ -43,10 +50,12 @@
 <script>
 import TemplateAPI from '@/api/template';
 import VWidget from '@/components/VWidget';
+import TemplateField from './TemplateField';
 
 export default {
   components: {
-    VWidget
+    VWidget,
+    TemplateField
   },
   data () {
     return {
@@ -80,6 +89,9 @@ export default {
         loader.hide();
       });
     },
+    addButtonClicked () {
+      return;
+    }
   }
 };
 </script>
