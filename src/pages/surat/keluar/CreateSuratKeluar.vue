@@ -34,10 +34,10 @@ export default {
         date: '',
         subject: '',
         tendency: '',
-        to: '',
+        recipient: '',
         attachments: 0,
-        letter_code_id: null,
-        sub_letter_code_id: null
+        letter_code_id: '',
+        sub_letter_code_id: ''
       }
     };
   },

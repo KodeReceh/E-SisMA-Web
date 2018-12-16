@@ -16,5 +16,14 @@ export default {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       },
     });
+  },
+  getName (code, subCode) {
+    let id = code;
+    if (subCode) id = subCode;
+    return axios.get(`${url}/${id}/get-name`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      },
+    });
   }
 };

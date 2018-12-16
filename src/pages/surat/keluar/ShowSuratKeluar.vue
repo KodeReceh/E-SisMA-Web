@@ -44,7 +44,7 @@
                     <p class="font-weight-bold">Ditujukan Kepada</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.to }}</p>
+                    <p class="font-weight-regular">{{ letter.recipient }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -90,35 +90,13 @@ export default {
         date: '',
         subject: '',
         tendency: '',
-        to: '',
+        recipient: '',
         attachments: 0,
         letter_code_id: null,
         sub_letter_code_id: null
       },
       letterCode: '',
     };
-  },
-  watch: {
-    'letter.letter_code_id': {
-      handler: function (val, oldVal) {
-        if (val) {
-          LetterCodeAPI.get(val).then(code => {        
-            if (this.letter.sub_letter_code_id) {
-              SubLetterCodeAPI.get(val, this.letter.sub_letter_code_id).then(subCode => {
-                this.letterCode = code.data.data.code + '.' + subCode.data.data.code + '. ' + subCode.data.data.title;
-              }).catch((e) => {
-                console.log(e);
-              });
-            } else {
-              this.letterCode = code.data.data.code + '. ' + code.data.data.title;
-            }
-          }).catch((e) => {
-            console.log(e);
-          });
-        }
-      },
-      immediate: true,
-    },
   },
   mounted () {
     const { id } = this.$route.params;
@@ -131,8 +109,16 @@ export default {
         canCancel: false,
       });
       OutcomingLetterAPI.get(id).then(response => {
-        loader.hide();
-        this.letter = response.data.data;
+        LetterCodeAPI.getName(response.data.data.letter_code_id, response.data.data.sub_letter_code_id).then(code => {
+          loader.hide();
+          this.letter = response.data.data;
+          this.letterCode = code.data.data;
+        }).catch((e) => {
+          console.log(e);
+          
+          alert(e.response.status + ': ' + e.response.statusText);
+          loader.hide();
+        });
       }).catch(e => {
         alert(e.response.status + ': ' + e.response.statusText);
         loader.hide();

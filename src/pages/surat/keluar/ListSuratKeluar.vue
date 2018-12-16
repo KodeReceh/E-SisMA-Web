@@ -28,7 +28,7 @@
                 <template slot="items" slot-scope="props">            
                 <td>{{ props.item.date }}</td>
                 <td>{{ props.item.number }}</td>
-                <td>{{ props.item.to }}</td>
+                <td>{{ props.item.recipient }}</td>
                 <td>{{ props.item.subject }}</td>
                 <td>{{ props.item.tendency }}</td>
                 <td>
@@ -116,7 +116,7 @@ export default {
           },
           {
             text: 'Kepada',
-            value: 'to'
+            value: 'recipient'
           },
           {
             text: 'Subjek',

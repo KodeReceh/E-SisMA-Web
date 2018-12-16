@@ -46,7 +46,7 @@
       required
     ></v-text-field>
     <v-text-field
-      v-model="letter.to"
+      v-model="letter.recipient"
       :rules="nonEmptyRules"
       label="Ditujukan Kepada"
       prepend-icon="person_outline"
@@ -101,7 +101,7 @@ export default {
       handler: function (val, oldVal) {
         if (oldVal) this.letter.sub_letter_code_id = null;
         this.fetchLetterCodeItems();
-        this.fetchNewSubLetterCodeItems();
+        if (val) this.fetchNewSubLetterCodeItems();
       },
       immediate: true
     },
