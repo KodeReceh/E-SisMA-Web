@@ -21,6 +21,6 @@ const getTypes = () => {
   return type;
 };
 
-export default {
+export {
   getTypes
 };

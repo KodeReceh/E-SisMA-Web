@@ -12,7 +12,7 @@ export default {
     });
   },
   get (code, subCode) {
-    return axios.get(`${url}/${code}/${subUrl}/${subCode}`, {
+    return axios.get(`${url}/${subCode}`, {
       headers: {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       },
