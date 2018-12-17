@@ -22,6 +22,7 @@
 
           <v-btn
               color="error"
+              :loading="loading"
               flat="flat"
               @click="onDeleteConfirm">
               Hapus
@@ -37,7 +38,8 @@ export default {
   props: [
     'onDeleteCancel',
     'onDeleteConfirm',
-    'confirmDeleteDialog'
-  ]
+    'confirmDeleteDialog',
+    'loading'
+  ],
 };
 </script>

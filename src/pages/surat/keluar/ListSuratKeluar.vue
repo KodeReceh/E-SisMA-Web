@@ -84,6 +84,7 @@
           :confirmDeleteDialog="deleteDialog"
           :onDeleteCancel="deleteCancel"
           :onDeleteConfirm="deleteConfirm"
+          :loading="deleteLoading"
         ></DeleteConfirmation>
     </v-flex> 
 </template>
@@ -98,6 +99,7 @@ export default {
   },
   data () {
     return {
+      deleteLoading: false,
       deleteDialog: {
         state: false,
         title: '',
@@ -148,8 +150,10 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm () {
+      this.deleteLoading = true;
       OutcomingLetterAPI.delete(this.deleteDialog.detail.id).then(response => {
         console.log('dihapus');
+        this.deleteLoading = false;
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
         this.fetchList();

@@ -88,6 +88,7 @@
           :confirmDeleteDialog="deleteDialog"
           :onDeleteCancel="deleteCancel"
           :onDeleteConfirm="deleteConfirm"
+          :loading="deleteLoading"
         ></DeleteConfirmation>
     </v-container>
   </div>
@@ -107,6 +108,7 @@ export default {
   },
   data () {
     return {
+      deleteLoading: false,
       deleteDialog: {
         state: false,
         title: '',
@@ -167,7 +169,9 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm () {
+      this.deleteLoading = true;
       IncomingLetterAPI.delete(this.deleteDialog.detail.id).then(response => {
+        this.deleteLoading = false;
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
         this.$router.push({ name: 'pages/surat/masuk' });
