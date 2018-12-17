@@ -60,7 +60,7 @@
                     <p class="font-weight-bold">Kode Surat</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letterCode }}</p>
+                    <p class="font-weight-regular">{{ letter.letter_code_name }}</p>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -93,9 +93,9 @@ export default {
         recipient: '',
         attachments: 0,
         letter_code_id: null,
-        sub_letter_code_id: null
+        sub_letter_code_id: null,
+        letter_code_name: ''
       },
-      letterCode: '',
     };
   },
   mounted () {
@@ -109,16 +109,8 @@ export default {
         canCancel: false,
       });
       OutcomingLetterAPI.get(id).then(response => {
-        LetterCodeAPI.getName(response.data.data.letter_code_id, response.data.data.sub_letter_code_id).then(code => {
-          loader.hide();
-          this.letter = response.data.data;
-          this.letterCode = code.data.data;
-        }).catch((e) => {
-          console.log(e);
-          
-          alert(e.response.status + ': ' + e.response.statusText);
-          loader.hide();
-        });
+        this.letter = response.data.data;
+        loader.hide();
       }).catch(e => {
         alert(e.response.status + ': ' + e.response.statusText);
         loader.hide();
