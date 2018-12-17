@@ -73,13 +73,6 @@
       prepend-icon="person"
       required
     ></v-text-field>
-    <v-text-field
-      v-model="letter.to"
-      :rules="nonEmptyRules"
-      label="Ditujukan Kepada"
-      prepend-icon="person_outline"
-      required
-    ></v-text-field>
     <v-autocomplete
       v-model="letter.letter_code_id"
       :items="letterCodes"
@@ -99,6 +92,8 @@
       item-text="code_title"
       item-value="id"
       :chips="true"
+      required
+      :rules="[v => !!v || v === null || 'Item is required']"
     ></v-autocomplete>
     <v-btn
       :disabled="!valid"
@@ -130,10 +125,10 @@ export default {
       handler: function (val, oldVal) {
         if (oldVal) this.letter.sub_letter_code_id = null;
         this.fetchLetterCodeItems();
-        this.fetchNewSubLetterCodeItems();
+        if (val) this.fetchNewSubLetterCodeItems();
       },
       immediate: true
-    },
+    }
   },
   created () {
     this.fetchLetterCodeItems();

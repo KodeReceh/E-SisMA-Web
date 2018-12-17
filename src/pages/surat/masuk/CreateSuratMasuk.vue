@@ -36,10 +36,9 @@ export default {
         subject: '',
         tendency: '',
         sender: '',
-        to: '',
         attachments: 0,
-        letter_code_id: null,
-        sub_letter_code_id: null
+        letter_code_id: '',
+        sub_letter_code_id: ''
       }
     };
   },

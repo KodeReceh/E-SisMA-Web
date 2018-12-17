@@ -64,14 +64,6 @@
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
-                  <v-flex xs4 sm2 md3>
-                    <p class="font-weight-bold">Ditujukan Kepada</p>                        
-                  </v-flex>
-                  <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.to }}</p>
-                  </v-flex>
-                </v-layout>
-                <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm10 md3>
                     <p class="font-weight-bold">Lampiran</p>                        
                   </v-flex>
@@ -84,7 +76,7 @@
                     <p class="font-weight-bold">Kode Surat</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letterCode }}</p>
+                    <p class="font-weight-regular">{{ letter.letter_code_name }}</p>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -128,35 +120,12 @@ export default {
         subject: '',
         tendency: '',
         sender: '',
-        to: '',
         attachments: 0,
         letter_code_id: null,
-        sub_letter_code_id: null
+        sub_letter_code_id: null,
+        letter_code_name: ''
       },
-      letterCode: '',
     };
-  },
-  watch: {
-    'letter.letter_code_id': {
-      handler: function (val, oldVal) {
-        if (val) {
-          LetterCodeAPI.get(val).then(code => {        
-            if (this.letter.sub_letter_code_id) {
-              SubLetterCodeAPI.get(val, this.letter.sub_letter_code_id).then(subCode => {
-                this.letterCode = code.data.data.code + '.' + subCode.data.data.code + ' - ' + subCode.data.data.title;
-              }).catch(e => {
-                alert(e.response.status + ': ' + e.response.statusText);
-              });
-            } else {
-              this.letterCode = code.data.data.code + ' - ' + code.data.data.title;
-            }
-          }).catch(e => {
-            alert(e.response.status + ': ' + e.response.statusText);
-          });
-        }
-      },
-      immediate: true,
-    },
   },
   beforeMount () {
     const { id } = this.$route.params;

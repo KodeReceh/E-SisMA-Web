@@ -71,6 +71,8 @@
       item-text="code_title"
       item-value="id"
       :chips="true"
+      required
+      :rules="[v => !!v || v === null || 'Item is required']"
     ></v-autocomplete>
     <v-btn
       :disabled="!valid"
@@ -114,7 +116,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.onSubmit();
       }
-    },
+    }, 
     clear () {
       this.$refs.form.reset();
     },
@@ -126,7 +128,7 @@ export default {
           }
         })
         .catch(e => {
-          console.log(e);
+          alert(e.response.status + ': ' + e.response.statusText);
         });
     },
     fetchNewSubLetterCodeItems () {
@@ -141,7 +143,7 @@ export default {
           }
         })
         .catch(e => {
-          console.log(e);
+          alert(e.response.status + ': ' + e.response.statusText);
         });
     }
   }
