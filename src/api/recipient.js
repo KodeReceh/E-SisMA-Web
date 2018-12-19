@@ -18,7 +18,7 @@ export default {
     });
   },
   getAvailableRecipients (letter_id) {
-    return axios.get(`${url}/${letter_id}/available`, {
+    return axios.get(`${url}/${letter_id}/user/available`, {
       headers: {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       }

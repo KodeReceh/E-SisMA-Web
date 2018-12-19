@@ -83,13 +83,19 @@
             </div>
           </v-widget>
         </v-flex>
+        <v-flex sm12>
+          <form-select-recipient :fetchRecipients="fetchRecipients"></form-select-recipient>
+        </v-flex>
+        <v-flex sm12>
+          <list-recipient-surat-masuk ref="listRecipient"></list-recipient-surat-masuk>
+        </v-flex>
       </v-layout>
       <DeleteConfirmation
           :confirmDeleteDialog="deleteDialog"
           :onDeleteCancel="deleteCancel"
           :onDeleteConfirm="deleteConfirm"
           :loading="deleteLoading"
-        ></DeleteConfirmation>
+      ></DeleteConfirmation>
     </v-container>
   </div>
 </template>
@@ -100,11 +106,15 @@ import LetterCodeAPI from '@/api/letter-code';
 import SubLetterCodeAPI from '@/api/sub-letter-code';
 import VWidget from '@/components/VWidget';
 import DeleteConfirmation from '@/components/DeleteConfirmation';
+import ListRecipientSuratMasuk from './ListRecipientSuratMasuk';
+import FormSelectRecipient from './FormSelectRecipient';
 
 export default {
   components: {
     VWidget,
     DeleteConfirmation,
+    ListRecipientSuratMasuk,
+    FormSelectRecipient
   },
   data () {
     return {
@@ -134,6 +144,9 @@ export default {
     this.fetchSuratMasuk(id);
   },
   methods: {
+    fetchRecipients () {
+      this.$refs.listRecipient.fetchRecipients();
+    },
     fetchSuratMasuk (id) {
       let loader = this.$loading.show({
         container: null,
