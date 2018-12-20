@@ -8,14 +8,15 @@ export default [
   {
     name: 'APP_LOGOUT',
     callback: function (e) {
-      this.snackbar = {
-        show: true,
-        color: 'info',
-        text: 'Berhasil logout!'
-      };
-      localStorage.removeItem('__token__');
-      localStorage.removeItem('__email__');
-      this.$router.replace({ path: '/login' });
+      this.$store.dispatch('destroyToken')
+        .then(response => {
+          this.$router.push({ path: '/login' });
+          this.snackbar = {
+            show: true,
+            color: 'info',
+            text: response.data.description
+          };
+        });
     }
   },
   {

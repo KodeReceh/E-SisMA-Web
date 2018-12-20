@@ -18,6 +18,7 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import VTooltip from 'v-tooltip';
 import './theme/tooltip.css';
+import { store } from './store/store';
 
 // uncomment for working offline
 // import 'material-design-icons/iconfont/material-icons.css';
@@ -73,6 +74,7 @@ Vue.use(VueAxios, axios);
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 });

@@ -12,6 +12,9 @@
           <v-icon>delete</v-icon>
         </v-btn>
         <v-flex sm12>
+          <list-recipient-surat-masuk ref="listRecipient"></list-recipient-surat-masuk>
+        </v-flex>
+        <v-flex sm12>
           <v-widget title="Detail Surat Masuk">
             <div slot="widget-content">
               <v-container>
@@ -82,9 +85,6 @@
               </v-container>
             </div>
           </v-widget>
-        </v-flex>
-        <v-flex sm12>
-          <list-recipient-surat-masuk ref="listRecipient"></list-recipient-surat-masuk>
         </v-flex>
       </v-layout>
       <DeleteConfirmation

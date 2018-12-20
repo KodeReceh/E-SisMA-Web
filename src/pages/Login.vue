@@ -44,26 +44,16 @@ export default {
   methods: {
     login () {
       this.loading = true;
-      let vm = this;
-      this.axios
-        .post(`${process.env.API_URL}/login`, vm.form)
-        .then(response => {
-          if (response.data.success) {
-            localStorage.setItem('__token__', response.data.data.api_token);
-            localStorage.setItem('__id__', response.data.data.user.id);
-            this.$router.push('dashboard');
-          } else {
-            vm.errorMsg = response.data.message;
-            vm.loading = false;
-          }
-          vm.loading = false;
-        })
-        .catch(function (error) {
-          if (error.response.status === 404) {
-            vm.errorMsg = 'Email dan password tidak cocok!';
-            vm.loading = false;
-          }
-        });
+      this.$store.dispatch('retrieveToken', {
+        email: this.form.email,
+        password: this.form.password,
+      }).then(response => {
+        this.$router.push('dashboard');
+        this.loading = false;
+      }).catch(e => {
+        this.errorMsg = e.response.statusText;
+        this.loading = false;
+      });
     }
   }
 };
