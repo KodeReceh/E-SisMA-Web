@@ -37,5 +37,12 @@ export default {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       },
     });
+  },
+  getAllRecipients () {
+    return axios.get(`${url}/user/all`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      }
+    });
   }
 };

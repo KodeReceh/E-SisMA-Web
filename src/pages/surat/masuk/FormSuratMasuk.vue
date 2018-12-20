@@ -74,6 +74,18 @@
       required
     ></v-text-field>
     <v-autocomplete
+      v-model="letter.user_id"
+      :items="availableUsers"
+      prepend-icon="group"
+      label="Penerima Surat"
+      item-text="name"
+      item-value="id"
+      :chips="true"
+      required
+      multiple
+      :rules="[v => !!v || 'Item is required']"
+    ></v-autocomplete>
+    <v-autocomplete
       v-model="letter.letter_code_id"
       :items="letterCodes"
       :rules="[v => !!v || 'Item is required']"
@@ -111,14 +123,14 @@ import LetterCodeAPI from '@/api/letter-code';
 import SubLetterCodeAPI from '@/api/sub-letter-code';
 
 export default {
-  props: ['letter', 'onSubmit'],
+  props: ['letter', 'onSubmit', 'availableUsers'],
   data: () => ({
     valid: false,
     menu1: false,
     menu2: false,
     nonEmptyRules: [v => !!v || 'Isian ini tidak boleh kosong.'],
     letterCodes: [],
-    subLetterCodes: []
+    subLetterCodes: [],
   }),
   watch: {
     'letter.letter_code_id': {

@@ -29,19 +29,7 @@
         <td>{{ props.item.name }}</td>
         <td>{{ props.item.role }}</td>
         <td>
-            <v-btn 
-                depressed 
-                outline 
-                icon 
-                fab 
-                dark 
-                color="primary" 
-                small
-                @click="editFileClicked(props.item.id)"
-                v-tooltip.auto="`Edit`"
-                >
-            <v-icon>edit</v-icon>
-            </v-btn>
+            <v-btn color="secondary" outline>disposisi</v-btn>
             <v-btn 
                 depressed 
                 outline 
@@ -49,7 +37,7 @@
                 fab 
                 dark 
                 color="warning" 
-                small @click="deleteButtonClicked(props.item.id)"
+                small @click="deleteButtonClicked(props.item.letter_id)"
                 v-tooltip.auto="`Hapus`">
             <v-icon>delete</v-icon>
             </v-btn>
@@ -124,7 +112,8 @@ export default {
     },
     deleteConfirm () {
       this.deleteLoading = true;
-      RecipientAPI.delete(this.deleteDialog.detail.id).then(response => {
+      let letter_id = this.$route.params.id;
+      RecipientAPI.delete(letter_id, this.deleteDialog.detail.id).then(response => {
         this.deleteLoading = false;
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};

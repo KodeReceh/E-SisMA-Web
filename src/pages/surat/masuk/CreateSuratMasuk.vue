@@ -7,7 +7,7 @@
           <v-widget title="Tambah Surat Masuk">
             <div slot="widget-content">
               <v-container>
-                <FormSuratMasuk :letter="letter" :onSubmit="submit" ></FormSuratMasuk>
+                <FormSuratMasuk :letter="letter" :onSubmit="submit" :availableUsers="availableUsers"></FormSuratMasuk>
               </v-container>
             </div>
           </v-widget>
@@ -21,6 +21,7 @@
 import FormSuratMasuk from './FormSuratMasuk';
 import VWidget from '@/components/VWidget';
 import IncomingLetterAPI from '@/api/incoming-letter';
+import RecipientAPI from '@/api/recipient';
 
 export default {
   components: {
@@ -36,11 +37,16 @@ export default {
         subject: '',
         tendency: '',
         sender: '',
+        user_id: [],
         attachments: 0,
         letter_code_id: '',
         sub_letter_code_id: ''
-      }
+      },
+      availableUsers: [],
     };
+  },
+  mounted () {
+    this.fetchAvailableUsers();
   },
   methods: {
     submit () {
@@ -60,6 +66,13 @@ export default {
       }).catch(e => {
         alert(e.response.status + ': ' + e.response.statusText);
         loader.hide();
+      });
+    },
+    fetchAvailableUsers () {
+      RecipientAPI.getAllRecipients().then(response => {
+        this.availableUsers = response.data.data;
+      }).catch(e => {
+        alert(e.status + ': ' + e.statusText);
       });
     }
   }
