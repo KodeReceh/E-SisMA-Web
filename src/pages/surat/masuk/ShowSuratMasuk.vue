@@ -84,9 +84,6 @@
           </v-widget>
         </v-flex>
         <v-flex sm12>
-          <form-select-recipient :fetchRecipients="fetchRecipients"></form-select-recipient>
-        </v-flex>
-        <v-flex sm12>
           <list-recipient-surat-masuk ref="listRecipient"></list-recipient-surat-masuk>
         </v-flex>
       </v-layout>
