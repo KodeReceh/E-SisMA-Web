@@ -2,7 +2,11 @@ export default [
   {
     name: 'APP_LOGIN_SUCCESS',
     callback: function (e) {
-      this.$router.push({ path: 'dashboard' });
+      this.snackbar = {
+        show: true,
+        color: 'info',
+        text: 'Berhasil login.'
+      };
     }
   },
   {
@@ -10,7 +14,7 @@ export default [
     callback: function (e) {
       this.$store.dispatch('destroyToken')
         .then(response => {
-          this.$router.push({ path: '/login' });
+          this.$router.replace({ path: '/login' });
           this.snackbar = {
             show: true,
             color: 'info',

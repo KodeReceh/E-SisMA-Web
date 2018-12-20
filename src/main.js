@@ -3,6 +3,7 @@
 import Vue from 'vue';
 import App from './App';
 import Vuetify from 'vuetify';
+import Vuex from 'vuex';
 import router from './router';
 import 'font-awesome/css/font-awesome.css';  
 import './theme/default.styl';
@@ -20,6 +21,7 @@ import VTooltip from 'v-tooltip';
 import './theme/tooltip.css';
 import { store } from './store/store';
 
+
 // uncomment for working offline
 // import 'material-design-icons/iconfont/material-icons.css';
 // import 'roboto-fontface/css/roboto/roboto-fontface.css';
@@ -35,6 +37,8 @@ Vue.filter('truncate', Truncate);
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' });
 Vue.use(VueMomentLib);
 Vue.use(VTooltip);
+Vue.use(Vuex);
+
 Vue.use(Loading, {
   // props
   color: 'red',

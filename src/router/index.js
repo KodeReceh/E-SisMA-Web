@@ -3,18 +3,27 @@ import Router from 'vue-router';
 import paths from './paths';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
+import { store } from '../store/store';
 
 Vue.use(Router);
 const router =  new Router({
   base: '/',
-  mode: 'hash',
+  mode: 'history',
   linkActiveClass: 'active',
-  routes: paths
+  routes: paths,
 });
 // router gards
 router.beforeEach((to, from, next) => {
-  NProgress.start();
-  next();
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (store.getters.loggedIn) {
+      NProgress.start();
+      next();
+    } else {
+      next({ name: 'Login' });
+    }
+  } else {
+    next();
+  }
 });
 
 router.afterEach((to, from) => {

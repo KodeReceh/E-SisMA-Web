@@ -49,6 +49,7 @@ export default [
     path: '/login',
     meta: {
       public: true,
+      checkLogin: true,
     },
     name: 'Login',
     component: () => import(
@@ -59,7 +60,9 @@ export default [
   },
   {
     path: '/',
-    meta: { },
+    meta: { 
+      requiresAuth: true,
+    },
     name: 'Root',
     redirect: {
       name: 'Dashboard'
@@ -67,7 +70,10 @@ export default [
   },
   {
     path: '/user',
-    meta: { breadcrumb: true },
+    meta: { 
+      breadcrumb: true,
+      requiresAuth: true,
+    },
     name: 'User',
     component: () => import(
       /* webpackChunkName: "routes" */
@@ -77,7 +83,10 @@ export default [
   },
   {
     path: '/surat/masuk',
-    meta: { breadcrumb: true },
+    meta: { 
+      breadcrumb: true,
+      requiresAuth: true,
+    },
     name: 'pages/surat/masuk',
     component: () => import(
       `@/pages/surat/masuk/SuratMasuk.vue`
@@ -85,7 +94,10 @@ export default [
   }, 
   {
     path: '/surat/masuk/create',
-    meta: { breadcrumb: false },
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'CreateSuratMasuk',
     component: () => import(
       `@/pages/surat/masuk/CreateSuratMasuk.vue`
@@ -93,7 +105,10 @@ export default [
   }, 
   {
     path: '/surat/masuk/:id/edit',
-    meta: { breadcrumb: false },
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'EditSuratMasuk',
     component: () => import(
       `@/pages/surat/masuk/EditSuratMasuk.vue`
@@ -101,7 +116,10 @@ export default [
   }, 
   {
     path: '/surat/masuk/:id/disposisi',
-    meta: { breadcrumb: false },
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'ShowDisposisiSuratMasuk',
     component: () => import(
       `@/pages/surat/masuk/ShowDisposisiSuratMasuk.vue`
@@ -109,7 +127,10 @@ export default [
   }, 
   {
     path: '/surat/masuk/:id/disposisi/create',
-    meta: { breadcrumb: false },
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'CreateDisposisiSuratMasuk',
     component: () => import(
       `@/pages/surat/masuk/CreateDisposisiSuratMasuk.vue`
@@ -117,7 +138,10 @@ export default [
   },
   {
     path: '/surat/masuk/:id/disposisi/edit',
-    meta: { breadcrumb: false },
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'EditDisposisiSuratMasuk',
     component: () => import(
       `@/pages/surat/masuk/EditDisposisiSuratMasuk.vue`
@@ -125,7 +149,10 @@ export default [
   },
   {
     path: '/surat/masuk/:id',
-    meta: { breadcrumb: false },
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'ShowSuratMasuk',
     component: () => import(
       `@/pages/surat/masuk/ShowSuratMasuk.vue`
@@ -133,7 +160,10 @@ export default [
   },
   {
     path: '/surat/keluar/template',
-    meta: { breadcrumb: false },
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'Template',
     component: () => import(
       `@/pages/surat/keluar/template/Template.vue`
@@ -141,7 +171,10 @@ export default [
   }, 
   {
     path: '/surat/keluar/template/create',
-    meta: { breadcrumb: false },
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'CreateTemplate',
     component: () => import(
       `@/pages/surat/keluar/template/CreateTemplate.vue`
@@ -149,7 +182,10 @@ export default [
   }, 
   {
     path: '/surat/keluar/template/:id',
-    meta: { breadcrumb: false },
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'ShowTemplate',
     component: () => import(
       `@/pages/surat/keluar/template/ShowTemplate.vue`
@@ -157,7 +193,10 @@ export default [
   }, 
   {
     path: '/surat/keluar',
-    meta: { breadcrumb: true },
+    meta: { 
+      breadcrumb: true,
+      requiresAuth: true,
+    },
     name: 'pages/surat/keluar',
     component: () => import(
       `@/pages/surat/keluar/SuratKeluar.vue`
@@ -165,7 +204,10 @@ export default [
   },
   {
     path: '/surat/keluar/create',
-    meta: { breadcrumb: false },
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'CreateSuratKeluar',
     component: () => import(
       `@/pages/surat/keluar/CreateSuratKeluar.vue`
@@ -173,7 +215,10 @@ export default [
   }, 
   {
     path: '/surat/keluar/:id/edit',
-    meta: { breadcrumb: false },
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'EditSuratKeluar',
     component: () => import(
       `@/pages/surat/keluar/EditSuratKeluar.vue`
@@ -181,7 +226,10 @@ export default [
   }, 
   {
     path: '/surat/keluar/:id',
-    meta: { breadcrumb: false },
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'ShowSuratKeluar',
     component: () => import(
       `@/pages/surat/keluar/ShowSuratKeluar.vue`
@@ -189,7 +237,10 @@ export default [
   }, 
   {
     path: '/dashboard',
-    meta: { breadcrumb: true },
+    meta: { 
+      breadcrumb: true,
+      requiresAuth: true,
+    },
     name: 'Dashboard',
     component: () => import(
       /* webpackChunkName: "routes" */
@@ -199,7 +250,10 @@ export default [
   },
   {
     path: '/dokumen',
-    meta: { breadcrumb: true },
+    meta: {
+      breadcrumb: true,
+      requiresAuth: true,
+    },
     name: 'Dokumen',
     component: () => import(
       /* webpackChunkName: "routes" */
@@ -209,7 +263,10 @@ export default [
   },
   {
     path: '/dokumen/create',
-    meta: { breadcrumb: false },
+    meta: {
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'CreateDokumen',
     component: () => import(
       /* webpackChunkName: "routes" */
@@ -219,7 +276,10 @@ export default [
   },
   {
     path: '/dokumen/:id/edit',
-    meta: { breadcrumb: false },
+    meta: {
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'EditDokumen',
     component: () => import(
       /* webpackChunkName: "routes" */
@@ -229,7 +289,10 @@ export default [
   },
   {
     path: '/dokumen/:id',
-    meta: { breadcrumb: false },
+    meta: {
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'ShowDokumen',
     component: () => import(
       /* webpackChunkName: "routes" */
@@ -239,7 +302,10 @@ export default [
   },
   {
     path: '/dokumen/:document/files/:file',
-    meta: { breadcrumb: false },
+    meta: {
+      breadcrumb: false,
+      requiresAuth: true,
+    },
     name: 'ShowFileDokumen',
     component: () => import(
       /* webpackChunkName: "routes" */
@@ -249,7 +315,10 @@ export default [
   },
   {
     path: '/arsip',
-    meta: { breadcrumb: true },
+    meta: {
+      breadcrumb: true,
+      requiresAuth: true,
+    },
     name: 'Arsip',
     component: () => import(
       /* webpackChunkName: "routes" */
