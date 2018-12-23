@@ -55,16 +55,10 @@ export default {
       });
     },
     submit () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       OutcomingLetterAPI.update(this.letter.id, this.letter).then(response => {
         this.$router.push({ name: 'ShowSuratKeluar', params: { id: response.data.data.letter_id }});
-        loader.hide();
       }).catch(e => {
         alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     }
   }

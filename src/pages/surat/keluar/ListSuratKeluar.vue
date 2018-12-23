@@ -152,7 +152,6 @@ export default {
     deleteConfirm () {
       this.deleteLoading = true;
       OutcomingLetterAPI.delete(this.deleteDialog.detail.id).then(response => {
-        console.log('dihapus');
         this.deleteLoading = false;
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};

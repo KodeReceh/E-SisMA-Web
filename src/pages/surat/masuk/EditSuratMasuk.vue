@@ -60,12 +60,7 @@ export default {
       });
     },
     submit () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       IncomingLetterAPI.update(this.letter.id, this.letter).then(response => {
-        loader.hide();
         this.$router.push(
           { 
             name: 'ShowSuratMasuk',
@@ -75,7 +70,6 @@ export default {
           });
       }).catch(e => {
         alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     },
     fetchAvailableUsers () {

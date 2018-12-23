@@ -50,12 +50,7 @@ export default {
   },
   methods: {
     submit () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       IncomingLetterAPI.store(this.letter).then(response => {
-        loader.hide();
         this.$router.push(
           { 
             name: 'ShowSuratMasuk',
@@ -65,7 +60,6 @@ export default {
           });
       }).catch(e => {
         alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     },
     fetchAvailableUsers () {
