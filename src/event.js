@@ -20,6 +20,13 @@ export default [
             color: 'info',
             text: response.data.description
           };
+        }).cacth(e => {
+          this.$router.replace({ path: '/login' });
+          this.snackbar = {
+            show: true,
+            color: 'info',
+            text: e.response.statusText
+          };
         });
     }
   },
