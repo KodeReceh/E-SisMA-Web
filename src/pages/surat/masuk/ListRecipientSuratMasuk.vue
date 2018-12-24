@@ -1,28 +1,16 @@
 <template>
   <v-card>
     <v-toolbar card color="white">
-    <v-text-field
-    flat
-    solo
-    prepend-icon="search"
-    placeholder="Type something"
-    v-model="search"
-    hide-details
-    class="hidden-sm-and-down"
-    ></v-text-field>     
-    <v-btn icon>
-        <v-icon>filter_list</v-icon>
-    </v-btn>         
+    <v-toolbar-title class="font-weight-light">Penerima Surat</v-toolbar-title>      
     </v-toolbar>
     <v-divider></v-divider>
     <v-card-text class="pa-0">
     <v-data-table
         :headers="table.headers"
-        :search="search"
         :items="table.items"
-        :rows-per-page-items="[10,25,50,{text:'All','value':-1}]"
         class="elevation-1"
         item-key="name"
+        hide-actions
         >
         <template slot="items" slot-scope="props">            
         <td>{{ props.index + 1 }}</td>
@@ -62,7 +50,6 @@ export default {
     DeleteConfirmation, 
   },
   data: () => ({
-    search: '',
     receipient: {
       user_id: '',
     },
