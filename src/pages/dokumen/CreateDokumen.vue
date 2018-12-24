@@ -7,7 +7,7 @@
           <v-widget title="Buat Dokumen">
             <div slot="widget-content">
               <v-container>
-                <FormDokumen :document="document" :onSubmit="submit" ></FormDokumen>
+                <FormDokumen :document="document" :onSubmit="submit" :isUpdate="isUpdate"></FormDokumen>
               </v-container>
             </div>
           </v-widget>
@@ -33,7 +33,10 @@ export default {
         title: '',
         date: '',
         description: '',
+        fileName: '',
+        file: null,
       },
+      isUpdate: false,
     };
   },
   methods: {
@@ -42,7 +45,12 @@ export default {
         container: null,
         canCancel: false,
       });
-      DocumentAPI.store(this.document).then(response => {
+      let formData = new FormData();
+      formData.append('file', this.document.file);
+      formData.append('title', this.document.title);
+      formData.append('date', this.document.date);
+      formData.append('description', this.document.description);
+      DocumentAPI.store(formData).then(response => {
         this.$router.push({ name: 'ShowDokumen', params: { id: response.data.data.id }});
         loader.hide();
       });

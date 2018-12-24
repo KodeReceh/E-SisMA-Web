@@ -34,6 +34,14 @@
       prepend-icon="info"
       required
     ></v-text-field>
+    <v-text-field label="Pilih File" @click="pickFile" :rules="nonEmptyRules" v-model="document.fileName" prepend-icon="attach_file" readonly :required="!isUpdate"></v-text-field>
+    <input
+      type="file"
+      style="display: none"
+      ref="file"
+      accept="image/*"
+      @change="onFilePicked"
+    >
     <v-btn
       :disabled="!valid"
       @click="submit"
@@ -47,7 +55,7 @@
 
 <script>
 export default {
-  props: ['document', 'onSubmit'],
+  props: ['document', 'onSubmit', 'isUpdate'],
   data () {
     return {
       valid: false,
@@ -63,6 +71,18 @@ export default {
     },
     clear () {
       this.$refs.form.reset();
+    },
+    pickFile () {
+      this.$refs.file.click();
+    },
+    onFilePicked (e) {
+      const files = e.target.files;
+      if (files[0] !== undefined) {
+        this.document.file = files[0];
+        this.document.fileName = files[0].name;
+      } else {
+        this.document.file = '';
+      }
     },
   }
 };

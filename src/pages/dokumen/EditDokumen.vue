@@ -7,7 +7,7 @@
           <v-widget title="Edit Dokumen">
             <div slot="widget-content">
               <v-container>
-                <FormDokumen :document="document" :onSubmit="submit" ></FormDokumen>
+                <FormDokumen :document="document" :onSubmit="submit" :isUpdate="isUpdate"></FormDokumen>
               </v-container>
             </div>
           </v-widget>
@@ -33,8 +33,12 @@ export default {
         id: '',
         title: '',
         date: '',
+        file: null,
+        fileName: '',
         description: '',
+        file_extension: '',
       },
+      isUpdate: true,
     };
   },
   mounted () {
@@ -47,7 +51,12 @@ export default {
         container: null,
         canCancel: false,
       });
-      DocumentAPI.update(this.document.id, this.document).then(response => {
+      let formData = new FormData();
+      formData.append('file', this.document.file);
+      formData.append('title', this.document.title);
+      formData.append('date', this.document.date);
+      formData.append('description', this.document.description);
+      DocumentAPI.update(this.document.id, formData).then(response => {
         this.$router.push({ name: 'ShowDokumen', params: { id: response.data.data.id }});
         loader.hide();
       });
@@ -55,6 +64,8 @@ export default {
     fetchDokumen (id) {
       DocumentAPI.get(id).then(response => {
         this.document = response.data.data;
+        this.document.file = null;
+        this.document.fileName = response.data.data.path;
       });
     }
   }

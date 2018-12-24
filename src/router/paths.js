@@ -296,19 +296,6 @@ export default [
     )
   },
   {
-    path: '/dokumen/:document/files/:file',
-    meta: {
-      breadcrumb: false,
-      requiresAuth: true,
-    },
-    name: 'ShowFileDokumen',
-    component: () => import(
-      /* webpackChunkName: "routes" */
-      /* webpackMode: "lazy-once" */
-      `@/pages/dokumen/ShowFileDokumen.vue`
-    )
-  },
-  {
     path: '/arsip',
     meta: {
       requiresAuth: true,

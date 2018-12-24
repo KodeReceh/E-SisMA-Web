@@ -129,9 +129,6 @@ export default {
       search: ''
     };
   },
-  created () {
-    this.fetchList();
-  },
   mounted () {
     this.fetchList();
   },
@@ -142,7 +139,7 @@ export default {
     },
     deleteConfirm () {
       DocumentAPI.delete(this.deleteDialog.detail.id).then(response => {
-        console.log('dihapus');
+        this.fetchList();
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
       });
