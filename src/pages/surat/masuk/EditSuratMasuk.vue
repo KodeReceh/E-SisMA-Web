@@ -55,8 +55,6 @@ export default {
     fetchSuratMasuk (id) {
       IncomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     submit () {
@@ -68,8 +66,6 @@ export default {
               id: response.data.data.letter_id
             } 
           });
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     fetchAvailableUsers () {

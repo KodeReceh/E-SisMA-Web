@@ -52,9 +52,6 @@ export default {
       TemplateAPI.store(formData).then(response => {
         this.$router.push({ name: 'ShowTemplate', params: { id: response.data.data.id }});
         loader.hide();
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     }
   }

@@ -152,9 +152,6 @@ export default {
       IncomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
         loader.hide();
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     },
     disposisiButtonClicked () {
@@ -185,8 +182,6 @@ export default {
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
         this.$router.push({ name: 'pages/surat/masuk' });
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     deleteCancel () {

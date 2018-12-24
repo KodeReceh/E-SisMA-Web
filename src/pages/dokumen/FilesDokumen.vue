@@ -157,8 +157,6 @@ export default {
         this.file.id = response.data.data.id;
         this.dialog.isUpdate = true;
         this.dialog.state = true;
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     fetchFiles () {
@@ -169,9 +167,6 @@ export default {
       const { id } = this.$route.params;
       FileAPI.getByDocument(id).then(response => {
         this.table.items = response.data.data;
-        loader.hide();
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
         loader.hide();
       });
     },
@@ -184,8 +179,6 @@ export default {
         this.fetchFiles();
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     deleteCancel () {

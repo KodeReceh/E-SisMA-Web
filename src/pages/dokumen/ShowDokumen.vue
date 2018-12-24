@@ -87,9 +87,6 @@ export default {
       DocumentAPI.get(id).then(response => {
         this.document = response.data.data;
         loader.hide();
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     },
     uploadButtonClicked () {

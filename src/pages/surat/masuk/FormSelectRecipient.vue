@@ -68,8 +68,6 @@ export default {
 
       RecipientAPI.getAvailableRecipients(letter_id).then(response => {
         this.users = response.data.data;
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     }
   }

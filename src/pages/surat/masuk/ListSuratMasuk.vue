@@ -138,9 +138,6 @@ export default {
       search: ''
     };
   },
-  created () {
-    this.fetchList();
-  },
   mounted () {
     this.fetchList();
   },
@@ -156,8 +153,6 @@ export default {
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
         this.fetchList();
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     deleteCancel () {
@@ -175,9 +170,6 @@ export default {
           vm.table.items = response.data.data;
           loader.hide();
         }
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     }
   }

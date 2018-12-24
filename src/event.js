@@ -20,7 +20,7 @@ export default [
             color: 'info',
             text: response.data.description
           };
-        }).cacth(e => {
+        }).catch(e => {
           this.$router.replace({ path: '/login' });
           this.snackbar = {
             show: true,

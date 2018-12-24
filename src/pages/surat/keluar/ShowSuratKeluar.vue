@@ -111,9 +111,6 @@ export default {
       OutcomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
         loader.hide();
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     },
   }

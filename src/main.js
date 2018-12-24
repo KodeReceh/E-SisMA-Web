@@ -19,6 +19,7 @@ import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
 import VTooltip from 'v-tooltip';
 import './theme/tooltip.css';
+import VuetifyDialog from 'vuetify-dialog';
 import { store } from './store/store';
 
 
@@ -38,6 +39,7 @@ Vue.use(VeeValidate, { fieldsBagName: 'formFields' });
 Vue.use(VueMomentLib);
 Vue.use(VTooltip);
 Vue.use(Vuex);
+Vue.use(VuetifyDialog);
 
 Vue.use(Loading, {
   // props
@@ -72,13 +74,25 @@ Vue.use(Vuetify, {
 Vue.use(VueAxios, axios);
 // Bootstrap application components
 
-
-
 /* eslint-disable no-new */
-new Vue({
+let vm = new Vue({
   el: '#app',
   router,
   store,
   components: { App },
   template: '<App/>'
+});
+
+window.vue = vm;
+
+vm.axios.interceptors.response.use((response) => { // intercept the global error
+  return response;
+}, function (error) {
+  if (error.response.status === 401) {
+    localStorage.removeItem('__token__');
+    console.log(alert('Anda belum login atau sesi telah habis.'));
+    return location.replace('/');
+  }
+  // Do something with response error
+  return Promise.reject(error);
 });

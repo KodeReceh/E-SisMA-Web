@@ -383,9 +383,6 @@ export default {
       }).then(response => {
         vm.complex.items = response.data.data;
         loader.hide();
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     },
     addButtonClicked () {
@@ -532,8 +529,6 @@ export default {
             });
           });
         }
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     changeUserStatus (id) {
@@ -550,9 +545,6 @@ export default {
         }
       }).then(response => {
         console.log('berhasil rubah status user');
-        loader.hide();
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
         loader.hide();
       });
     },

@@ -132,8 +132,6 @@ export default {
         this.file.role_id = response.data.data.role_id;
         this.dialog.isUpdate = true;
         this.dialog.state = true;
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     fetchFields () {
@@ -147,9 +145,6 @@ export default {
         console.log(this.table.items);
         
         loader.hide();
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     },
     deleteButtonClicked (id) {
@@ -161,8 +156,6 @@ export default {
         this.fetchFiles();
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     deleteCancel () {

@@ -145,8 +145,6 @@ export default {
         console.log('dihapus');
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     deleteCancel () {
@@ -163,9 +161,6 @@ export default {
           this.table.items = response.data.data;
           loader.hide();
         }
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     }
   }

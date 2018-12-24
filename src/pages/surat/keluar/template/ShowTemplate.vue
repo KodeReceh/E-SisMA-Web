@@ -84,9 +84,6 @@ export default {
       TemplateAPI.get(id).then(response => {
         loader.hide();
         this.template = response.data.data;
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     },
     addButtonClicked () {

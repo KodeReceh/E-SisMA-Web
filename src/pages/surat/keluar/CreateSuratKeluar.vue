@@ -45,8 +45,6 @@ export default {
     submit () {
       OutcomingLetterAPI.store(this.letter).then(response => {
         this.$router.push({ name: 'ShowSuratKeluar', params: { id: response.data.data.letter_id }});
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     }
   }

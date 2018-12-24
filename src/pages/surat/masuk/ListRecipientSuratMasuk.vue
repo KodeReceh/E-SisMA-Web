@@ -102,8 +102,6 @@ export default {
       let letter_id = this.$route.params.id;
       RecipientAPI.getRecipients(letter_id).then(response => {
         this.table.items = response.data.data;
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     deleteButtonClicked (id) {
@@ -118,8 +116,6 @@ export default {
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
         this.$router.push({ name: 'pages/surat/masuk' });
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     deleteCancel () {

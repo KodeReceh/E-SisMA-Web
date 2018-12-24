@@ -50,16 +50,11 @@ export default {
       DocumentAPI.update(this.document.id, this.document).then(response => {
         this.$router.push({ name: 'ShowDokumen', params: { id: response.data.data.id }});
         loader.hide();
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     },
     fetchDokumen (id) {
       DocumentAPI.get(id).then(response => {
         this.document = response.data.data;
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     }
   }

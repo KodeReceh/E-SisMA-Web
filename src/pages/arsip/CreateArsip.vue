@@ -50,9 +50,6 @@ export default {
       OutcomingLetterAPI.store(this.letter).then(response => {
         this.$router.push({ name: 'ShowArsip', params: { id: response.data.data.letter_id }});
         loader.hide();
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
-        loader.hide();
       });
     }
   }

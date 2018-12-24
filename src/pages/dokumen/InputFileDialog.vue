@@ -124,8 +124,6 @@ export default {
       const { id } = this.$route.params;
       return FileAPI.getLastOrdinal(id).then(response => {
         this.file.ordinal = parseInt(response.data.data, 10) + 1;
-      }).catch(e => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     clearFileObject () {
