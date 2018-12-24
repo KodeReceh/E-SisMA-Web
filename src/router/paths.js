@@ -71,7 +71,6 @@ export default [
   {
     path: '/user',
     meta: { 
-      breadcrumb: true,
       requiresAuth: true,
     },
     name: 'User',
@@ -84,7 +83,6 @@ export default [
   {
     path: '/surat/masuk',
     meta: { 
-      breadcrumb: true,
       requiresAuth: true,
     },
     name: 'pages/surat/masuk',
@@ -194,7 +192,6 @@ export default [
   {
     path: '/surat/keluar',
     meta: { 
-      breadcrumb: true,
       requiresAuth: true,
     },
     name: 'pages/surat/keluar',
@@ -238,7 +235,6 @@ export default [
   {
     path: '/dashboard',
     meta: { 
-      breadcrumb: true,
       requiresAuth: true,
     },
     name: 'Dashboard',
@@ -251,7 +247,6 @@ export default [
   {
     path: '/dokumen',
     meta: {
-      breadcrumb: true,
       requiresAuth: true,
     },
     name: 'Dokumen',
@@ -316,7 +311,6 @@ export default [
   {
     path: '/arsip',
     meta: {
-      breadcrumb: true,
       requiresAuth: true,
     },
     name: 'Arsip',
