@@ -105,19 +105,31 @@ export default {
         canCancel: false,
       });
       DocumentAPI.download(file.path).then(response => {
-        const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
-        link.href = url;
-        const uName = file.path.substr(0, file.path.indexOf('.')) ? 
-          file.path.substr(0, file.path.indexOf('.')) : file.path;
-        link.setAttribute('download', file.title + '.' + file.file_extension);
-        document.body.appendChild(link);
-        link.click();
+        this.showFile(response, file);
         loader.hide();
       }).catch(e => {
         loader.hide();
         alert(e.response.status + ': ' + e.response.statusText);
       });
+    },
+    showFile (response, file) {
+      const theFile = new Blob([response.data], { type: file.file_type });
+      if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(theFile);
+        return;
+      }
+      const url = window.URL.createObjectURL(theFile);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = file.title + '.' + file.file_extension;
+      document.body.appendChild(link);
+      console.log(link);
+      link.click();
+      window.open(url);
+      setTimeout(function () {
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url)
+      }, 100);
     }
   }
 };

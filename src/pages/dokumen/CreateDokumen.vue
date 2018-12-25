@@ -35,6 +35,7 @@ export default {
         description: '',
         fileName: '',
         file: null,
+        file_type: '',
       },
       isUpdate: false,
     };
@@ -50,6 +51,7 @@ export default {
       formData.append('title', this.document.title);
       formData.append('date', this.document.date);
       formData.append('description', this.document.description);
+      formData.append('file_type', this.document.file_type);
       DocumentAPI.store(formData).then(response => {
         this.$router.push({ name: 'ShowDokumen', params: { id: response.data.data.id }});
         loader.hide();

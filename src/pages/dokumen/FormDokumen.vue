@@ -71,6 +71,7 @@ export default {
     },
     clear () {
       this.$refs.form.reset();
+      this.document.file = null;
     },
     pickFile () {
       this.$refs.file.click();
@@ -80,10 +81,16 @@ export default {
       if (files[0] !== undefined) {
         this.document.file = files[0];
         this.document.fileName = files[0].name;
+        this.document.file_type = files[0].type;
       } else {
-        this.document.file = '';
+        this.document.file = null;
+        this.document.fileName = '';
+        this.document.file_type = '';
       }
     },
+    getExtFile (fileName) {
+      return (/[.]/.exec(fileName)) ? /[^.]+$/.exec(fileName)[0] : undefined;
+    }
   }
 };
 </script>

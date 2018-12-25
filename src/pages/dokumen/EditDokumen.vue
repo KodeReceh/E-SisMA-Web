@@ -36,7 +36,7 @@ export default {
         file: null,
         fileName: '',
         description: '',
-        file_extension: '',
+        file_type: ''
       },
       isUpdate: true,
     };
@@ -55,6 +55,7 @@ export default {
       formData.append('file', this.document.file);
       formData.append('title', this.document.title);
       formData.append('date', this.document.date);
+      formData.append('file_type', this.document.file_type);
       formData.append('description', this.document.description);
       DocumentAPI.update(this.document.id, formData).then(response => {
         this.$router.push({ name: 'ShowDokumen', params: { id: response.data.data.id }});
@@ -63,9 +64,11 @@ export default {
     },
     fetchDokumen (id) {
       DocumentAPI.get(id).then(response => {
-        this.document = response.data.data;
-        this.document.file = null;
+        this.document.id = response.data.data.id;
         this.document.fileName = response.data.data.path;
+        this.document.title = response.data.data.title;
+        this.document.date = response.data.data.date;
+        this.document.description = response.data.data.description;
       });
     }
   }
