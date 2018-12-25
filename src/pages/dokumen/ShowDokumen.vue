@@ -105,15 +105,16 @@ export default {
         canCancel: false,
       });
       DocumentAPI.download(file.path).then(response => {
-        this.showFile(response, file);
+        const fileName = file.title + '.' + file.file_extension;
+        this.showFile(response.data, fileName, file.file_type);
         loader.hide();
       }).catch(e => {
         loader.hide();
         alert(e.response.status + ': ' + e.response.statusText);
       });
     },
-    showFile (response, file) {
-      const theFile = new Blob([response.data], { type: file.file_type });
+    showFile (blob, fileName, fileType) {
+      const theFile = new Blob([blob], { type: fileType });
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveOrOpenBlob(theFile);
         return;
@@ -121,14 +122,13 @@ export default {
       const url = window.URL.createObjectURL(theFile);
       const link = document.createElement('a');
       link.href = url;
-      link.download = file.title + '.' + file.file_extension;
+      link.download = fileName;
       document.body.appendChild(link);
-      console.log(link);
       link.click();
-      window.open(url);
+      window.open(url, '_blank');
       setTimeout(function () {
         document.body.removeChild(link);
-        window.URL.revokeObjectURL(url)
+        window.URL.revokeObjectURL(url);
       }, 100);
     }
   }
