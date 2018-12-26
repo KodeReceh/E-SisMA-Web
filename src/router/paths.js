@@ -179,6 +179,17 @@ export default [
     )
   }, 
   {
+    path: '/surat/keluar/template/:id/create-letter',
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
+    name: 'CreateLetter',
+    component: () => import(
+      `@/pages/surat/keluar/template/CreateLetter.vue`
+    )
+  }, 
+  {
     path: '/surat/keluar/template/:id/edit',
     meta: { 
       breadcrumb: false,
