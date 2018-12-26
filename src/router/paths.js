@@ -162,7 +162,7 @@ export default [
       breadcrumb: false,
       requiresAuth: true,
     },
-    name: 'Template',
+    name: 'pages/surat/keluar/template',
     component: () => import(
       `@/pages/surat/keluar/template/Template.vue`
     )
@@ -176,6 +176,17 @@ export default [
     name: 'CreateTemplate',
     component: () => import(
       `@/pages/surat/keluar/template/CreateTemplate.vue`
+    )
+  }, 
+  {
+    path: '/surat/keluar/template/:id/edit',
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
+    name: 'EditTemplate',
+    component: () => import(
+      `@/pages/surat/keluar/template/EditTemplate.vue`
     )
   }, 
   {

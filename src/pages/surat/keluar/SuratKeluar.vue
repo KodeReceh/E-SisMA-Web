@@ -6,7 +6,7 @@
             <h3>Surat Keluar</h3>
           </v-flex>
           <v-spacer></v-spacer>
-          <v-btn color="info" :to="{ name: 'Template'}">Template</v-btn>
+          <v-btn color="info" :to="{ name: 'pages/surat/keluar/template'}">Template</v-btn>
           <v-btn color="info" :to="{ name: 'CreateSuratKeluar'}">Tambah</v-btn>
           <ListSuratKeluar></ListSuratKeluar>
         </v-layout>

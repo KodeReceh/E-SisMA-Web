@@ -36,6 +36,22 @@
                         icon 
                         fab 
                         dark 
+                        color="info" 
+                        small 
+                        :to="{
+                                name: 'ShowTemplate',
+                                params: {
+                                  id: props.item.id
+                                }
+                            }">
+                    <v-icon>cached</v-icon>
+                    </v-btn>
+                    <v-btn 
+                        depressed 
+                        outline 
+                        icon 
+                        fab 
+                        dark 
                         color="primary" 
                         small 
                         :to="{
@@ -55,12 +71,28 @@
                         color="primary" 
                         small 
                         :to="{
-                                name: 'ShowTemplate',
+                                name: 'EditTemplate',
                                 params: {
                                   id: props.item.id
                                 }
                             }">
-                    <v-icon>cached</v-icon>
+                    <v-icon>edit</v-icon>
+                    </v-btn>
+                    <v-btn 
+                        depressed 
+                        outline 
+                        icon 
+                        fab 
+                        dark 
+                        color="warning" 
+                        small 
+                        :to="{
+                                name: 'EditTemplate',
+                                params: {
+                                  id: props.item.id
+                                }
+                            }">
+                    <v-icon>delete</v-icon>
                     </v-btn>
                 </td>
                 </template>

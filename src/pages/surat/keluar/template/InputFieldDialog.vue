@@ -13,7 +13,7 @@
                  <v-autocomplete
                   v-model="field.field_type"
                   :items="types"
-                  :rules="[v => !!v || 'Item is required']"
+                  :rules="[v => !!v || 'Inputan tipe field tidak boleh kosong.']"
                   prepend-icon="view_headline"
                   label="Tipe Field"
                   required
@@ -23,14 +23,14 @@
                 ></v-autocomplete>
               </v-flex>
               <v-flex xs12>
-                <v-text-field v-if="field.field_type !== 3 || !field.field_type" label="Nama Field" :rules="nonEmptyRules" :required="field.field_type !== 3 || !field.field_type" v-model="field.name" prepend-icon="title"></v-text-field>
+                <v-text-field v-if="field.field_type !== 3 || !field.field_type" label="Nama Field" :rules="fieldNameRules" :required="field.field_type !== 3 || !field.field_type" v-model="field.name" prepend-icon="title"></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-autocomplete
                   v-if="field.field_type === 3"
                   v-model="field.name"
                   :items="villagerFields"
-                  :rules="[v => !!v || 'Item is required']"
+                  :rules="[v => !!v || 'Inputan nama field tidak boleh kosong.']"
                   prepend-icon="title"
                   label="Nama Field"
                   :required="field.field_type === 3"
@@ -44,7 +44,7 @@
                   v-if="field.field_type === 4"
                   v-model="field.role_id"
                   :items="roles"
-                  :rules="[v => !!v || 'Item is required']"
+                  :rules="[v => !!v || 'Inputan tipe jabatan penanda tangan tidak boleh kosong.']"
                   prepend-icon="done_all"
                   label="Jabatan Penanda Tangan"
                   :required="field.field_type === 4"
@@ -115,6 +115,10 @@ export default {
       ],
       villagerFields: [],
       roles: [],
+      fieldNameRules: [
+        (v) => !!v || 'Nama field is required',
+        (v) => (v ? (v.match(/^\S*$/) ? true : false) : false) || 'Tidak boleh ada spasi dalam nama field'
+      ]
     };
   },
   methods: {
@@ -125,22 +129,13 @@ export default {
         formData.append('name', this.field.name);
         formData.append('type', this.field.field_type);
         formData.append('role_id', this.field.role_id);
-
-        if (this.dialog.isUpdate) {
-          TemplateFieldAPI.update(this.file.id, formData).then(response => {
-            this.onClosedDialog();
-          }).catch(e => {
-            alert(e.response.status + ': ' + e.response.statusText);
-            this.onClosedDialog();
-          });
-        } else {
-          TemplateFieldAPI.store(formData).then(response => {
-            this.onClosedDialog();
-          }).catch(e => {
-            alert(e.response.status + ': ' + e.response.statusText);
-            this.onClosedDialog();
-          });
-        }
+        const { id } = this.$route.params;
+        TemplateFieldAPI.store(id, formData).then(response => {
+          this.onClosedDialog();
+        }).catch(e => {
+          alert(e.response.status + ': ' + e.response.statusText);
+          this.onClosedDialog();
+        });
       }
     },
     onClosedDialog () {

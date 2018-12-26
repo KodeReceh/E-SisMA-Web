@@ -14,6 +14,7 @@ const Menu =  [
     items: [
       { name: 'masuk', title: 'Surat Masuk', component: 'pages/surat/masuk' },
       { name: 'keluar', title: 'Surat Keluar', component: 'pages/surat/keluar' },
+      { name: 'keluar/template', title: 'Template Surat Keluar', component: 'pages/surat/keluar/template' },
     ]
   },
   {

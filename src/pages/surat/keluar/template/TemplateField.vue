@@ -142,8 +142,6 @@ export default {
       const { id } = this.$route.params;
       TemplateFieldAPI.getList(id).then(response => {
         this.table.items = response.data.data;
-        console.log(this.table.items);
-        
         loader.hide();
       });
     },
