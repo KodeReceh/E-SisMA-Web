@@ -44,18 +44,18 @@
             </template>
         </v-data-table>
         </v-card-text>
-        <!-- <InputFieldDialog :dialog="dialog" :fetchFiles="fetchFiles" :file="file"></InputFieldDialog>  -->
         <DeleteConfirmation
           :confirmDeleteDialog="deleteDialog"
           :onDeleteCancel="deleteCancel"
           :onDeleteConfirm="deleteConfirm"
         ></DeleteConfirmation>
+        <InputFieldDialog :dialog="dialog" :fetchFields="fetchFields" :field="field"></InputFieldDialog> 
     </v-card>
 </template>
 
 <script>
 import VuePerfectScrollbar from 'vue-perfect-scrollbar';
-// import InputFieldDialog from './InputFieldDialog';
+import InputFieldDialog from './InputFieldDialog';
 import TemplateFieldAPI from '@/api/template-field';
 import DeleteConfirmation from '@/components/DeleteConfirmation';
 import { getTypes } from '@/api/field_type';
@@ -64,7 +64,7 @@ import RoleAPI from '@/api/role';
 export default {
   components: {
     VuePerfectScrollbar,
-    // InputFieldDialog,
+    InputFieldDialog,
     DeleteConfirmation
   },  
   props: {
@@ -81,11 +81,11 @@ export default {
       isUpdate: false,
     },
     search: '',
-    file: {
+    field: {
       id: '',
       name: '',
       template_id: '',
-      type: '',
+      field_type: '',
       role_id: '',
     },
     table: {

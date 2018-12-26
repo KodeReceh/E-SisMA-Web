@@ -40,7 +40,7 @@
         <v-spacer></v-spacer>
         <v-btn color="info" @click="addButtonClicked">Tambah</v-btn>
         <v-flex sm12>
-          <template-field></template-field>
+          <template-field ref="templateField"></template-field>
         </v-flex>
       </v-layout>
     </v-container>
@@ -55,7 +55,7 @@ import TemplateField from './TemplateField';
 export default {
   components: {
     VWidget,
-    TemplateField
+    TemplateField,
   },
   data () {
     return {
@@ -87,8 +87,9 @@ export default {
       });
     },
     addButtonClicked () {
-      return;
-    }
+      this.$refs.templateField.dialog.state = true;
+      this.$refs.templateField.dialog.data = this.$refs.templateField.field;
+    },
   }
 };
 </script>
