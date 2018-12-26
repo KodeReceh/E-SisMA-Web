@@ -150,8 +150,9 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm () {
-      TemplateFieldAPI.delete(this.deleteDialog.detail.id).then(response => {
-        this.fetchFiles();
+      const templateId = this.$route.params.id;
+      TemplateFieldAPI.delete(templateId, this.deleteDialog.detail.id).then(response => {
+        this.fetchFields();
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
       });
