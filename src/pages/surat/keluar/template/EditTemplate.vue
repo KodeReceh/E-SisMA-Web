@@ -53,7 +53,7 @@ export default {
       formData.append('needs_villager_data', this.template.needs_villager_data);
       formData.append('template_file', this.template.template_file);
       const { id } = this.$route.params;
-      TemplateAPI.store(id, formData).then(response => {
+      TemplateAPI.update(id, formData).then(response => {
         this.$router.push({ name: 'ShowTemplate', params: { id: response.data.data.id }});
         loader.hide();
       });

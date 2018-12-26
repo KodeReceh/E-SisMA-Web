@@ -86,18 +86,20 @@
                         dark 
                         color="warning" 
                         small 
-                        :to="{
-                                name: 'EditTemplate',
-                                params: {
-                                  id: props.item.id
-                                }
-                            }">
+                        @click="deleteButtonClicked(props.item.id)"
+                      >
                     <v-icon>delete</v-icon>
                     </v-btn>
                 </td>
                 </template>
             </v-data-table>
             </v-card-text>
+            <delete-confirmation
+            :confirmDeleteDialog="deleteDialog"
+            :onDeleteCancel="deleteCancel"
+            :onDeleteConfirm="deleteConfirm"
+            :loading="deleteLoading"
+            ></delete-confirmation>
         </v-card>
     </v-flex> 
 </template>
@@ -107,6 +109,9 @@ import TemplateAPI from '@/api/template';
 import DeleteConfirmation from '@/components/DeleteConfirmation';
 
 export default {
+  components: {
+    DeleteConfirmation
+  },
   data () {
     return {
       deleteDialog: {
@@ -114,6 +119,7 @@ export default {
         title: '',
         detail: {},
       },
+      deleteLoading: false,
       table: {
         selected: [],
         headers: [
@@ -139,9 +145,6 @@ export default {
       search: ''
     };
   },
-  created () {
-    this.fetchList();
-  },
   mounted () {
     this.fetchList();
   },
@@ -151,8 +154,9 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm () {
+      this.deleteLoading = true;
       TemplateAPI.delete(this.deleteDialog.detail.id).then(response => {
-        console.log('dihapus');
+        this.deleteLoading = false;
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
         this.fetchList();
