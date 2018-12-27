@@ -8,26 +8,37 @@
             <div slot="widget-content">
               <v-container>
                 <v-form ref="form" v-model="valid" lazy-validation>
+                  <div v-if="template.needs_villager_data">
                   <v-autocomplete
-                    v-if="template.needs_villager_data"
-                    v-model="field.villager_id"
+                    v-model="fieldModel.villager_id"
                     :items="villagers"
                     :rules="[v => !!v || v === 0 || 'Item is required']"
                     prepend-icon="details"
                     label="Pilih Penduduk"
                     required
-                    item-text="nama"
+                    item-text="select_name"
                     item-value="id"
                     :chips="true"
                   ></v-autocomplete>
+                  </div>
                   <v-text-field
                   v-for="field in fields.text" v-bind:key="field.id"
-                  v-model="field.name"
+                  v-model="fieldModel[field.name]"
                   :rules="nonEmptyRules"
                   :label="field.label"
                   prepend-icon="fiber_manual_record"
                   required
                 ></v-text-field>
+                <div v-for="field in fields.gambar" v-bind:key="field.id">
+                  <v-text-field :label="'Pilih File ' + field.label" @click.passive="pickFile('file' + field.name)" :rules="nonEmptyRules" v-model="fieldModel[field.name]" prepend-icon="attach_file" required></v-text-field>
+                  <input
+                    type="file"
+                    style="display: none"
+                    :ref="'file' + field.name"
+                    accept="image/*"
+                    @change.passive="onFilePicked($event, field)"
+                  >
+                </div>
                   
                   <v-btn
                     :disabled="!valid"
@@ -66,46 +77,66 @@ export default {
         tanda_tangan: [],
       },
       villagers: [],
+      template: {
+        id: '',
+        title: '',
+        template_file: '',
+        needs_villager_data: false
+      },
+      fieldModel: {
+        villager_id: ''
+      },
+      nonEmptyRules: [v => !!v || 'Isian ini tidak boleh kosong.'],
     };
   },
   mounted () {
     this.fetchTemplate();
   },
+  updated () {
+    console.log(this.fieldModel);
+  },
   methods: {
     submit () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
-
-      let formData = new FormData();
-      formData.append('title', this.template.title);
-      formData.append('needs_villager_data', this.template.needs_villager_data);
-      formData.append('template_file', this.template.template_file);
-
-      TemplateAPI.store(formData).then(response => {
-        this.$router.push({ name: 'ShowTemplate', params: { id: response.data.data.id }});
-        loader.hide();
-      });
-    },
-    getFields () {
-      const { id } = this.$route.params;
-      TemplateFieldAPI.getList(id).then(response => {
-        console.log(response.data.data);
-      });
+      return;
     },
     fetchTemplate () {
       const { id } = this.$route.params;
-      TemplateAPI.get(id).then(response => {
-        if (response.data.data.needs_villager_data) {
-          VillagerAPI.all().then(response => {
-            this.villagers = response.data.data;
-          });
-        }
-        this.template = response.data.data;
-      });
-    }
+      TemplateAPI.getFieldResources(id).then(response => {
+        this.template = response.data.data.template;
+        this.villagers = response.data.data.villagers;
+        this.fields.text = response.data.data.text;
+        this.fields.gambar = response.data.data.image;
 
+        response.data.data.text.forEach(t => {
+          this.fieldModel[t.name] = '';
+        });
+        response.data.data.image.forEach(g => {
+          this.fieldModel[g.name] = '';
+          this.fieldModel[g.name + 'Name'] = '';
+        });
+      });
+    },
+    onFilePicked (e, field) {
+      const files = e.target.files;
+      if (files[0] !== undefined) {
+        if (files[0].type.match('image.*')) {
+          // this.fieldModel[field.name] = files[0];
+          this.fieldModel[field.name] = files[0].name;
+        } else {
+          this.fieldModel[field.name] = '';
+          this.fieldModel[field.name + 'Name'] = '';
+          alert('Input file harus berupa gambar.');
+        }
+        
+      } else {
+        this.fieldModel[field.name] = '';
+        this.fieldModel[field.name + 'Name'] = '';
+      }
+
+    },
+    pickFile (ref) {
+      this.$refs[ref][0].click();
+    },
   }
 };
 </script>

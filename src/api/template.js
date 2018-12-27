@@ -37,5 +37,12 @@ export default {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       },
     });
-  }
+  },
+  getFieldResources (id) {
+    return axios.get(`${url}/${id}/field-form`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      },
+    });
+  },
 };

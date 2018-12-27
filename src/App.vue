@@ -12,9 +12,9 @@
           </div>   
            <!-- App Footer -->
           <v-footer height="auto" class="white pa-3 app--footer">
-            <span class="caption">KodeReceh &copy; {{ new Date().getFullYear() }}</span>
+            <span class="caption">efzet &copy; {{ new Date().getFullYear() }}</span>
             <v-spacer></v-spacer>
-            <span class="caption mr-1"> Dibuat Dengan Cinta </span> <v-icon color="pink" small>favorite</v-icon>
+            <span class="caption mr-1"> Dibuat Dengan Hati </span> <v-icon color="pink" small>favorite</v-icon>
           </v-footer>
         </v-content>
         <!-- Go to top -->
