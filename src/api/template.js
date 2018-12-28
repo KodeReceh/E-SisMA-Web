@@ -45,4 +45,11 @@ export default {
       },
     });
   },
+  storeFieldData (id, data) {
+    return axios.post(`${url}/${id}/field-form`, data, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      },
+    });
+  }
 };

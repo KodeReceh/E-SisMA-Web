@@ -30,7 +30,7 @@
                   required
                 ></v-text-field>
                 <div v-for="field in fields.gambar" v-bind:key="field.id">
-                  <v-text-field :label="'Pilih File ' + field.label" @click.passive="pickFile('file' + field.name)" :rules="nonEmptyRules" v-model="fieldModel[field.name]" prepend-icon="attach_file" required></v-text-field>
+                  <v-text-field :label="'Pilih File ' + field.label" @click.passive="pickFile('file' + field.name)" :rules="nonEmptyRules" v-model="fieldModel[field.name + 'Name']" prepend-icon="attach_file" readonly required></v-text-field>
                   <input
                     type="file"
                     style="display: none"
@@ -43,6 +43,7 @@
                   <v-btn
                     :disabled="!valid"
                     color="info"
+                    @click="submit"
                   >
                   submit
                   </v-btn>
@@ -97,7 +98,12 @@ export default {
   },
   methods: {
     submit () {
-      return;
+      if (this.$refs.form.validate()) {
+        const { id } = this.$route.params;
+        TemplateAPI.storeFieldData(id, this.fieldModel).then(response => {
+          console.log(response.data.data);
+        });
+      }
     },
     fetchTemplate () {
       const { id } = this.$route.params;
@@ -109,10 +115,13 @@ export default {
 
         response.data.data.text.forEach(t => {
           this.fieldModel[t.name] = '';
+          this.$set(this.fieldModel, t.name, null);
         });
         response.data.data.image.forEach(g => {
           this.fieldModel[g.name] = '';
           this.fieldModel[g.name + 'Name'] = '';
+          this.$set(this.fieldModel, g.name, null);
+          this.$set(this.fieldModel, g.name + 'Name', null);
         });
       });
     },
@@ -120,8 +129,8 @@ export default {
       const files = e.target.files;
       if (files[0] !== undefined) {
         if (files[0].type.match('image.*')) {
-          // this.fieldModel[field.name] = files[0];
-          this.fieldModel[field.name] = files[0].name;
+          this.fieldModel[field.name] = files[0];
+          this.fieldModel[field.name + 'Name'] = files[0].name;
         } else {
           this.fieldModel[field.name] = '';
           this.fieldModel[field.name + 'Name'] = '';
@@ -131,7 +140,10 @@ export default {
       } else {
         this.fieldModel[field.name] = '';
         this.fieldModel[field.name + 'Name'] = '';
+        this.$forceUpdate();
+
       }
+      this.$forceUpdate();
 
     },
     pickFile (ref) {
