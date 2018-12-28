@@ -222,6 +222,17 @@ export default [
     )
   },
   {
+    path: '/surat/draft-surat-keluar',
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
+    name: 'pages/surat/draft-surat-keluar',
+    component: () => import(
+      `@/pages/surat/keluar/draft/DraftSuratKeluar.vue`
+    )
+  }, 
+  {
     path: '/surat/keluar/create',
     meta: { 
       breadcrumb: false,

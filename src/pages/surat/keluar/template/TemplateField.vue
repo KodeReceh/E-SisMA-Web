@@ -27,7 +27,6 @@
             <template slot="items" slot-scope="props">            
             <td>{{ props.item.name }}</td>
             <td>{{ props.item.type_name }}</td>
-            <td>{{ props.item.role_name }}</td>
             <td>
                 <v-btn 
                     depressed 
@@ -100,10 +99,6 @@ export default {
           value: ''
         },
         {
-          text: 'Penanda Tangan',
-          value: ''
-        },
-        {
           text: 'Action',
           value: ''
         }
@@ -168,22 +163,6 @@ export default {
 
       return type.value;
     },
-    fetchRoles () {
-      RoleAPI.getList().then(response => {
-        this.roles = response.response.data;
-      }).catch(e => {
-        if (e.response) {
-          alert(e.response.status + ': ' + e.response.statusText);
-        }
-      });
-    },
-    getRoleName (roleId) {
-      let role = this.roles.find(function (r) {
-        return r.id === roleId;
-      });
-
-      return role ? role.title : 'Tidak ada';
-    }
   },
 };
 </script>

@@ -1,17 +1,17 @@
 import axios from 'axios';
 
-const url = 'villagers';
+const url = process.env.API_URL + '/outcoming-letter-drafts';
 
 export default {
-  all () {
-    return axios.get(url, {
+  getList () {
+    return axios.get(`${url}`, {
       headers: {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       }
     });
   },
-  getFields () {
-    return axios.get(`${url}/fields`, {
+  download (id) {
+    return axios.get(`${url}/${id}/download`, {
       headers: {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       }

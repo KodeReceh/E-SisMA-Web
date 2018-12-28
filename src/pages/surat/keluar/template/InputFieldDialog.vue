@@ -69,7 +69,7 @@
 
 <script>
 import TemplateFieldAPI from '@/api/template-field';
-import RoleAPI from '@/api/role';
+import VillagerAPI from '@/api/villager';
 
 export default {
   props: {
@@ -123,7 +123,7 @@ export default {
     };
   },
   mounted () {
-    this.fetchRoles();
+    this.fetchVillagerFields();
   },
   methods: {
     save () {
@@ -154,9 +154,9 @@ export default {
       this.dialog.isUpdate = false;
       this.dialog.data = null;
     },
-    fetchRoles () {
-      RoleAPI.getList().then(response => {
-        this.roles = response.data.data;
+    fetchVillagerFields () {
+      VillagerAPI.getFields().then(response => {
+        this.villagerFields = response.data.data;
       });
     }
   }

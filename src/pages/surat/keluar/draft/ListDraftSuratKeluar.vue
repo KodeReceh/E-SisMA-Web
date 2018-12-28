@@ -26,9 +26,9 @@
                 item-key="name"
                 >
                 <template slot="items" slot-scope="props">            
-                <td>{{ props.index + 1 }}</td>
-                <td>{{ props.item.title }}</td>
-                <td>{{ props.item.needs_villager_data_string }}</td>
+                <td>{{ props.item.template_name }}</td>
+                <td>{{ props.item.villager_name }}</td>
+                <td>{{ props.item.status }}</td>
                 <td>
                     <v-btn 
                         depressed 
@@ -36,47 +36,11 @@
                         icon 
                         fab 
                         dark 
-                        color="info" 
-                        small 
-                        :to="{
-                                name: 'CreateLetter',
-                                params: {
-                                  id: props.item.id
-                                }
-                            }">
-                    <v-icon>cached</v-icon>
-                    </v-btn>
-                    <v-btn 
-                        depressed 
-                        outline 
-                        icon 
-                        fab 
-                        dark 
                         color="primary" 
                         small 
-                        :to="{
-                                name: 'ShowTemplate',
-                                params: {
-                                  id: props.item.id
-                                }
-                            }">
-                    <v-icon>visibility</v-icon>
-                    </v-btn>
-                    <v-btn 
-                        depressed 
-                        outline 
-                        icon 
-                        fab 
-                        dark 
-                        color="primary" 
-                        small 
-                        :to="{
-                                name: 'EditTemplate',
-                                params: {
-                                  id: props.item.id
-                                }
-                            }">
-                    <v-icon>edit</v-icon>
+                        @click="downloadDraft(props.item.id)"
+                       >
+                    <v-icon>cloud</v-icon>
                     </v-btn>
                     <v-btn 
                         depressed 
@@ -85,55 +49,53 @@
                         fab 
                         dark 
                         color="warning" 
-                        small 
-                        @click="deleteButtonClicked(props.item.id)"
-                      >
+                        small>
                     <v-icon>delete</v-icon>
                     </v-btn>
                 </td>
                 </template>
             </v-data-table>
             </v-card-text>
-            <delete-confirmation
-            :confirmDeleteDialog="deleteDialog"
-            :onDeleteCancel="deleteCancel"
-            :onDeleteConfirm="deleteConfirm"
-            :loading="deleteLoading"
-            ></delete-confirmation>
         </v-card>
+        <DeleteConfirmation
+          :confirmDeleteDialog="deleteDialog"
+          :onDeleteCancel="deleteCancel"
+          :onDeleteConfirm="deleteConfirm"
+          :loading="deleteLoading"
+        ></DeleteConfirmation>
     </v-flex> 
 </template>
 
 <script>
-import TemplateAPI from '@/api/template';
+import LetterTemplateAPI from '@/api/letter-template';
 import DeleteConfirmation from '@/components/DeleteConfirmation';
 
 export default {
   components: {
-    DeleteConfirmation
+    DeleteConfirmation,
   },
   data () {
     return {
+      deleteLoading: false,
       deleteDialog: {
         state: false,
         title: '',
         detail: {},
       },
-      deleteLoading: false,
       table: {
         selected: [],
         headers: [
           {
-            text: '#',
-            value: ''
-          },
-          {
             text: 'Nama Template',
-            value: 'title'
+            value: 'template_name'
           },
           {
-            text: 'Butuh Data Penduduk',
-            value: 'needs_villager_data_string'
+            text: 'Nama Penduduk',
+            value: 'villager_name'
+          },
+          {
+            text: 'Status',
+            value: 'status'
           },
           {
             text: 'Action',
@@ -155,7 +117,7 @@ export default {
     },
     deleteConfirm () {
       this.deleteLoading = true;
-      TemplateAPI.delete(this.deleteDialog.detail.id).then(response => {
+      LetterTemplateAPI.delete(this.deleteDialog.detail.id).then(response => {
         this.deleteLoading = false;
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
@@ -168,19 +130,34 @@ export default {
       this.fetchList();
     },
     fetchList () {
+      let vm = this;
       let loader = this.$loading.show({
         container: null,
         canCancel: false,
       });
-      TemplateAPI.getList().then(response => {
+      LetterTemplateAPI.getList().then(response => {
         if (response.data.success) {
-          this.table.items = response.data.data;
+          vm.table.items = response.data.data;
           loader.hide();
         }
       }).catch(e => {
         loader.hide();
-        alert(e.response.status + ': ' + e.response.statusText);
       });
+    },
+    downloadDraft (id) {
+      LetterTemplateAPI.download(id).then(response => {
+        console.log(response);
+        this.downlaodFile(response.data, 'hasil.docx')
+      });
+    },
+    downlaodFile (blob, fileName) {
+      const theFile = new Blob([blob]);
+      const url = window.URL.createObjectURL(theFile);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
     }
   }
 };

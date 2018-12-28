@@ -93,15 +93,25 @@ export default {
   mounted () {
     this.fetchTemplate();
   },
-  updated () {
-    console.log(this.fieldModel);
-  },
   methods: {
     submit () {
       if (this.$refs.form.validate()) {
+        let loader = this.$loading.show({
+          container: null,
+          canCancel: false,
+        });
         const { id } = this.$route.params;
-        TemplateAPI.storeFieldData(id, this.fieldModel).then(response => {
-          console.log(response.data.data);
+        let formData = new FormData();
+
+        for (const key in this.fieldModel) {
+          if (this.fieldModel.hasOwnProperty(key)) {
+            formData.append(key, this.fieldModel[key]);
+          }
+        }
+
+        TemplateAPI.storeFieldData(id, formData).then(response => {
+          this.$router.push({ name: 'pages/surat/draft-surat-keluar' })
+          loader.hide();  
         });
       }
     },
