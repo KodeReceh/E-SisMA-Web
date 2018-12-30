@@ -8,6 +8,13 @@
             <div slot="widget-content">
               <v-container>
                 <v-form ref="form" v-model="valid" lazy-validation>
+                   <v-text-field
+                    v-model="fieldModel.letter_name"
+                    :rules="nonEmptyRules"
+                    label="Nama Surat"
+                    prepend-icon="title"
+                    required
+                  ></v-text-field>
                   <div v-if="template.needs_villager_data">
                   <v-autocomplete
                     v-model="fieldModel.villager_id"
@@ -85,7 +92,8 @@ export default {
         needs_villager_data: false
       },
       fieldModel: {
-        villager_id: ''
+        villager_id: '',
+        letter_name: '',
       },
       nonEmptyRules: [v => !!v || 'Isian ini tidak boleh kosong.'],
     };
@@ -110,7 +118,7 @@ export default {
         }
 
         TemplateAPI.storeFieldData(id, formData).then(response => {
-          this.$router.push({ name: 'pages/surat/draft-surat-keluar' })
+          this.$router.push({ name: 'pages/surat/draft-surat-keluar' });
           loader.hide();  
         });
       }

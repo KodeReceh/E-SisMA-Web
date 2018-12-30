@@ -40,11 +40,10 @@ export default {
   },
   download (data) {
     return axios.get(`${process.env.API_URL}/get-file/${data}`, {
+      responseType: 'blob',
       headers: {
-        'Content-Type': 'multipart/form-data',
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       },
-      responseType: 'blob',
     });
   }
 };

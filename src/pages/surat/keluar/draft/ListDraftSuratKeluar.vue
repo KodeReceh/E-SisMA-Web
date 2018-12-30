@@ -26,8 +26,8 @@
                 item-key="name"
                 >
                 <template slot="items" slot-scope="props">            
+                <td>{{ props.item.letter_name }}</td>
                 <td>{{ props.item.template_name }}</td>
-                <td>{{ props.item.villager_name }}</td>
                 <td>{{ props.item.status }}</td>
                 <td>
                     <v-btn 
@@ -38,7 +38,7 @@
                         dark 
                         color="primary" 
                         small 
-                        @click="downloadDraft(props.item.id)"
+                        @click="downloadDraft(props.item.id, props.item.letter_name)"
                        >
                     <v-icon>cloud</v-icon>
                     </v-btn>
@@ -69,6 +69,7 @@
 <script>
 import LetterTemplateAPI from '@/api/letter-template';
 import DeleteConfirmation from '@/components/DeleteConfirmation';
+import mime from 'mime-types';
 
 export default {
   components: {
@@ -86,12 +87,12 @@ export default {
         selected: [],
         headers: [
           {
-            text: 'Nama Template',
-            value: 'template_name'
+            text: 'Nama Surat',
+            value: 'letter_name'
           },
           {
-            text: 'Nama Penduduk',
-            value: 'villager_name'
+            text: 'Nama Template',
+            value: 'template_name'
           },
           {
             text: 'Status',
@@ -144,16 +145,18 @@ export default {
         loader.hide();
       });
     },
-    downloadDraft (id) {
+    downloadDraft (id, name) {
       LetterTemplateAPI.download(id).then(response => {
-        console.log(response);
-        this.downlaodFile(response.data, 'hasil.docx')
+        const type = response.headers['content-type'];
+        const fileName = name + '.' + mime.extension(type);
+        this.downloadFile(response.data, fileName, type);
       });
     },
-    downlaodFile (blob, fileName) {
-      const theFile = new Blob([blob]);
-      const url = window.URL.createObjectURL(theFile);
+    downloadFile (blob, fileName, type) {
+      const theFile = new Blob([blob], { type: type });
+      
       const link = document.createElement('a');
+      const url = window.URL.createObjectURL(theFile);
       link.href = url;
       link.download = fileName;
       document.body.appendChild(link);

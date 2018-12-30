@@ -11,7 +11,8 @@ export default {
     });
   },
   download (id) {
-    return axios.get(`${url}/${id}/download`, {
+    return axios.get(`${url}/download/${id}`, {
+      responseType: 'blob',
       headers: {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       }

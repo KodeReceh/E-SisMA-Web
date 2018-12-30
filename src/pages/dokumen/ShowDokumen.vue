@@ -106,14 +106,14 @@ export default {
       });
       DocumentAPI.download(file.path).then(response => {
         const fileName = file.title + '.' + file.file_extension;
-        this.showFile(response.data, fileName, file.file_type);
+        this.showFile(response.data, fileName, file.file_type, file.file_extension);
         loader.hide();
       }).catch(e => {
         loader.hide();
         alert(e.response.status + ': ' + e.response.statusText);
       });
     },
-    showFile (blob, fileName, fileType) {
+    showFile (blob, fileName, fileType, ext) {
       const theFile = new Blob([blob], { type: fileType });
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
         window.navigator.msSaveOrOpenBlob(theFile);
@@ -125,7 +125,14 @@ export default {
       link.download = fileName;
       document.body.appendChild(link);
       link.click();
-      window.open(url, '_blank');
+      if (ext === 'mp3' ||
+        ext === 'mp4' ||
+        ext === 'pdf' ||
+        ext === 'jpg' ||
+        ext === 'png' ||
+        ext === 'webm') {
+        window.open(url, '_blank');
+      }
       setTimeout(function () {
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
