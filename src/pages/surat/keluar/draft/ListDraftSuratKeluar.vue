@@ -31,25 +31,27 @@
                 <td>{{ props.item.status }}</td>
                 <td>
                     <v-btn 
-                        depressed 
-                        outline 
-                        icon 
-                        fab 
-                        dark 
-                        color="primary" 
-                        small 
-                        @click="downloadDraft(props.item.id, props.item.letter_name)"
-                       >
+                      depressed 
+                      outline 
+                      icon 
+                      fab 
+                      dark 
+                      color="primary" 
+                      small 
+                      @click="downloadDraft(props.item.id, props.item.letter_name)"
+                    >
                     <v-icon>cloud</v-icon>
                     </v-btn>
                     <v-btn 
-                        depressed 
-                        outline 
-                        icon 
-                        fab 
-                        dark 
-                        color="warning" 
-                        small>
+                      depressed 
+                      outline 
+                      icon 
+                      fab 
+                      dark 
+                      color="warning" 
+                      small
+                      @click="deleteButtonClicked(props.item.id)"
+                    >
                     <v-icon>delete</v-icon>
                     </v-btn>
                 </td>
@@ -131,14 +133,13 @@ export default {
       this.fetchList();
     },
     fetchList () {
-      let vm = this;
       let loader = this.$loading.show({
         container: null,
         canCancel: false,
       });
       LetterTemplateAPI.getList().then(response => {
         if (response.data.success) {
-          vm.table.items = response.data.data;
+          this.table.items = response.data.data;
           loader.hide();
         }
       }).catch(e => {
@@ -146,15 +147,21 @@ export default {
       });
     },
     downloadDraft (id, name) {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
       LetterTemplateAPI.download(id).then(response => {
         const type = response.headers['content-type'];
         const fileName = name + '.' + mime.extension(type);
         this.downloadFile(response.data, fileName, type);
+        loader.hide();
+      }).catch(e => {
+        loader.hide();
       });
     },
     downloadFile (blob, fileName, type) {
       const theFile = new Blob([blob], { type: type });
-      
       const link = document.createElement('a');
       const url = window.URL.createObjectURL(theFile);
       link.href = url;

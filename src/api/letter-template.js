@@ -17,5 +17,12 @@ export default {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       }
     });
+  },
+  delete (id) {
+    return axios.delete(`${url}/delete/${id}`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      }
+    });
   }
 };
