@@ -48,7 +48,7 @@
           :onDeleteCancel="deleteCancel"
           :onDeleteConfirm="deleteConfirm"
         ></DeleteConfirmation>
-        <InputFieldDialog :dialog="dialog" :fetchFields="fetchFields" :field="field"></InputFieldDialog> 
+        <InputFieldDialog :dialog="dialog" :fetchFields="fetchFields" :field="field" :uniqueData="uniqueData"></InputFieldDialog> 
     </v-card>
 </template>
 
@@ -111,6 +111,10 @@ export default {
       title: '',
       detail: {},
     },
+    uniqueData: {
+      fields: [],
+      signs: []
+    }
   }),
   mounted () {
     this.fetchFields();
@@ -137,6 +141,16 @@ export default {
       const { id } = this.$route.params;
       TemplateFieldAPI.getList(id).then(response => {
         this.table.items = response.data.data;
+        let fields = [];
+        let signs = [];
+        response.data.data.forEach(field => {
+          fields.push(field.name);
+          if (field.user_id) signs.push(field.user_id);
+        });
+        this.uniqueData = {
+          fields: fields,
+          signs: signs
+        };
         loader.hide();
       });
     },

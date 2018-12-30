@@ -9,5 +9,12 @@ export default {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       },
     });
+  },
+  getUsersForSelectOption () {
+    return axios.get(`${url}/select-options`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      },
+    });
   }
 };

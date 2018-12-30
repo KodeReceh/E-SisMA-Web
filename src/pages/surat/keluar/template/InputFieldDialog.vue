@@ -23,14 +23,14 @@
                 ></v-autocomplete>
               </v-flex>
               <v-flex xs12>
-                <v-text-field v-if="field.field_type !== 3 || !field.field_type" label="Nama Field" :rules="fieldNameRules" :required="field.field_type !== 3 || !field.field_type" v-model="field.name" prepend-icon="title"></v-text-field>
+                <v-text-field v-if="field.field_type !== 3 || !field.field_type" label="Nama Field" :rules="fieldNameRules" :required="field.field_type !== 3 || !field.field_type" v-model="field.name" prepend-icon="title" @keyup.enter="save"></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-autocomplete
                   v-if="field.field_type === 3"
                   v-model="field.name"
                   :items="villagerFields"
-                  :rules="[v => !!v || 'Inputan nama field tidak boleh kosong.']"
+                  :rules="fieldNameRules"
                   prepend-icon="title"
                   label="Nama Field"
                   :required="field.field_type === 3"
@@ -42,21 +42,20 @@
               <v-flex xs12>
                 <v-autocomplete
                   v-if="field.field_type === 4"
-                  v-model="field.role_id"
-                  :items="roles"
-                  :rules="[v => !!v || 'Inputan tipe jabatan penanda tangan tidak boleh kosong.']"
+                  v-model="field.user_id"
+                  :items="users"
+                  :rules="signUserRules"
                   prepend-icon="done_all"
-                  label="Jabatan Penanda Tangan"
+                  label="Penanda Tangan"
                   :required="field.field_type === 4"
-                  item-text="title"
-                  item-value="title"
+                  item-text="name"
+                  item-value="id"
                   :chips="true"
                 ></v-autocomplete>
               </v-flex>
             </v-layout>
           </v-form>
         </v-container>
-        <small>*wajib diisi</small>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -69,7 +68,6 @@
 
 <script>
 import TemplateFieldAPI from '@/api/template-field';
-import VillagerAPI from '@/api/villager';
 
 export default {
   props: {
@@ -87,7 +85,14 @@ export default {
         id: '',
         name: '',
         field_type: '',
-        role_id: '',
+        user_id: '',
+      }
+    },
+    uniqueData: {
+      type: Object,
+      default: {
+        fields: [],
+        signs: []
       }
     }
   },
@@ -115,15 +120,20 @@ export default {
         }
       ],
       villagerFields: [],
-      roles: [],
+      users: [],
       fieldNameRules: [
         (v) => !!v || 'Nama field is required',
-        (v) => (v ? (v.match(/^\S*$/) ? true : false) : false) || 'Tidak boleh ada spasi dalam nama field'
+        (v) => (v ? (v.match(/^\w+$/) ? true : false) : false) || 'Hanya boleh membuat nama field dengan alfabet, angka, dan underscore (_)',
+        (v) => !this.uniqueData.fields.includes(v) || 'Field dengan nama ini sudah ada.'
+      ],
+      signUserRules: [
+        (v) => !!v || 'Penanda tangan tidak boleh kosong.',
+        (v) => !this.uniqueData.signs.includes(v) || 'Penanda tangan ini sudah ada.'
       ]
     };
   },
   mounted () {
-    this.fetchVillagerFields();
+    this.fetchResources();
   },
   methods: {
     save () {
@@ -132,7 +142,7 @@ export default {
         let formData = new FormData();
         formData.append('name', this.field.name);
         formData.append('type', this.field.field_type);
-        formData.append('role_id', this.field.role_id);
+        formData.append('user_id', this.field.user_id);
         const { id } = this.$route.params;
         TemplateFieldAPI.store(id, formData).then(response => {
           this.onClosedDialog();
@@ -154,9 +164,10 @@ export default {
       this.dialog.isUpdate = false;
       this.dialog.data = null;
     },
-    fetchVillagerFields () {
-      VillagerAPI.getFields().then(response => {
-        this.villagerFields = response.data.data;
+    fetchResources () {
+      TemplateFieldAPI.getResources().then(response => {
+        this.villagerFields = response.data.data.villager_fields;
+        this.users = response.data.data.users;
       });
     }
   }

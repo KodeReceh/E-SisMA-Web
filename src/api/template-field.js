@@ -30,5 +30,12 @@ export default {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       }
     });
+  },
+  getResources () {
+    return axios.get(`${url}/get-field-resources`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      }
+    });
   }
 };
