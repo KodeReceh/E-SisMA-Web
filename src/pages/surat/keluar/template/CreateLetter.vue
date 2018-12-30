@@ -133,13 +133,10 @@ export default {
 
         response.data.data.text.forEach(t => {
           this.fieldModel[t.name] = '';
-          this.$set(this.fieldModel, t.name, null);
         });
         response.data.data.image.forEach(g => {
           this.fieldModel[g.name] = '';
           this.fieldModel[g.name + 'Name'] = '';
-          this.$set(this.fieldModel, g.name, null);
-          this.$set(this.fieldModel, g.name + 'Name', null);
         });
       });
     },
