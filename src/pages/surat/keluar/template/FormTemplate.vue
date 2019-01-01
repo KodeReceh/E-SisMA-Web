@@ -67,8 +67,7 @@ export default {
     onFilePicked (e) {
       const files = e.target.files;
       if (files[0] !== undefined) {
-        if (this.getFileExtension(files[0].name) === 'doc' || 
-        this.getFileExtension(files[0].name) === 'docx') {
+        if (this.getFileExtension(files[0].name) === 'docx') {
           this.template.template_file = files[0];
           this.template.fileName = files[0].name;
         } else {
