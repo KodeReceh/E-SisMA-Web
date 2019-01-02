@@ -39,5 +39,19 @@ export default {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       }
     });
+  },
+  sign (id) {
+    return axios.get(`${url}/sign/${id}`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      }
+    });
+  },
+  unsign (id) {
+    return axios.get(`${url}/unsign/${id}`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      }
+    });
   }
 };

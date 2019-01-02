@@ -4,6 +4,10 @@
       <v-layout row wrap>
         <v-btn :round="true" flat :to="{ name: 'pages/surat/draft-surat-keluar'}"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
         <v-spacer></v-spacer>
+        <div v-if="letter.sign">
+          <v-btn v-if="!letter.sign.has_signed" color="primary" @click="sign()">Tanda Tangan</v-btn>
+          <v-btn v-if="letter.sign.has_signed" color="primary" @click="unsign()">Batal Tanda Tangan</v-btn>
+        </div>
         <v-btn v-if="letter.generated_file" color="error" @click="deleteGeneratedFile()">Hapus File Surat</v-btn>
         <v-flex sm12>
           <v-widget title="Detail Draft Surat Keluar">
@@ -35,7 +39,7 @@
                 </v-layout>
                 <v-layout align-center row spacer slot="header" v-for="(value, key) in letter.data" v-bind:key="key">
                   <v-flex xs4 sm2 md3>
-                    <p class="font-weight-bold">{{ capitalizeFirstChar(key.replace(/_/g, " ")) }}</p>                        
+                    <p class="font-weight-bold">{{ key.replace(/_/g, " ") }}</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
                     <p class="font-weight-regular">{{ value }}</p>
@@ -43,7 +47,7 @@
                 </v-layout>
                 <v-layout align-center row spacer slot="header" v-for="(value, key) in letter.villager_data" v-bind:key="key">
                   <v-flex xs4 sm2 md3>
-                    <p class="font-weight-bold">{{ capitalizeFirstChar(key.replace(/_/g, " ")) + ' Penduduk' }}</p>                        
+                    <p class="font-weight-bold">{{ key.replace(/_/g, " ") + ' Penduduk' }}</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
                     <p class="font-weight-regular">{{ value }}</p>
@@ -51,7 +55,7 @@
                 </v-layout>
                 <v-layout align-center row spacer slot="header" v-for="(value, key) in letter.signations_status" v-bind:key="key">
                   <v-flex xs4 sm2 md3>
-                    <p class="font-weight-bold">{{ 'Tanda Tangan ' + capitalizeFirstChar(key.replace(/_/g, " ")) }}</p>                        
+                    <p class="font-weight-bold">{{ key.replace(/_/g, " ") }}</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
                     <p class="font-weight-regular">{{ value ? 'Sudah' : 'Belum' }}</p>
@@ -86,7 +90,8 @@ export default {
         is_all_signed: '',
         template_name: '',
         template: {},
-        villager: {}
+        villager: {},
+        sign: ''
       },
     };
   },
@@ -106,9 +111,6 @@ export default {
         loader.hide();
       });
     },
-    capitalizeFirstChar (str) {
-      return str.replace(/^\w/, c => c.toUpperCase());
-    },
     deleteGeneratedFile () {
       let loader = this.$loading.show({
         container: null,
@@ -119,7 +121,35 @@ export default {
         this.letter.data = JSON.parse(this.letter.data);
         loader.hide();
       });
+    },
+    sign () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
+      LetterTemplateAPI.sign(this.letter.id).then(response => {
+        this.letter = response.data.data;
+        this.letter.data = JSON.parse(this.letter.data);
+        loader.hide();
+      });
+    },
+    unsign () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
+      LetterTemplateAPI.unsign(this.letter.id).then(response => {
+        this.letter = response.data.data;
+        this.letter.data = JSON.parse(this.letter.data);
+        loader.hide();
+      });
     }
   }
 };
 </script>
+
+<style scoped>
+.font-weight-bold {
+  text-transform: capitalize;
+}
+</style>
