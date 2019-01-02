@@ -157,7 +157,7 @@ export default [
     )
   },
   {
-    path: '/surat/keluar/template',
+    path: '/surat/template-surat-keluar',
     meta: { 
       breadcrumb: false,
       requiresAuth: true,
@@ -168,7 +168,7 @@ export default [
     )
   }, 
   {
-    path: '/surat/keluar/template/create',
+    path: '/surat/template-surat-keluar/create',
     meta: { 
       breadcrumb: false,
       requiresAuth: true,
@@ -179,7 +179,7 @@ export default [
     )
   }, 
   {
-    path: '/surat/keluar/template/:id/create-letter',
+    path: '/surat/template-surat-keluar/:id/create-letter',
     meta: { 
       breadcrumb: false,
       requiresAuth: true,
@@ -190,7 +190,7 @@ export default [
     )
   }, 
   {
-    path: '/surat/keluar/template/:id/edit',
+    path: '/surat/template-surat-keluar/:id/edit',
     meta: { 
       breadcrumb: false,
       requiresAuth: true,
@@ -201,7 +201,7 @@ export default [
     )
   }, 
   {
-    path: '/surat/keluar/template/:id',
+    path: '/surat/template-surat-keluar/:id',
     meta: { 
       breadcrumb: false,
       requiresAuth: true,
@@ -230,6 +230,17 @@ export default [
     name: 'pages/surat/draft-surat-keluar',
     component: () => import(
       `@/pages/surat/keluar/draft/DraftSuratKeluar.vue`
+    )
+  }, 
+  {
+    path: '/surat/draft-surat-keluar/:id',
+    meta: { 
+      breadcrumb: false,
+      requiresAuth: true,
+    },
+    name: 'ShowDraftSuratKeluar',
+    component: () => import(
+      `@/pages/surat/keluar/draft/ShowDraftSuratKeluar.vue`
     )
   }, 
   {

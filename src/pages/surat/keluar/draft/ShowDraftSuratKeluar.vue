@@ -1,0 +1,125 @@
+<template>
+   <div>
+    <v-container grid-list-xl fluid>
+      <v-layout row wrap>
+        <v-btn :round="true" flat :to="{ name: 'pages/surat/draft-surat-keluar'}"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn v-if="letter.generated_file" color="error" @click="deleteGeneratedFile()">Hapus File Surat</v-btn>
+        <v-flex sm12>
+          <v-widget title="Detail Draft Surat Keluar">
+            <div slot="widget-content">
+              <v-container>
+                <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">Nama Surat</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9>
+                    <p class="font-weight-regular" v-html="letter.letter_name"/>
+                  </v-flex>
+                </v-layout>
+                <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">Nama Template</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9>
+                    <p class="font-weight-regular" v-html="letter.template_name"/>
+                  </v-flex>
+                </v-layout>
+                <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">Status</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9 >
+                    <p class="font-weight-regular">{{ letter.status ? 'Selesai' : 'Draft' }}</p>
+                  </v-flex>
+                </v-layout>
+                <v-layout align-center row spacer slot="header" v-for="(value, key) in letter.data" v-bind:key="key">
+                  <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">{{ capitalizeFirstChar(key.replace(/_/g, " ")) }}</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9 >
+                    <p class="font-weight-regular">{{ value }}</p>
+                  </v-flex>
+                </v-layout>
+                <v-layout align-center row spacer slot="header" v-for="(value, key) in letter.villager_data" v-bind:key="key">
+                  <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">{{ capitalizeFirstChar(key.replace(/_/g, " ")) + ' Penduduk' }}</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9 >
+                    <p class="font-weight-regular">{{ value }}</p>
+                  </v-flex>
+                </v-layout>
+                <v-layout align-center row spacer slot="header" v-for="(value, key) in letter.signations_status" v-bind:key="key">
+                  <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">{{ 'Tanda Tangan ' + capitalizeFirstChar(key.replace(/_/g, " ")) }}</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9 >
+                    <p class="font-weight-regular">{{ value ? 'Sudah' : 'Belum' }}</p>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </div>
+          </v-widget>
+        </v-flex>
+      </v-layout>
+    </v-container>
+  </div>
+</template>
+
+<script>
+import LetterTemplateAPI from '@/api/letter-template';
+import VWidget from '@/components/VWidget';
+
+export default {
+  components: {
+    VWidget
+  },
+  data () {
+    return {
+      letter: {
+        id: '',
+        letter_name: '',
+        status: '',
+        data: {},
+        signations_status: {},
+        needs_villager_data: '',
+        is_all_signed: '',
+        template_name: '',
+        template: {},
+        villager: {}
+      },
+    };
+  },
+  mounted () {
+    const { id } = this.$route.params;
+    this.fetchDraft(id);
+  },
+  methods: {
+    fetchDraft (id) {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
+      LetterTemplateAPI.getDraft(id).then(response => {
+        this.letter = response.data.data;
+        this.letter.data = JSON.parse(this.letter.data);
+        loader.hide();
+      });
+    },
+    capitalizeFirstChar (str) {
+      return str.replace(/^\w/, c => c.toUpperCase());
+    },
+    deleteGeneratedFile () {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
+      LetterTemplateAPI.deleteGeneratedFile(this.letter.id).then(response => {
+        this.letter = response.data.data;
+        this.letter.data = JSON.parse(this.letter.data);
+        loader.hide();
+      });
+    }
+  }
+};
+</script>

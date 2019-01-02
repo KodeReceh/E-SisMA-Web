@@ -28,7 +28,7 @@
                 <template slot="items" slot-scope="props">            
                 <td>{{ props.item.letter_name }}</td>
                 <td>{{ props.item.template_name }}</td>
-                <td>{{ props.item.status }}</td>
+                <td>{{ props.item.status ? 'Selesai' : 'Draft' }}</td>
                 <td>
                     <v-btn 
                       depressed 
@@ -38,9 +38,26 @@
                       dark 
                       color="primary" 
                       small 
-                      @click="downloadDraft(props.item.id, props.item.letter_name)"
+                      @click="downloadButtonClicked(props.item.id, props.item.letter_name, props.item.is_all_signed)"
                     >
                     <v-icon>cloud</v-icon>
+                    </v-btn>
+                    <v-btn 
+                      depressed 
+                      outline 
+                      icon 
+                      fab 
+                      dark 
+                      color="primary" 
+                      small
+                      :to="{
+                        name : 'ShowDraftSuratKeluar',
+                        params: {
+                          id: props.item.id
+                        } 
+                      }"
+                    >
+                    <v-icon>visibility</v-icon>
                     </v-btn>
                     <v-btn 
                       depressed 
@@ -65,6 +82,12 @@
           :onDeleteConfirm="deleteConfirm"
           :loading="deleteLoading"
         ></DeleteConfirmation>
+        <confirmation
+          :onConfirm="onConfirm"
+          :onCancel="onCancel"
+          :confirmDialog="confirmDialog"
+          :loading="false">
+        </confirmation>
     </v-flex> 
 </template>
 
@@ -72,13 +95,23 @@
 import LetterTemplateAPI from '@/api/letter-template';
 import DeleteConfirmation from '@/components/DeleteConfirmation';
 import mime from 'mime-types';
+import Confirmation from '@/components/Confirmation';
 
 export default {
   components: {
     DeleteConfirmation,
+    Confirmation
   },
   data () {
     return {
+      confirmDialog: {
+        state: false,
+        title: 'Konfirmasi Buat Surat',
+        detail: {},
+        question: 'Draft surat belum ditanda tangani oleh semua penanda tangan. Tetap lanjutkan?',
+        confirmTitle: 'Lanjut',
+        cancelTitle: 'Batalkan',
+      },
       deleteLoading: false,
       deleteDialog: {
         state: false,
@@ -145,6 +178,23 @@ export default {
       }).catch(e => {
         loader.hide();
       });
+    },
+    downloadButtonClicked (id, name, signed) {
+      if (signed) {
+        this.downloadDraft(id, name);
+      } else {
+        this.confirmDialog.state = true;
+        this.confirmDialog.detail = { id: id, name: name };
+      }
+    },
+    onConfirm () {
+      this.downloadDraft(this.confirmDialog.detail.id, this.confirmDialog.detail.name);
+      this.confirmDialog.state = false;
+      this.confirmDialog.detail = {};
+    },
+    onCancel () {
+      this.confirmDialog.state = false;
+      this.confirmDialog.detail = {};
     },
     downloadDraft (id, name) {
       let loader = this.$loading.show({

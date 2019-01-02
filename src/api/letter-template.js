@@ -25,5 +25,19 @@ export default {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       }
     });
+  },
+  getDraft (id) {
+    return axios.get(`${url}/${id}`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      }
+    });
+  },
+  deleteGeneratedFile (id) {
+    return axios.delete(`${url}/generated-file/${id}`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      }
+    });
   }
 };
