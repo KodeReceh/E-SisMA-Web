@@ -13,6 +13,7 @@ export default {
   download (id) {
     return axios.get(`${url}/download/${id}`, {
       responseType: 'blob',
+      'Cache-Control': 'no-cache',
       headers: {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       }
