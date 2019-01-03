@@ -17,38 +17,18 @@
         <td>{{ props.item.name }}</td>
         <td>{{ props.item.role }}</td>
         <td>
-            <v-btn color="secondary" outline>disposisi</v-btn>
-            <v-btn 
-                depressed 
-                outline 
-                icon 
-                fab 
-                dark 
-                color="warning" 
-                small @click="deleteButtonClicked(props.item.letter_id)"
-                v-tooltip.auto="`Hapus`">
-            <v-icon>delete</v-icon>
-            </v-btn>
+            <v-btn color="secondary" @click="disposisiButtonClicked(props.item.id)" outline>disposisi</v-btn>
         </td>
         </template>
     </v-data-table>
     </v-card-text>
-    <DeleteConfirmation
-      :confirmDeleteDialog="deleteDialog"
-      :onDeleteCancel="deleteCancel"
-      :onDeleteConfirm="deleteConfirm"
-    ></DeleteConfirmation>
     </v-card>
 </template>
 
 <script>
 import RecipientAPI from '@/api/recipient';
-import DeleteConfirmation from '../../../components/DeleteConfirmation';
 
 export default {
-  components: {
-    DeleteConfirmation, 
-  },
   data: () => ({
     receipient: {
       user_id: '',
@@ -86,29 +66,29 @@ export default {
   },
   methods: {
     fetchRecipients () {
-      let letter_id = this.$route.params.id;
-      RecipientAPI.getRecipients(letter_id).then(response => {
+      let letterId = this.$route.params.id;
+      RecipientAPI.getRecipients(letterId).then(response => {
         this.table.items = response.data.data;
       });
     },
-    deleteButtonClicked (id) {
-      this.deleteDialog.state = true;
-      this.deleteDialog.detail = { id: id };
-    },
-    deleteConfirm () {
-      this.deleteLoading = true;
-      let letter_id = this.$route.params.id;
-      RecipientAPI.delete(letter_id, this.deleteDialog.detail.id).then(response => {
-        this.deleteLoading = false;
-        this.deleteDialog.state = false;
-        this.deleteDialog.detail = {};
-        this.$router.push({ name: 'pages/surat/masuk' });
+    disposisiButtonClicked (userId) {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
+      let letterId = this.$route.params.id;
+      RecipientAPI.getDisposition(letterId, userId).then(response => {
+        loader.hide();
+        this.$router.push({ name: 'ShowDisposisiSuratMasuk', params: { id: letterId, user_id: userId }});
+      }).catch((e) => {
+        loader.hide();
+        if (e.response.status === 404) {
+          this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: letterId }});
+          return;
+        }
+        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
-    deleteCancel () {
-      this.deleteDialog.state = false;
-      this.deleteDialog.detail = {};
-    },
-  }
+  },
 };
 </script>

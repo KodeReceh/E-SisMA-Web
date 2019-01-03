@@ -4,7 +4,6 @@
       <v-layout row wrap>
         <v-btn :round="true" flat :to="{ name: 'pages/surat/masuk'}"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="secondary" outline @click="disposisiButtonClicked">disposisi</v-btn>
         <v-btn small fab dark color="info" :to="{ name: 'EditSuratMasuk', params: { id: this.$route.params.id }}">
           <v-icon>edit</v-icon>
         </v-btn>
@@ -152,23 +151,6 @@ export default {
       IncomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
         loader.hide();
-      });
-    },
-    disposisiButtonClicked () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
-      IncomingLetterAPI.getDisposition(this.letter.id).then(response => {
-        loader.hide();
-        this.$router.push({ name: 'ShowDisposisiSuratMasuk', params: { id: this.letter.id }});
-      }).catch((e) => {
-        loader.hide();
-        if (e.response.status === 404) {
-          this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: this.letter.id }});
-          return;
-        }
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     deleteButtonClicked (id) {

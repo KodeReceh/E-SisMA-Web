@@ -44,5 +44,12 @@ export default {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       }
     });
+  },
+  getDisposition (letterId, userId) {
+    return axios.get(`${url}/${userId}/disposition/${letterId}`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      }
+    });
   }
 };
