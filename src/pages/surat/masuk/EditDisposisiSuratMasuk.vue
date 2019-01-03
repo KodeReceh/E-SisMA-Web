@@ -22,7 +22,6 @@ import FormDisposisiSuratMasuk from './FormDisposisiSuratMasuk';
 import IncomingLetterAPI from '@/api/incoming-letter';
 import UserAPI from '@/api/user';
 import VWidget from '@/components/VWidget';
-import UserVue from '../../user/User.vue';
 
 export default {
   components: {
@@ -36,17 +35,14 @@ export default {
         number: '',
       },
       disposition: {
-        incoming_letter_id: '',
         processing_date: '',
         information: '',
         summary: '',
-        user_id: '',
       },
     };
   },
   mounted () {
     const { id } = this.$route.params;
-    this.fetchUser();
     this.fetchSuratMasuk(id);
     this.fetchDisposisiSuratMasuk(id);
   },
@@ -59,11 +55,6 @@ export default {
     fetchDisposisiSuratMasuk (id) {
       IncomingLetterAPI.getDisposition(id).then(response => {
         this.disposition = response.data.data;
-      });
-    },
-    fetchUser () {
-      UserAPI.get(localStorage.getItem('__id__')).then(response => {
-        this.disposition.user_id = response.data.data.id;
       });
     },
     submit () {

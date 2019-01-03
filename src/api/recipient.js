@@ -45,11 +45,4 @@ export default {
       }
     });
   },
-  getDisposition (letterId, userId) {
-    return axios.get(`${url}/${userId}/disposition/${letterId}`, {
-      headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
-      }
-    });
-  }
 };

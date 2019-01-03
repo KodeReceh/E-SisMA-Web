@@ -16,9 +16,8 @@
         <td>{{ props.index + 1 }}</td>
         <td>{{ props.item.name }}</td>
         <td>{{ props.item.role }}</td>
-        <td>
-            <v-btn color="secondary" @click="disposisiButtonClicked(props.item.id)" outline>disposisi</v-btn>
-        </td>
+        <td v-if="props.item.status"><router-link to="#">Terdisposisi</router-link></td>
+        <td v-else>Belum Terdisposisi</td>
         </template>
     </v-data-table>
     </v-card-text>
@@ -49,8 +48,8 @@ export default {
           value: 'role'
         },
         {
-          text: 'Action',
-          value: ''
+          text: 'Status',
+          value: 'status'
         }
       ],
       items: [],
@@ -77,7 +76,7 @@ export default {
         canCancel: false,
       });
       let letterId = this.$route.params.id;
-      RecipientAPI.getDisposition(letterId, userId).then(response => {
+      RecipientAPI.get(letterId, userId).then(response => {
         loader.hide();
         this.$router.push({ name: 'ShowDisposisiSuratMasuk', params: { id: letterId, user_id: userId }});
       }).catch((e) => {

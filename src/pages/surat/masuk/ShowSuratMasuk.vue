@@ -4,12 +4,16 @@
       <v-layout row wrap>
         <v-btn :round="true" flat :to="{ name: 'pages/surat/masuk'}"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
         <v-spacer></v-spacer>
+        <v-btn v-if="letter.is_client_recipient" color="secondary" outline @click="disposisiButtonClicked">disposisi</v-btn>
         <v-btn small fab dark color="info" :to="{ name: 'EditSuratMasuk', params: { id: this.$route.params.id }}">
           <v-icon>edit</v-icon>
         </v-btn>
         <v-btn small fab dark color="error" @click="deleteButtonClicked(letter.id)">
           <v-icon>delete</v-icon>
         </v-btn>
+        <v-flex sm12>
+          <h3><strong>{{ letter.number }}</strong> <small>{{ letter.subject }}</small></h3>
+        </v-flex>
         <v-flex sm12>
           <list-recipient-surat-masuk ref="listRecipient"></list-recipient-surat-masuk>
         </v-flex>
@@ -133,6 +137,7 @@ export default {
         sub_letter_code_id: null,
         letter_code_name: ''
       },
+      is_client_recipient: ''
     };
   },
   beforeMount () {
@@ -150,7 +155,22 @@ export default {
       });
       IncomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
+        this.is_client_recipient = response.data.is_client_recipient;
         loader.hide();
+      });
+    },
+    disposisiButtonClicked (userId) {
+      let loader = this.$loading.show({
+        container: null,
+        canCancel: false,
+      });
+      IncomingLetterAPI.getDisposition(this.letter.id).then(response => {
+        loader.hide();
+        if (response.data.data.status) this.$router.push({ name: 'ShowDisposisiSuratMasuk', params: { id: this.letter.id }});
+        else this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: this.letter.id }});
+      }).catch((e) => {
+        loader.hide();
+        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     deleteButtonClicked (id) {
