@@ -2,8 +2,9 @@
    <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat :to="{ name: 'pages/surat/masuk'}"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
+        <v-btn :round="true" flat :to="{ name: 'pages/surat/masuk'}"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
         <v-spacer></v-spacer>
+        <v-btn color="primary" @click="documentButtonClicked()"><v-icon color="secondary">file_copy</v-icon>&nbsp;file</v-btn>
         <v-btn v-if="letter.is_client_recipient" color="secondary" outline @click="disposisiButtonClicked">disposisi</v-btn>
         <v-btn small fab dark color="info" :to="{ name: 'EditSuratMasuk', params: { id: this.$route.params.id }}">
           <v-icon>edit</v-icon>
@@ -12,6 +13,7 @@
           <v-icon>delete</v-icon>
         </v-btn>
         <v-flex sm12>
+          <v-divider></v-divider>
           <h3><strong>{{ letter.number }}</strong> <small>{{ letter.subject }}</small></h3>
         </v-flex>
         <v-flex sm12>
@@ -135,7 +137,8 @@ export default {
         attachments: 0,
         letter_code_id: null,
         sub_letter_code_id: null,
-        letter_code_name: ''
+        letter_code_name: '',
+        document_id: ''
       },
       is_client_recipient: ''
     };
@@ -190,6 +193,25 @@ export default {
       this.deleteDialog.state = false;
       this.deleteDialog.detail = {};
     },
+    documentButtonClicked () {
+      const { id } = this.$route.params;
+      if (this.letter.document_id) {
+        this.$router.push({
+          name: 'ShowDokumen',
+          params: {
+            id: this.letter.document_id
+          }
+        });
+      } else {
+        this.$router.push({
+          name: 'CreateDokumenSuratMasuk',
+          params: {
+            letter_id: this.letter.id
+          }
+        });
+      }
+      return;
+    }
   }
 };
 </script>

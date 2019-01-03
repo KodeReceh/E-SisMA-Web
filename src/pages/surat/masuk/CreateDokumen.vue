@@ -2,9 +2,9 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat :to="{ name: 'Dokumen'}"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
+        <v-btn :round="true" flat @click="$router.go(-1)"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
         <v-flex sm12>
-          <v-widget title="Edit Dokumen">
+          <v-widget title="Buat Dokumen">
             <div slot="widget-content">
               <v-container>
                 <FormDokumen :document="document" :onSubmit="submit" :isUpdate="isUpdate"></FormDokumen>
@@ -18,9 +18,10 @@
 </template>
 
 <script>
-import FormDokumen from './FormDokumen';
+import FormDokumen from '../../dokumen/FormDokumen';
 import VWidget from '@/components/VWidget';
 import DocumentAPI from '@/api/document';
+import LetterAPI from '@/api/letter';
 
 export default {
   components: {
@@ -30,20 +31,20 @@ export default {
   data () {
     return {
       document: {
-        id: '',
         title: '',
         date: '',
-        file: null,
-        fileName: '',
         description: '',
-        file_type: ''
+        fileName: '',
+        file: null,
+        file_type: '',
+        letter_id: '',
       },
-      isUpdate: true,
+      isUpdate: false,
     };
   },
   mounted () {
     const { id } = this.$route.params;
-    this.fetchDokumen(id);
+    this.fetchLetter(id);
   },
   methods: {
     submit () {
@@ -55,20 +56,21 @@ export default {
       formData.append('file', this.document.file);
       formData.append('title', this.document.title);
       formData.append('date', this.document.date);
-      formData.append('file_type', this.document.file_type);
       formData.append('description', this.document.description);
-      DocumentAPI.update(this.document.id, formData).then(response => {
+      formData.append('file_type', this.document.file_type);
+      formData.append('letter_id', this.document.letter_id);
+      DocumentAPI.store(formData).then(response => {
         this.$router.push({ name: 'ShowDokumen', params: { id: response.data.data.id }});
         loader.hide();
       });
     },
-    fetchDokumen (id) {
-      DocumentAPI.get(id).then(response => {
-        this.document.id = response.data.data.id;
-        this.document.fileName = response.data.data.path;
-        this.document.title = response.data.data.title;
+    fetchLetter (id) {
+      LetterAPI.get(id).then(response => {
+        this.document.title = 'Surat Masuk ' 
+        + response.data.data.incoming_letter.sender
+        + ' (' + response.data.data.number + ')';
         this.document.date = response.data.data.date;
-        this.document.description = response.data.data.description;
+        this.document.letter_id = response.data.data.id;
       });
     }
   }

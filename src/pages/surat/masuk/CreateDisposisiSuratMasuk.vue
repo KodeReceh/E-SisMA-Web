@@ -2,7 +2,7 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat :to="{ name: 'ShowSuratMasuk', id: letter.id }"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
+        <v-btn :round="true" flat :to="{ name: 'ShowSuratMasuk', id: letter.id }"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
         <v-flex sm12>
           <v-widget :title="'Create Disposisi Surat Masuk ' + letter.number">
             <div slot="widget-content">

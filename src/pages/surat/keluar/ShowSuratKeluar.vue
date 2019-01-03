@@ -2,7 +2,9 @@
    <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat :to="{ name: 'pages/surat/keluar'}"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
+        <v-btn :round="true" flat :to="{ name: 'pages/surat/keluar'}"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn color="primary" @click="documentButtonClicked()"><v-icon color="secondary">file_copy</v-icon>&nbsp;file</v-btn>
         <v-flex sm12>
           <v-widget title="Detail Surat Keluar">
             <div slot="widget-content">
@@ -113,6 +115,25 @@ export default {
         loader.hide();
       });
     },
+    documentButtonClicked () {
+      const { id } = this.$route.params;
+      if (this.letter.document_id) {
+        this.$router.push({
+          name: 'ShowDokumen',
+          params: {
+            id: this.letter.document_id
+          }
+        });
+      } else {
+        this.$router.push({
+          name: 'CreateDokumenSuratKeluar',
+          params: {
+            letter_id: this.letter.id
+          }
+        });
+      }
+      return;
+    }
   }
 };
 </script>

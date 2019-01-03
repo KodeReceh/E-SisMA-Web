@@ -2,9 +2,7 @@
    <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat :to="{ name: 'ShowSuratMasuk', id: letter.id }"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
-        <v-spacer></v-spacer>
-        <v-btn :round="true" color="info" :to="{ name: 'EditDisposisiSuratMasuk', id: letter.id }">Edit</v-btn>
+        <v-btn :round="true" flat :to="{ name: 'ShowSuratMasuk', id: letter.id }"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
         <v-flex sm12>
           <v-widget title="Disposisi Surat Masuk">
             <div slot="widget-content">
@@ -120,8 +118,9 @@ export default {
   },
   mounted () {
     const { id } = this.$route.params;
+    const { user_id } = this.$route.params;
     this.fetchSuratMasuk(id);
-    this.fetchDisposisiSuratMasuk(id); 
+    this.fetchDisposisiSuratMasukUser(id, user_id); 
   },
   methods: {
     fetchSuratMasuk (id) {
@@ -131,15 +130,19 @@ export default {
         console.log(e);
       });
     },
-    fetchDisposisiSuratMasuk (id) {
+    fetchDisposisiSuratMasukUser (id, userId) {
       let loader = this.$loading.show({
         container: null,
         canCancel: false,
       });
-      IncomingLetterAPI.getDisposition(id).then(response => {
+      IncomingLetterAPI.getUserDisposition(id, userId).then(response => {
         this.disposition = response.data.data;
         loader.hide();
       }).catch((e) => {
+        if (e.response.status === 404) {
+          this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: id }});
+          return;
+        }
         alert(e.response.status + ': ' + e.response.statusText);
       });
     },

@@ -16,7 +16,12 @@
         <td>{{ props.index + 1 }}</td>
         <td>{{ props.item.name }}</td>
         <td>{{ props.item.role }}</td>
-        <td v-if="props.item.status"><router-link to="#">Terdisposisi</router-link></td>
+        <td v-if="props.item.status">
+          <router-link :to="{ name: 'ShowDisposisiSuratMasukUser',
+            params: { id: $route.params.id, user_id: props.item.user_id } }"
+          >
+            Terdisposisi
+          </router-link></td>
         <td v-else>Belum Terdisposisi</td>
         </template>
     </v-data-table>

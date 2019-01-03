@@ -1,67 +1,62 @@
 export default [
-
   {
     path: '*',
     meta: {
-      public: true,
+      public: true
     },
     redirect: {
       path: '/404'
     }
-  },  
+  },
   {
     path: '/404',
     meta: {
-      public: true,
+      public: true
     },
     name: 'NotFound',
-    component: () => import(
-      /* webpackChunkName: "routes" */
+    component: () =>
+      import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
-      `@/pages/NotFound.vue`
-    )
+        `@/pages/NotFound.vue`)
   },
   {
     path: '/403',
     meta: {
-      public: true,
+      public: true
     },
     name: 'AccessDenied',
-    component: () => import(
-      /* webpackChunkName: "routes" */
+    component: () =>
+      import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
-      `@/pages/Deny.vue`
-    )
+        `@/pages/Deny.vue`)
   },
   {
     path: '/500',
     meta: {
-      public: true,
+      public: true
     },
     name: 'ServerError',
-    component: () => import(
-      /* webpackChunkName: "routes" */
+    component: () =>
+      import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
-      `@/pages/Error.vue`
-    )
+        `@/pages/Error.vue`)
   },
   {
     path: '/login',
     meta: {
       public: true,
-      checkLogin: true,
+      checkLogin: true
     },
     name: 'Login',
-    component: () => import(
-      /* webpackChunkName: "routes" */
+    component: () =>
+      import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
-      `@/pages/Login.vue`
-    )
+        `@/pages/Login.vue`)
   },
   {
     path: '/',
-    meta: { 
-      requiresAuth: true,
+    meta: {
+      requiresAuth: true
     },
     name: 'Root',
     redirect: {
@@ -70,285 +65,271 @@ export default [
   },
   {
     path: '/user',
-    meta: { 
-      requiresAuth: true,
+    meta: {
+      requiresAuth: true
     },
     name: 'User',
-    component: () => import(
-      /* webpackChunkName: "routes" */
+    component: () =>
+      import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
-      `@/pages/user/User.vue`
-    )
+        `@/pages/user/User.vue`)
   },
   {
     path: '/surat/masuk',
-    meta: { 
-      requiresAuth: true,
+    meta: {
+      requiresAuth: true
     },
     name: 'pages/surat/masuk',
-    component: () => import(
-      `@/pages/surat/masuk/SuratMasuk.vue`
-    )
-  }, 
+    component: () => import(`@/pages/surat/masuk/SuratMasuk.vue`)
+  },
   {
     path: '/surat/masuk/create',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'CreateSuratMasuk',
-    component: () => import(
-      `@/pages/surat/masuk/CreateSuratMasuk.vue`
-    )
-  }, 
+    component: () => import(`@/pages/surat/masuk/CreateSuratMasuk.vue`)
+  },
   {
     path: '/surat/masuk/:id/edit',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'EditSuratMasuk',
-    component: () => import(
-      `@/pages/surat/masuk/EditSuratMasuk.vue`
-    )
-  }, 
+    component: () => import(`@/pages/surat/masuk/EditSuratMasuk.vue`)
+  },
   {
     path: '/surat/masuk/:id/disposisi',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'ShowDisposisiSuratMasuk',
-    component: () => import(
-      `@/pages/surat/masuk/ShowDisposisiSuratMasuk.vue`
-    )
-  }, 
+    component: () => import(`@/pages/surat/masuk/ShowDisposisiSuratMasuk.vue`)
+  },
   {
     path: '/surat/masuk/:id/disposisi/create',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'CreateDisposisiSuratMasuk',
-    component: () => import(
-      `@/pages/surat/masuk/CreateDisposisiSuratMasuk.vue`
-    )
+    component: () => import(`@/pages/surat/masuk/CreateDisposisiSuratMasuk.vue`)
   },
   {
     path: '/surat/masuk/:id/disposisi/edit',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'EditDisposisiSuratMasuk',
-    component: () => import(
-      `@/pages/surat/masuk/EditDisposisiSuratMasuk.vue`
-    )
+    component: () => import(`@/pages/surat/masuk/EditDisposisiSuratMasuk.vue`)
+  },
+  {
+    path: '/surat/masuk/:id/user/:user_id/disposisi',
+    meta: {
+      breadcrumb: false,
+      requiresAuth: true
+    },
+    name: 'ShowDisposisiSuratMasukUser',
+    component: () =>
+      import(`@/pages/surat/masuk/detail/ShowDisposisiSuratMasuk.vue`)
   },
   {
     path: '/surat/masuk/:id',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'ShowSuratMasuk',
-    component: () => import(
-      `@/pages/surat/masuk/ShowSuratMasuk.vue`
-    )
+    component: () => import(`@/pages/surat/masuk/ShowSuratMasuk.vue`)
+  },
+  {
+    path: '/surat/masuk/:id/dokumen/create',
+    meta: {
+      breadcrumb: false,
+      requiresAuth: true
+    },
+    name: 'CreateDokumenSuratMasuk',
+    component: () => import(`@/pages/surat/masuk/CreateDokumen.vue`)
   },
   {
     path: '/surat/template-surat-keluar',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'pages/surat/keluar/template',
-    component: () => import(
-      `@/pages/surat/keluar/template/Template.vue`
-    )
-  }, 
+    component: () => import(`@/pages/surat/keluar/template/Template.vue`)
+  },
   {
     path: '/surat/template-surat-keluar/create',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'CreateTemplate',
-    component: () => import(
-      `@/pages/surat/keluar/template/CreateTemplate.vue`
-    )
-  }, 
+    component: () => import(`@/pages/surat/keluar/template/CreateTemplate.vue`)
+  },
   {
     path: '/surat/template-surat-keluar/:id/create-letter',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'CreateLetter',
-    component: () => import(
-      `@/pages/surat/keluar/template/CreateLetter.vue`
-    )
-  }, 
+    component: () => import(`@/pages/surat/keluar/template/CreateLetter.vue`)
+  },
   {
     path: '/surat/template-surat-keluar/:id/edit',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'EditTemplate',
-    component: () => import(
-      `@/pages/surat/keluar/template/EditTemplate.vue`
-    )
-  }, 
+    component: () => import(`@/pages/surat/keluar/template/EditTemplate.vue`)
+  },
   {
     path: '/surat/template-surat-keluar/:id',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'ShowTemplate',
-    component: () => import(
-      `@/pages/surat/keluar/template/ShowTemplate.vue`
-    )
-  }, 
+    component: () => import(`@/pages/surat/keluar/template/ShowTemplate.vue`)
+  },
   {
     path: '/surat/keluar',
-    meta: { 
-      requiresAuth: true,
+    meta: {
+      requiresAuth: true
     },
     name: 'pages/surat/keluar',
-    component: () => import(
-      `@/pages/surat/keluar/SuratKeluar.vue`
-    )
+    component: () => import(`@/pages/surat/keluar/SuratKeluar.vue`)
   },
   {
     path: '/surat/draft-surat-keluar',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'pages/surat/draft-surat-keluar',
-    component: () => import(
-      `@/pages/surat/keluar/draft/DraftSuratKeluar.vue`
-    )
-  }, 
+    component: () => import(`@/pages/surat/keluar/draft/DraftSuratKeluar.vue`)
+  },
   {
     path: '/surat/draft-surat-keluar/:id',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'ShowDraftSuratKeluar',
-    component: () => import(
-      `@/pages/surat/keluar/draft/ShowDraftSuratKeluar.vue`
-    )
-  }, 
+    component: () =>
+      import(`@/pages/surat/keluar/draft/ShowDraftSuratKeluar.vue`)
+  },
   {
     path: '/surat/keluar/create',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'CreateSuratKeluar',
-    component: () => import(
-      `@/pages/surat/keluar/CreateSuratKeluar.vue`
-    )
-  }, 
+    component: () => import(`@/pages/surat/keluar/CreateSuratKeluar.vue`)
+  },
   {
     path: '/surat/keluar/:id/edit',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'EditSuratKeluar',
-    component: () => import(
-      `@/pages/surat/keluar/EditSuratKeluar.vue`
-    )
-  }, 
+    component: () => import(`@/pages/surat/keluar/EditSuratKeluar.vue`)
+  },
   {
     path: '/surat/keluar/:id',
-    meta: { 
+    meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'ShowSuratKeluar',
-    component: () => import(
-      `@/pages/surat/keluar/ShowSuratKeluar.vue`
-    )
-  }, 
+    component: () => import(`@/pages/surat/keluar/ShowSuratKeluar.vue`)
+  },
+  {
+    path: '/surat/keluar/:id/dokumen/create',
+    meta: {
+      breadcrumb: false,
+      requiresAuth: true
+    },
+    name: 'CreateDokumenSuratKeluar',
+    component: () => import(`@/pages/surat/keluar/CreateDokumen.vue`)
+  },
   {
     path: '/dashboard',
-    meta: { 
-      requiresAuth: true,
+    meta: {
+      requiresAuth: true
     },
     name: 'Dashboard',
-    component: () => import(
-      /* webpackChunkName: "routes" */
+    component: () =>
+      import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
-      `@/pages/Dashboard.vue`
-    )
+        `@/pages/Dashboard.vue`)
   },
   {
     path: '/dokumen',
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'Dokumen',
-    component: () => import(
-      /* webpackChunkName: "routes" */
+    component: () =>
+      import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
-      `@/pages/dokumen/Dokumen.vue`
-    )
+        `@/pages/dokumen/Dokumen.vue`)
   },
   {
     path: '/dokumen/create',
     meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'CreateDokumen',
-    component: () => import(
-      /* webpackChunkName: "routes" */
+    component: () =>
+      import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
-      `@/pages/dokumen/CreateDokumen.vue`
-    )
+        `@/pages/dokumen/CreateDokumen.vue`)
   },
   {
     path: '/dokumen/:id/edit',
     meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'EditDokumen',
-    component: () => import(
-      /* webpackChunkName: "routes" */
+    component: () =>
+      import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
-      `@/pages/dokumen/EditDokumen.vue`
-    )
+        `@/pages/dokumen/EditDokumen.vue`)
   },
   {
     path: '/dokumen/:id',
     meta: {
       breadcrumb: false,
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'ShowDokumen',
-    component: () => import(
-      /* webpackChunkName: "routes" */
+    component: () =>
+      import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
-      `@/pages/dokumen/ShowDokumen.vue`
-    )
+        `@/pages/dokumen/ShowDokumen.vue`)
   },
   {
     path: '/arsip',
     meta: {
-      requiresAuth: true,
+      requiresAuth: true
     },
     name: 'Arsip',
-    component: () => import(
-      /* webpackChunkName: "routes" */
+    component: () =>
+      import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
-      `@/pages/arsip/Arsip.vue`
-    )
-  },
+        `@/pages/arsip/Arsip.vue`)
+  }
 ];

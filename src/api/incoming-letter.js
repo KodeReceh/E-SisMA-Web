@@ -45,6 +45,13 @@ export default {
       },
     });
   },
+  getUserDisposition (id, userId) {
+    return axios.get(`${url}/${id}/disposition/${userId}`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      },
+    });
+  },
   storeDisposition (id, data) {
     return axios.post(`${url}/${id}/disposition`, data, {
       headers: {
