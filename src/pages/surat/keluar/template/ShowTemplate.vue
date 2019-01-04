@@ -2,7 +2,7 @@
    <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat :to="{ name: 'pages/surat/keluar/template'}"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
+        <v-btn :round="true" flat @click="$router.push({ name: 'pages/surat/keluar/template' })"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
         <v-flex sm12>
           <v-widget title="Detail Surat Keluar">
             <div slot="widget-content">

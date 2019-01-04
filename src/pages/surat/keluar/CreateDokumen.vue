@@ -2,7 +2,7 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat :to="{ name: 'Dokumen'}"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
+        <v-btn :round="true" flat @click="$router.go(-1)"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
         <v-flex sm12>
           <v-widget title="Buat Dokumen">
             <div slot="widget-content">

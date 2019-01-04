@@ -2,9 +2,9 @@
    <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat :to="{ name: 'pages/surat/masuk'}"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
+        <v-btn :round="true" flat @click="$router.push({ name: 'pages/surat/masuk' })"><v-icon>arrow_back</v-icon>&nbsp;back</v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="documentButtonClicked()"><v-icon color="secondary">file_copy</v-icon>&nbsp;file</v-btn>
+        <v-btn color="primary" @click="documentButtonClicked()"><v-icon>file_copy</v-icon>&nbsp;file</v-btn>
         <v-btn v-if="letter.is_client_recipient" color="secondary" outline @click="disposisiButtonClicked">disposisi</v-btn>
         <v-btn small fab dark color="info" :to="{ name: 'EditSuratMasuk', params: { id: this.$route.params.id }}">
           <v-icon>edit</v-icon>

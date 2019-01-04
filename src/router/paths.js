@@ -331,5 +331,16 @@ export default [
       import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
         `@/pages/arsip/Arsip.vue`)
+  },
+  {
+    path: '/arsip/create',
+    meta: {
+      requiresAuth: true
+    },
+    name: 'CreateArsip',
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+        `@/pages/arsip/CreateArsip.vue`)
   }
 ];
