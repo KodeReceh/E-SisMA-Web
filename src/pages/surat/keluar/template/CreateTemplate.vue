@@ -33,7 +33,9 @@ export default {
         title: '',
         needs_villager_data: '',
         template_file: '',
-        fileName: ''
+        fileName: '',
+        letter_code_id: '',
+        sub_letter_code_id: ''
       }
     };
   },
@@ -48,6 +50,8 @@ export default {
       formData.append('title', this.template.title);
       formData.append('needs_villager_data', this.template.needs_villager_data);
       formData.append('template_file', this.template.template_file);
+      formData.append('letter_code_id', this.template.letter_code_id);
+      formData.append('sub_letter_code_id', this.template.letter_code_id);
 
       TemplateAPI.store(formData).then(response => {
         this.$router.push({ name: 'ShowTemplate', params: { id: response.data.data.id }});
