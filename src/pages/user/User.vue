@@ -13,7 +13,7 @@
               <v-layout sm6 align-end justify-end>
                 <v-btn color="primary" :right="true" @click="addButtonClicked">Tambah</v-btn>
               </v-layout> 
-              <v-dialog v-model="dialog.state" scrollable max-width="500px">
+              <v-dialog v-model="dialog.state" scrollable max-width="500px" persistent>
                 <v-card>
                   <v-card-title class="justify-center" :style="{ backgroundColor: this.$vuetify.theme.primary}">
                     <span class="headline" :style="{ color: 'white', fontWeight: 'bold'}">{{ dialog.title }}</span>
@@ -75,12 +75,12 @@
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" flat @click.native="dialog.state = false">Close</v-btn>
-                    <v-btn color="blue darken-1" flat @click.native="dialog.state = false" @click="save">Save</v-btn>
+                    <v-btn color="blue darken-1" flat @click="onDialogClosed()">Close</v-btn>
+                    <v-btn color="blue darken-1" flat @click.native="dialog.state = false" @click.exact="save">Save</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
-              <v-dialog v-model="showDialog.state" scrollable max-width="500px">
+              <v-dialog v-model="showDialog.state" scrollable max-width="500px" persistent>
                 <v-card>
                   <v-card-title class="justify-center" :style="{ backgroundColor: this.$vuetify.theme.primary}">
                     <span class="headline" :style="{ color: 'white', fontWeight: 'bold'}">{{ showDialog.title }}</span>
@@ -152,7 +152,7 @@
                   </v-card-text>
                   <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" flat @click.native="showDialog.state = false">Close</v-btn>
+                    <v-btn color="blue darken-1" flat @click="onDialogClosed()">Close</v-btn>
                   </v-card-actions>
                 </v-card>
               </v-dialog>
@@ -180,9 +180,10 @@
                         :items="complex.items"
                         :rows-per-page-items="[10,25,50,{text:'All','value':-1}]"
                         class="elevation-1"
-                        item-key="name"
+                        item-key="id"
                         >
                         <template slot="items" slot-scope="props">            
+                        <td>{{ props.index + 1 }}</td>
                         <td>{{ props.item.name }}</td>
                         <td>{{ props.item.email }}</td>
                         <td>{{ ((props.item.role) ? props.item.role.title : '-') }}</td>
@@ -318,6 +319,10 @@ export default {
         selected: [],
         headers: [
           {
+            text: '#',
+            value: 'number'
+          },
+          {
             text: 'Nama',
             value: 'name'
           },
@@ -342,23 +347,12 @@ export default {
       }
     };
   },
-  computed: {
-    showDialogState () {
-      return this.showDialog.state;
-    },
-    confirmDialogState () {
-      return this.confirmDialog.state;
-    },
-    dialogState () {
-      return this.dialog.sate;
-    }
-  },
   watch: {
     showDialogState (v) {
-      if (!v) this.clearForm();
+      this.clearForm();
     },
     confirmDialogState (v) {
-      if (!v) this.clearForm();
+      this.clearForm();
     },
     dialogState (v) {
       if (this.dialog === 'update' && !v) this.clearForm();
@@ -434,6 +428,7 @@ export default {
         }
       };
       this.dialog.type = '';
+      this.$refs.formUser.reset();
     },
     pushAlert (type, message, show = true) {
       this.alerts.push({
@@ -447,8 +442,15 @@ export default {
         this.dialog.state = true;
         this.dialog.type = 'update';
         this.dialog.state = true;
+        this.dialog.title = 'Edit User';
       }
       
+    },
+    onDialogClosed ()
+    {
+      this.clearForm();
+      this.dialog.state = false;
+      this.showDialog.state = false;
     },
     getUserById (userId) {
       let vm = this;
@@ -551,8 +553,17 @@ export default {
     showButtonClicked (userId) {
       if (this.getUserById(userId)) {
         this.showDialog.state = true;
-        this.showDialog.title = 'Data user ' + this.user.name;
+        this.showDialog.title = 'Data User ';
       }
+    },
+    showDialogState () {
+      return this.showDialog.state;
+    },
+    confirmDialogState () {
+      return this.confirmDialog.state;
+    },
+    dialogState () {
+      return this.dialog.sate;
     }
   }
 };

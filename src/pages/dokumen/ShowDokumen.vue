@@ -52,6 +52,15 @@
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm4 md4>
+                    <p class="font-weight-bold">Pengupload</p>                        
+                  </v-flex>
+                  <v-spacer></v-spacer>
+                  <v-flex xs8 sm8 md8>
+                    <p class="font-weight-regular">{{ document.uploader ? document.uploader.name : 'Tidak diketahui' }}</p>
+                  </v-flex>
+                </v-layout>
+                <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm4 md4>
                     <p class="font-weight-bold">Keterangan</p>                        
                   </v-flex>
                   <v-spacer></v-spacer>
@@ -85,6 +94,7 @@ export default {
         date: '',
         description: '',
         path: '',
+        uploader: {},
         file_extension: '',
       },
     };

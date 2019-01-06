@@ -51,7 +51,7 @@ export default {
       formData.append('needs_villager_data', this.template.needs_villager_data);
       formData.append('template_file', this.template.template_file);
       formData.append('letter_code_id', this.template.letter_code_id);
-      formData.append('sub_letter_code_id', this.template.letter_code_id);
+      formData.append('sub_letter_code_id', this.template.sub_letter_code_id);
 
       TemplateAPI.store(formData).then(response => {
         this.$router.push({ name: 'ShowTemplate', params: { id: response.data.data.id }});

@@ -5,8 +5,8 @@
         <v-btn :round="true" flat @click="$router.push({ name: 'pages/surat/draft-surat-keluar' })"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
         <v-spacer></v-spacer>
         <div v-if="letter.sign">
-          <v-btn v-if="!letter.sign.has_signed" color="primary" @click="sign()">Tanda Tangan</v-btn>
-          <v-btn v-if="letter.sign.has_signed" color="primary" @click="unsign()">Batal Tanda Tangan</v-btn>
+          <v-btn v-if="!letter.sign.has_signed && !letter.generated_file" color="primary" @click="sign()">Tanda Tangan</v-btn>
+          <v-btn v-if="letter.sign.has_signed && !letter.generated_file" color="primary" @click="unsign()">Batal Tanda Tangan</v-btn>
         </div>
         <v-btn v-if="letter.generated_file" color="error" @click="deleteGeneratedFile()">Hapus File Surat</v-btn>
         <v-flex sm12>
