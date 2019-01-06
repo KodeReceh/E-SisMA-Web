@@ -31,7 +31,8 @@
           fixed
           >
           <theme-settings></theme-settings>
-        </v-navigation-drawer>        
+        </v-navigation-drawer>
+        <profile-dialog :profile="profile"></profile-dialog> 
       </v-app>
     </template>
     <template v-else>
@@ -63,13 +64,16 @@ import PageHeader from '@/components/PageHeader';
 import menu from '@/api/menu';
 import ThemeSettings from '@/components/ThemeSettings';
 import AppEvents from  './event';
+import ProfileDialog from './components/ProfileDialog';
+
 export default {
   components: {
     AppDrawer,
     AppToolbar,
     AppFab,
     PageHeader,
-    ThemeSettings
+    ThemeSettings,
+    ProfileDialog
   },
   data: () => ({
     expanded: true,
@@ -78,7 +82,11 @@ export default {
       show: false,
       text: '',
       color: '',
-    }
+    },
+    profile: {
+      state: false,
+      title: 'Profil User'
+    },
   }),
 
   computed: {
@@ -89,8 +97,10 @@ export default {
     AppEvents.forEach(item => {
       this.$on(item.name, item.callback);
     });
+    if (this.$store.getters.loggedIn) {
+      this.$store.dispatch('getProfile');
+    }
     window.getApp = this;
-   
   },
   methods: {
     openThemeSettings () {

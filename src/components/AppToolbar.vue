@@ -24,7 +24,7 @@
       <v-menu offset-y origin="center center" :nudge-bottom="10" transition="scale-transition">
         <v-btn icon large flat slot="activator">
           <v-avatar size="30px">
-            <img :src="avatar" alt="Michael Wang"/>
+            <v-icon>person</v-icon>
           </v-avatar>
         </v-btn>
         <v-list class="pa-0">
@@ -48,7 +48,7 @@ import NotificationAPI from '@/api/notification';
 export default {
   name: 'app-toolbar',
   components: {
-    NotificationList
+    NotificationList,
   },
   data: () => ({
     avatar: (process.env.ASSET_PATH || '/static') + '/avatar/man_4.jpg',
@@ -58,20 +58,12 @@ export default {
         icon: 'account_circle',
         href: '#',
         title: 'Profile',
-        click: (e) => {
-          console.log(e);
+        click: () => {
+          window.getApp.$emit('SHOW_PROFILE');
         }
       },
       {
-        icon: 'settings',
-        href: '#',
-        title: 'Settings',
-        click: (e) => {
-          console.log(e);
-        }
-      },
-      {
-        icon: 'fullscreen_exit',
+        icon: 'exit_to_app',
         href: '#',
         title: 'Logout',
         click: (e) => {
@@ -103,10 +95,12 @@ export default {
       Util.toggleFullScreen();
     },
     fetchNotifications () {
-      NotificationAPI.getNotifications().then(response => {
-        this.notifs = response.data.data;
-      });
-    }
+      if (this.$store.getters.loggedIn) {
+        NotificationAPI.getNotifications().then(response => {
+          this.notifs = response.data.data;
+        });
+      }
+    },
   },
 };
 </script>

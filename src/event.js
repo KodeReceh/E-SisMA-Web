@@ -31,6 +31,15 @@ export default [
     }
   },
   {
+    name: 'SHOW_PROFILE',
+    callback: function (e) {
+      this.profile = {
+        state: true,
+        title: 'Profil User'
+      };
+    }
+  },
+  {
     name: 'APP_PAGE_LOADED',
     callback: function (e) {
     }

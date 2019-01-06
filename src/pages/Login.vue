@@ -49,6 +49,7 @@ export default {
         password: this.form.password,
       }).then(response => {
         this.$router.push('dashboard');
+        this.$store.dispatch('getProfile');
         this.loading = false;
       }).catch(e => {
         this.errorMsg = e.response.statusText;

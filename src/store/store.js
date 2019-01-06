@@ -8,11 +8,15 @@ axios.defaults.baseURL = process.env.API_URL || 'restapi.fz';
 export const store = new Vuex.Store({
   state: {
     token: localStorage.getItem('__token__') || null,
+    user: {}
   },
   getters: {
     loggedIn (state) {
       return state.token !== null;
     },
+    user (state) {
+      return state.user;
+    }
   },
   mutations: {
     retrieveToken (state, token) {
@@ -21,6 +25,9 @@ export const store = new Vuex.Store({
     destroyToken (state) {
       state.token = null;
     },
+    getProfile (state, user) {
+      state.user = user;
+    }
   },
   actions: {
     destroyToken (context) {
@@ -62,5 +69,21 @@ export const store = new Vuex.Store({
           });
       });
     },
+    getProfile (context) {
+      return new Promise((resolve, reject) => {
+        axios.get('users/get-profile', {
+          headers: {
+            Authorization: 'bearer ' + localStorage.getItem('__token__'),
+          },
+        }).then(response => {
+          const user = response.data.data;
+          context.commit('getProfile', user);
+          resolve(response);
+        }).catch(error => {
+          console.log(error);
+          reject(error);
+        });
+      });
+    }
   }
 });
