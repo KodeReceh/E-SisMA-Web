@@ -15,11 +15,11 @@
       <v-menu offset-y origin="center center" class="elelvation-1" :nudge-bottom="14" transition="scale-transition">
         <v-btn icon flat slot="activator">
         <v-badge color="secondary" overlap>
-          <span slot="badge">3</span>
+          <span slot="badge">{{ notifs.length }}</span>
           <v-icon medium>notifications</v-icon>
         </v-badge>
         </v-btn>
-        <notification-list></notification-list>
+        <notification-list :items="notifs"></notification-list>
       </v-menu>
       <v-menu offset-y origin="center center" :nudge-bottom="10" transition="scale-transition">
         <v-btn icon large flat slot="activator">
@@ -43,6 +43,8 @@
 <script>
 import NotificationList from '@/components/widgets/list/NotificationList';
 import Util from '@/util';
+import NotificationAPI from '@/api/notification';
+
 export default {
   name: 'app-toolbar',
   components: {
@@ -50,6 +52,7 @@ export default {
   },
   data: () => ({
     avatar: (process.env.ASSET_PATH || '/static') + '/avatar/man_4.jpg',
+    notifs: [],
     items: [
       {
         icon: 'account_circle',
@@ -76,11 +79,21 @@ export default {
         }
       }
     ],
+    interval: null
   }),
   computed: {
     toolbarColor () {
       return this.$vuetify.options.extra.mainNav;
     }
+  },
+  mounted () {
+    this.fetchNotifications();
+    this.interval = setInterval(function () {
+      this.fetchNotifications();
+    }.bind(this), 1000); 
+  },
+  beforeDestroy: function () {
+    clearInterval(this.interval);
   },
   methods: {
     handleDrawerToggle () {
@@ -88,7 +101,12 @@ export default {
     },
     handleFullScreen () {
       Util.toggleFullScreen();
+    },
+    fetchNotifications () {
+      NotificationAPI.getNotifications().then(response => {
+        this.notifs = response.data.data;
+      });
     }
-  }
+  },
 };
 </script>
