@@ -15,7 +15,7 @@
               </v-layout> 
               <v-dialog v-model="dialog.state" scrollable max-width="500px">
                 <v-card>
-                  <v-card-title class="justify-center" :style="{ backgroundColor: this.$vuetify.theme.primary}">
+                  <v-card-title class="justify-center" :style="{ backgroundColor: this.$vuetify.theme.primary }">
                     <span class="headline" :style="{ color: 'white', fontWeight: 'bold'}">{{ dialog.title }}</span>
                   </v-card-title>
                   <v-divider></v-divider>
