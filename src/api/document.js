@@ -45,5 +45,12 @@ export default {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       },
     });
+  },
+  getByArchive (archiveId) {
+    return axios.get(`${url}/archives/${archiveId}`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      },
+    });
   }
 };

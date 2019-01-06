@@ -42,6 +42,16 @@
       accept="image/*"
       @change="onFilePicked"
     >
+    <v-autocomplete
+      v-model="document.archive_id"
+      :items="archives"
+      prepend-icon="details"
+      label="Arsip"
+      item-text="title"
+      item-value="id"
+      :chips="true"
+      :readonly="readOnlyArchive"
+    ></v-autocomplete>
     <v-btn
       :disabled="!valid"
       @click="submit"
@@ -54,14 +64,39 @@
 </template>
 
 <script>
+import ArchiveAPI from '@/api/archive';
+
 export default {
-  props: ['document', 'onSubmit', 'isUpdate'],
+  props: {
+    document: {
+      type: Object,
+      default: {
+        title: '',
+        date: '',
+        description: '',
+        fileName: '',
+        file: null,
+        file_type: '',
+        archive_id: '',
+      }
+    },
+    onSubmit: Function,
+    isUpdate: Boolean,
+    readOnlyArchive: {
+      type: Boolean,
+      default: false
+    }
+  },
   data () {
     return {
       valid: false,
       menu: false,
       nonEmptyRules: [v => !!v || 'Isian ini tidak boleh kosong.'],
+      archives: []
     };
+  },
+  mounted () {
+    this.fetchArchives();
   },
   methods: {
     submit () {
@@ -90,6 +125,15 @@ export default {
     },
     getExtFile (fileName) {
       return (/[.]/.exec(fileName)) ? /[^.]+$/.exec(fileName)[0] : undefined;
+    },
+    fetchArchives () {
+      ArchiveAPI.getList().then(response => {
+        this.archives = response.data.data;
+        this.archives.unshift({
+          'id': '',
+          'title': '--Tidak Arsipkan Dulu--',
+        });
+      });
     }
   }
 };

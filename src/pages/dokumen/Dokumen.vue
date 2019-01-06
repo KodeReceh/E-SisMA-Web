@@ -2,6 +2,9 @@
   <div>
     <v-container grid-list-xl fluid>
         <v-layout row wrap>
+          <v-flex sm6>
+            <h3>Dokumen</h3>
+          </v-flex>
           <v-spacer></v-spacer>
           <v-btn color="info" :to="{ name: 'CreateDokumen'}">Tambah</v-btn>
           <ListDokumen></ListDokumen>

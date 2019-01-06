@@ -26,9 +26,9 @@
                 item-key="name"
                 >
                 <template slot="items" slot-scope="props">            
-                <td>{{ props.item.date }}</td>
+                <td>{{ props.index + 1 }}</td>
                 <td>{{ props.item.title }}</td>
-                <td>{{ props.item.archive_type }}</td>
+                <td>{{ props.item.archive_type.type }}</td>
                 <td>
                     <v-btn 
                         depressed 
@@ -105,8 +105,8 @@ export default {
         selected: [],
         headers: [
           {
-            text: 'Tanggal',
-            value: 'date'
+            text: '#',
+            value: ''
           },
           {
             text: 'Nama Arsip',

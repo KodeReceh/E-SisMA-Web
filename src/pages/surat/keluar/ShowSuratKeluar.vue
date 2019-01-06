@@ -50,7 +50,7 @@
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
-                  <v-flex xs4 sm10 md3>
+                  <v-flex xs4 sm2 md3>
                     <p class="font-weight-bold">Lampiran</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >

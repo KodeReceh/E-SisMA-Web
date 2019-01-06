@@ -29,7 +29,7 @@
                 <td>{{ props.item.date }}</td>
                 <td>{{ props.item.title }}</td>
                 <td>
-                  <router-link v-if="props.item.archive" :to="{ name: 'ShowArsip', params: { id: props.item.archive.id }}">{{ props.item.archive.title }}</router-link>
+                  <router-link v-if="props.item.archive" to="{name: 'ShowArsip', id: props.item.archive.id }">{{ props.item.archive.title }}</router-link>
                   <div v-else>Belum Diarsipkan</div>
                 </td>
                 <td>
@@ -130,7 +130,8 @@ export default {
     };
   },
   mounted () {
-    this.fetchList();
+    const { id } = this.$route.params;
+    this.fetchList(id);
   },
   methods: {
     deleteButtonClicked (id) {
@@ -148,12 +149,12 @@ export default {
       this.deleteDialog.state = false;
       this.deleteDialog.detail = {};
     },
-    fetchList () {
+    fetchList (id) {
       let loader = this.$loading.show({
         container: null,
         canCancel: false,
       });
-      DocumentAPI.getAll().then(response => {
+      DocumentAPI.getByArchive(id).then(response => {
         if (response.data.success) {
           this.table.items = response.data.data;
           loader.hide();

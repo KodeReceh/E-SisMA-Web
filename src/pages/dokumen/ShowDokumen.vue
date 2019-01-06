@@ -34,6 +34,15 @@
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm4 md4>
+                    <p class="font-weight-bold">Arsip</p>                        
+                  </v-flex>
+                  <v-spacer></v-spacer>
+                  <v-flex xs8 sm8 md8>
+                    <p class="font-weight-regular">{{ document.archive ? document.archive.title : 'Belum diarsipkan.' }}</p>
+                  </v-flex>
+                </v-layout>
+                 <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm4 md4>
                     <p class="font-weight-bold">Ekstensi File</p>                        
                   </v-flex>
                   <v-spacer></v-spacer>

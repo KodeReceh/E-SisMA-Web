@@ -2,65 +2,47 @@
    <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat :to="{ name: 'pages/surat/keluar'}"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
+        <v-btn :round="true" flat @click="$router.go(-1)"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn depressed outline icon fab dark color="primary" small :to="{ name: 'EditArsip', params: { id: archive.id }}">
+          <v-icon>edit</v-icon>
+        </v-btn>
+        <v-btn color="info" flat :to="{ name: 'CreateArsipDokumen', params: { id: archive.id }}"><v-icon>add</v-icon>&nbsp;Dokumen</v-btn>
+        <v-btn color="primary" flat @click="$router.push({ name: 'Arsip' })"><v-icon>list</v-icon>&nbsp;list</v-btn>
         <v-flex sm12>
-          <v-widget title="Detail Surat Keluar">
+          <v-widget title="Detail Arsip">
             <div slot="widget-content">
               <v-container>
                 <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm2 md3>
-                    <p class="font-weight-bold">Nomor</p>                        
+                    <p class="font-weight-bold">Nama Arsip</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular" v-html="letter.number"/>
+                    <p class="font-weight-regular" v-html="archive.title"/>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm2 md3>
-                    <p class="font-weight-bold">Tanggal</p>                        
+                    <p class="font-weight-bold">Tipe Arsip</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.date ? letter.date : new Date() | moment().format('DD MMMM YYYY') }}</p>
+                    <p class="font-weight-regular">{{ archive.archive_type.type }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm2 md3>
-                    <p class="font-weight-bold">Subjek</p>                        
+                    <p class="font-weight-bold">Arsip Milik</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.subject }}</p>
+                    <p class="font-weight-regular">{{ archive.role.title }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm2 md3>
-                    <p class="font-weight-bold">Perihal</p>                        
+                    <p class="font-weight-bold">Keterangan</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.tendency }}</p>
-                  </v-flex>
-                </v-layout>
-                <v-layout align-center row spacer slot="header">
-                  <v-flex xs4 sm2 md3>
-                    <p class="font-weight-bold">Ditujukan Kepada</p>                        
-                  </v-flex>
-                  <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.to }}</p>
-                  </v-flex>
-                </v-layout>
-                <v-layout align-center row spacer slot="header">
-                  <v-flex xs4 sm10 md3>
-                    <p class="font-weight-bold">Lampiran</p>                        
-                  </v-flex>
-                  <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ parseInt(letter.attachments) ? letter.attachments + ' buah' : '-' }}</p>
-                  </v-flex>
-                </v-layout>
-                <v-layout align-center row spacer slot="header">
-                  <v-flex xs4 sm2 md3>
-                    <p class="font-weight-bold">Kode Surat</p>                        
-                  </v-flex>
-                  <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letterCode }}</p>
+                    <p class="font-weight-regular">{{ archive.description }}</p>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -68,57 +50,33 @@
           </v-widget>
         </v-flex>
       </v-layout>
+      <list-dokumen></list-dokumen>
     </v-container>
   </div>
 </template>
 
 <script>
-import OutcomingLetterAPI from '@/api/outcoming-letter';
-import LetterCodeAPI from '@/api/letter-code';
-import SubLetterCodeAPI from '@/api/sub-letter-code';
+import ArchiveAPI from '@/api/archive';
 import VWidget from '@/components/VWidget';
+import ListDokumen from './ListDokumen';
 
 export default {
   components: {
-    VWidget
+    VWidget,
+    ListDokumen
   },
   data () {
     return {
-      letter: {
+      archive: {
         id: '',
-        number: '',
-        date: '',
-        subject: '',
-        tendency: '',
-        to: '',
-        attachments: 0,
-        letter_code_id: null,
-        sub_letter_code_id: null
-      },
-      letterCode: '',
+        title: '',
+        archive_type_id: '',
+        archive_type: {},
+        description: '',
+        role_id: '',
+        role: {},
+      }
     };
-  },
-  watch: {
-    'letter.letter_code_id': {
-      handler: function (val, oldVal) {
-        if (val) {
-          LetterCodeAPI.get(val).then(code => {        
-            if (this.letter.sub_letter_code_id) {
-              SubLetterCodeAPI.get(val, this.letter.sub_letter_code_id).then(subCode => {
-                this.letterCode = code.data.data.code + '.' + subCode.data.data.code + '. ' + subCode.data.data.title;
-              }).catch((e) => {
-                console.log(e);
-              });
-            } else {
-              this.letterCode = code.data.data.code + '. ' + code.data.data.title;
-            }
-          }).catch((e) => {
-            console.log(e);
-          });
-        }
-      },
-      immediate: true,
-    },
   },
   mounted () {
     const { id } = this.$route.params;
@@ -130,9 +88,9 @@ export default {
         container: null,
         canCancel: false,
       });
-      OutcomingLetterAPI.get(id).then(response => {
+      ArchiveAPI.get(id).then(response => {
         loader.hide();
-        this.letter = response.data.data;
+        this.archive = response.data.data;
       });
     },
   }

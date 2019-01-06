@@ -36,17 +36,27 @@ export default {
         tendency: '',
         recipient: '',
         attachments: 0,
+        ordinal: '',
         letter_code_id: '',
         sub_letter_code_id: ''
       }
     };
+  },
+  mounted () {
+    const year = (new Date()).getFullYear();
+    this.setDefaultOrdinal(year);
   },
   methods: {
     submit () {
       OutcomingLetterAPI.store(this.letter).then(response => {
         this.$router.push({ name: 'ShowSuratKeluar', params: { id: response.data.data.letter_id }});
       });
-    }
+    },
+    setDefaultOrdinal (year) {
+      OutcomingLetterAPI.getOrdinal(year).then(response => {
+        this.letter.ordinal = response.data.data;
+      });
+    },
   }
 };
 </script>

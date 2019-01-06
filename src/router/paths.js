@@ -342,5 +342,38 @@ export default [
       import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
         `@/pages/arsip/CreateArsip.vue`)
+  },
+  {
+    path: '/arsip/:id/edit',
+    meta: {
+      requiresAuth: true
+    },
+    name: 'EditArsip',
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+        `@/pages/arsip/EditArsip.vue`)
+  },
+  {
+    path: '/arsip/:id/dokumen/create',
+    meta: {
+      requiresAuth: true
+    },
+    name: 'CreateArsipDokumen',
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+        `@/pages/arsip/CreateDokumen.vue`)
+  },
+  {
+    path: '/arsip/:id',
+    meta: {
+      requiresAuth: true
+    },
+    name: 'ShowArsip',
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+        `@/pages/arsip/ShowArsip.vue`)
   }
 ];

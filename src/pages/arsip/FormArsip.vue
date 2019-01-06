@@ -1,77 +1,30 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
     <v-text-field
-      v-model="letter.number"
+      v-model="archive.title"
       :rules="nonEmptyRules"
-      label="Nomor Surat"
-      prepend-icon="format_list_numbered"
-      required
-    ></v-text-field>
-    <v-menu
-      :close-on-content-click="false"
-      v-model="menu"
-      lazy
-      transition="scale-transition"
-      offset-y
-      full-width
-      min-width="290px"
-      >
-      <v-text-field
-        slot="activator"
-        v-model="letter.date"
-        :rules="nonEmptyRules"
-        label="Tanggal Surat"
-        prepend-icon="event"
-        required
-        readonly
-      ></v-text-field>
-      <v-date-picker v-model="letter.date" @input="menu = false"></v-date-picker>
-    </v-menu>
-    <v-text-field
-      v-model="letter.subject"
-      :rules="nonEmptyRules"
-      label="Subjek Surat"
+      label="Nama"
       prepend-icon="title"
       required
     ></v-text-field>
-    <v-text-field
-      v-model="letter.tendency"
-      label="Perihal Surat"
-      prepend-icon="error"
-    ></v-text-field>
-    <v-text-field
-      v-model="letter.attachments"
-      label="Lampiran Surat"
-      prepend-icon="description"
-      required
-    ></v-text-field>
-    <v-text-field
-      v-model="letter.to"
-      :rules="nonEmptyRules"
-      label="Ditujukan Kepada"
-      prepend-icon="person_outline"
-      required
-    ></v-text-field>
     <v-autocomplete
-      v-model="letter.letter_code_id"
-      :items="letterCodes"
+      v-model="archive.archive_type_id"
+      :items="archiveTypes"
       :rules="[v => !!v || 'Item is required']"
       prepend-icon="details"
-      label="Kategori Surat"
+      label="Tipe Arsip"
       required
-      item-text="code_title"
+      item-text="type"
       item-value="id"
       :chips="true"
     ></v-autocomplete>
-    <v-autocomplete
-      v-model="letter.sub_letter_code_id"
-      :items="subLetterCodes"
-      prepend-icon="details"
-      label="Sub Kategori Surat"
-      item-text="code_title"
-      item-value="id"
-      :chips="true"
-    ></v-autocomplete>
+    <v-textarea
+      v-model="archive.description"
+      label="Keterangan"
+      prepend-icon="message"
+      auto-grow
+      box
+    ></v-textarea>
     <v-btn
       :disabled="!valid"
       @click="submit"
@@ -84,30 +37,18 @@
 </template>
 
 <script>
-import LetterCodeAPI from '@/api/letter-code';
-import SubLetterCodeAPI from '@/api/sub-letter-code';
+import ArchiveAPI from '@/api/archive';
 
 export default {
-  props: ['letter', 'onSubmit'],
+  props: ['archive', 'onSubmit'],
   data: () => ({
     valid: false,
     menu: false,
     nonEmptyRules: [v => !!v || 'Isian ini tidak boleh kosong.'],
-    letterCodes: [],
-    subLetterCodes: []
+    archiveTypes: []
   }),
-  watch: {
-    'letter.letter_code_id': {
-      handler: function (val, oldVal) {
-        if (oldVal) this.letter.sub_letter_code_id = null;
-        this.fetchLetterCodeItems();
-        this.fetchNewSubLetterCodeItems();
-      },
-      immediate: true
-    },
-  },
   created () {
-    this.fetchLetterCodeItems();
+    this.fetchArhciveTypes();
   },
   methods: {
     submit () {
@@ -118,32 +59,17 @@ export default {
     clear () {
       this.$refs.form.reset();
     },
-    fetchLetterCodeItems () {
-      LetterCodeAPI.getList()
+    fetchArhciveTypes () {
+      ArchiveAPI.getArchiveTypes()
         .then(response => {
           if (response.data.success) {
-            this.letterCodes = response.data.data;
+            this.archiveTypes = response.data.data;
           }
         })
         .catch(e => {
           console.log(e);
         });
     },
-    fetchNewSubLetterCodeItems () {
-      SubLetterCodeAPI.getList(this.letter.letter_code_id)
-        .then(response => {
-          if (response.data.success) {
-            this.subLetterCodes = response.data.data;
-            this.subLetterCodes.unshift({
-              'id': null,
-              'code_title': '--Tidak Menggunakan Sub Kode Surat--',
-            });
-          }
-        })
-        .catch(e => {
-          console.log(e);
-        });
-    }
   }
 };
 </script>

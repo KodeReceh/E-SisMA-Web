@@ -37,5 +37,12 @@ export default {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       },
     });
+  },
+  getOrdinal (year) {
+    return axios.get(`${url}/get-ordinal?year=${year}`, {
+      headers: {
+        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+      },
+    });
   }
 };

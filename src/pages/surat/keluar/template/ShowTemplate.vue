@@ -25,6 +25,14 @@
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm2 md3>
+                    <p class="font-weight-bold">Kode Surat</p>                        
+                  </v-flex>
+                  <v-flex xs8 sm10 md9 >
+                    <p class="font-weight-regular">{{ letterCode }}</p>
+                  </v-flex>
+                </v-layout>
+                <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm2 md3>
                     <p class="font-weight-bold">File Template</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
@@ -51,6 +59,7 @@
 import TemplateAPI from '@/api/template';
 import VWidget from '@/components/VWidget';
 import TemplateField from './TemplateField';
+import LetterCodeAPI from '@/api/letter-code';
 
 export default {
   components: {
@@ -84,6 +93,9 @@ export default {
       TemplateAPI.get(id).then(response => {
         loader.hide();
         this.template = response.data.data;
+        LetterCodeAPI.getName(this.template.letter_code_id, this.template.sub_letter_code_id).then(r => {
+          this.letterCode = r.data.data;
+        });
       });
     },
     addButtonClicked () {

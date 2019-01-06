@@ -2,12 +2,12 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat :to="{ name: 'pages/surat/keluar'}"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
+        <v-btn :round="true" flat @click="$router.go(-1)"><v-icon color="secondary">arrow_back</v-icon> back</v-btn>
         <v-flex sm12>
-          <v-widget title="Tambah Surat Keluar">
+          <v-widget title="Buat Arsip">
             <div slot="widget-content">
               <v-container>
-                <FormArsip :letter="letter" :onSubmit="submit" ></FormArsip>
+                <FormArsip :archive="archive" :onSubmit="submit" ></FormArsip>
               </v-container>
             </div>
           </v-widget>
@@ -20,7 +20,7 @@
 <script>
 import FormArsip from './FormArsip';
 import VWidget from '@/components/VWidget';
-import OutcomingLetterAPI from '@/api/outcoming-letter';
+import ArchiveAPI from '@/api/archive';
 
 export default {
   components: {
@@ -29,15 +29,10 @@ export default {
   },
   data () {
     return {
-      letter: {
-        number: '',
-        date: '',
-        subject: '',
-        tendency: '',
-        to: '',
-        attachments: 0,
-        letter_code_id: null,
-        sub_letter_code_id: null
+      archive: {
+        title: '',
+        description: '',
+        archive_type_id: ''
       }
     };
   },
@@ -47,8 +42,8 @@ export default {
         container: null,
         canCancel: false,
       });
-      OutcomingLetterAPI.store(this.letter).then(response => {
-        this.$router.push({ name: 'ShowArsip', params: { id: response.data.data.letter_id }});
+      ArchiveAPI.store(this.archive).then(response => {
+        this.$router.push({ name: 'ShowArsip', params: { id: response.data.data.id }});
         loader.hide();
       });
     }
