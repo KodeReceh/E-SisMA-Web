@@ -40,6 +40,7 @@
       :disabled="!valid"
       @click="submit"
       color="info"
+      :loading="loading"
     >
     submit
     </v-btn>
@@ -51,7 +52,7 @@
 import IncomingLetterAPI from '@/api/incoming-letter';
 
 export default {
-  props: ['disposition', 'onSubmit'],
+  props: ['disposition', 'onSubmit', 'loading'],
   data: () => ({
     valid: false,
     menu: false,
@@ -64,6 +65,7 @@ export default {
       }
     },
     clear () {
+      this.loading = false;
       this.$refs.form.reset();
     },
   }

@@ -4,10 +4,10 @@
       <v-layout row wrap>
         <v-btn :round="true" flat @click="$router.go(-1)"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
         <v-spacer></v-spacer>
-        <v-btn depressed outline icon fab dark color="primary" small :to="{ name: 'EditArsip', params: { id: archive.id }}">
+        <v-btn depressed outline icon fab dark color="primary" small @click="$router.push({ name: 'EditArsip', params: { id: $route.params.id }})">
           <v-icon>edit</v-icon>
         </v-btn>
-        <v-btn color="info" flat :to="{ name: 'CreateArsipDokumen', params: { id: archive.id }}"><v-icon>add</v-icon>&nbsp;Dokumen</v-btn>
+        <v-btn color="info" flat @click="$router.push({ name: 'CreateArsipDokumen', params: { id: $route.params.id }})"><v-icon>add</v-icon>&nbsp;Dokumen</v-btn>
         <v-btn color="primary" flat @click="$router.push({ name: 'Arsip' })"><v-icon>list</v-icon>&nbsp;list</v-btn>
         <v-flex sm12>
           <v-widget title="Detail Arsip">

@@ -50,6 +50,7 @@
       :disabled="!valid"
       @click="submit"
       color="info"
+      :loading="loading"
     >
     submit
     </v-btn>
@@ -62,7 +63,7 @@ import LetterCodeAPI from '@/api/letter-code';
 import SubLetterCodeAPI from '@/api/sub-letter-code';
 
 export default {
-  props: ['template', 'onSubmit'],
+  props: ['template', 'onSubmit', 'loading'],
   data: () => ({
     valid: false,
     menu: false,
@@ -100,6 +101,7 @@ export default {
       }
     },
     clear () {
+      this.loading = false;
       this.$refs.form.reset();
     },
     onFilePicked (e) {

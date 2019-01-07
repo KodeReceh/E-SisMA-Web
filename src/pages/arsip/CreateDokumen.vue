@@ -54,7 +54,6 @@ export default {
       formData.append('archive_id', archiveId);
       DocumentAPI.store(formData).then(response => {
         this.$router.push({ name: 'ShowDokumen', params: { id: response.data.data.id }});
-        
       });
     },
   }

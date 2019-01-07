@@ -28,6 +28,7 @@
       :disabled="!valid"
       @click="submit"
       color="info"
+      :loading="loading"
     >
     submit
     </v-btn>
@@ -53,6 +54,7 @@ export default {
       default: []
     },
     onSubmit: Function,
+    loading: Boolean
   },
   data () {
     return {
@@ -68,6 +70,7 @@ export default {
       }
     },
     clear () {
+      this.loading = false;
       this.$refs.form.reset();
     },
   }

@@ -7,7 +7,7 @@
           <v-widget title="Edit Arsip">
             <div slot="widget-content">
               <v-container>
-                <FormArsip :archive="archive" :onSubmit="submit" ></FormArsip>
+                <FormArsip :archive="archive" :onSubmit="submit" :loading="loading"></FormArsip>
               </v-container>
             </div>
           </v-widget>
@@ -34,7 +34,8 @@ export default {
         title: '',
         description: '',
         archive_type_id: ''
-      }
+      },
+      loading: false
     };
   },
   mounted () {
@@ -48,9 +49,9 @@ export default {
       });
     },
     submit () {
-     
+      this.loading = true;
       ArchiveAPI.update(this.archive.id, this.archive).then(response => {
-        
+        this.loading = false;
         this.$router.push({ name: 'ShowArsip', params: { id: response.data.data.id }});
       });
     }

@@ -56,6 +56,7 @@
       :disabled="!valid"
       @click="submit"
       color="info"
+      :loading="loading"
     >
     submit
     </v-btn>
@@ -82,6 +83,7 @@ export default {
     },
     onSubmit: Function,
     isUpdate: Boolean,
+    loading: Boolean,
     readOnlyArchive: {
       type: Boolean,
       default: false
@@ -107,6 +109,7 @@ export default {
     clear () {
       this.$refs.form.reset();
       this.document.file = null;
+      this.loading = false;
     },
     pickFile () {
       this.$refs.file.click();

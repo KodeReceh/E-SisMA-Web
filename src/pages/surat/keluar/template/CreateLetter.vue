@@ -2,7 +2,7 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat @click="$router.push({ name: 'pages/surat/keluar/template' })"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
+        <v-btn :round="true" flat @click="$router.go(-1)"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
         <v-flex sm12>
           <v-widget title="Buat Draft Surat Keluar">
             <div slot="widget-content">
@@ -51,6 +51,7 @@
                     :disabled="!valid"
                     color="info"
                     @click="submit"
+                    :loading="loading"
                   >
                   submit
                   </v-btn>
@@ -96,6 +97,7 @@ export default {
         letter_name: '',
       },
       nonEmptyRules: [v => !!v || 'Isian ini tidak boleh kosong.'],
+      loading: false,
     };
   },
   mounted () {
@@ -104,16 +106,16 @@ export default {
   methods: {
     submit () {
       if (this.$refs.form.validate()) {
+        this.loading = true;
         const { id } = this.$route.params;
         let formData = new FormData();
-
         for (const key in this.fieldModel) {
           if (this.fieldModel.hasOwnProperty(key)) {
             formData.append(key, this.fieldModel[key]);
           }
         }
-
         TemplateAPI.storeFieldData(id, formData).then(response => {
+          this.loading = false;
           this.$router.push({ name: 'pages/surat/draft-surat-keluar' });
         });
       }
@@ -146,15 +148,12 @@ export default {
           this.fieldModel[field.name + 'Name'] = '';
           alert('Input file harus berupa gambar.');
         }
-        
       } else {
         this.fieldModel[field.name] = '';
         this.fieldModel[field.name + 'Name'] = '';
         this.$forceUpdate();
-
       }
       this.$forceUpdate();
-
     },
     pickFile (ref) {
       this.$refs[ref][0].click();

@@ -2,12 +2,12 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat @click="$router.push({ name: 'pages/surat/keluar' })"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
+        <v-btn :round="true" flat @click="$router.go(-1)"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
         <v-flex sm12>
           <v-widget title="Tambah Surat Keluar">
             <div slot="widget-content">
               <v-container>
-                <FormSuratKeluar :letter="letter" :onSubmit="submit" ></FormSuratKeluar>
+                <FormSuratKeluar :letter="letter" :onSubmit="submit" :loading="loading"></FormSuratKeluar>
               </v-container>
             </div>
           </v-widget>
@@ -39,7 +39,8 @@ export default {
         ordinal: '',
         letter_code_id: '',
         sub_letter_code_id: ''
-      }
+      },
+      loading: false
     };
   },
   mounted () {
@@ -48,7 +49,9 @@ export default {
   },
   methods: {
     submit () {
+      this.loading = true;
       OutcomingLetterAPI.store(this.letter).then(response => {
+        this.loading = false;
         this.$router.push({ name: 'ShowSuratKeluar', params: { id: response.data.data.letter_id }});
       });
     },

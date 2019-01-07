@@ -111,6 +111,7 @@
       :disabled="!valid"
       @click="submit"
       color="info"
+      :loading="loading"
     >
     submit
     </v-btn>
@@ -123,7 +124,7 @@ import LetterCodeAPI from '@/api/letter-code';
 import SubLetterCodeAPI from '@/api/sub-letter-code';
 
 export default {
-  props: ['letter', 'onSubmit', 'availableUsers'],
+  props: ['letter', 'onSubmit', 'availableUsers', 'loading'],
   data: () => ({
     valid: false,
     menu1: false,
@@ -152,6 +153,7 @@ export default {
       }
     },
     clear () {
+      this.loading = false;
       this.$refs.form.reset();
     },
     fetchLetterCodeItems () {

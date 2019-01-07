@@ -7,7 +7,7 @@
           <v-widget title="Edit Jabatan">
             <div slot="widget-content">
               <v-container>
-                <FormRole :role="role" :onSubmit="submit" :permissions="permissions"></FormRole>
+                <FormRole :role="role" :onSubmit="submit" :permissions="permissions" :loading="loading"></FormRole>
               </v-container>
             </div>
           </v-widget>
@@ -35,7 +35,8 @@ export default {
         description: '',
         permission_ids: []
       },
-      permissions: []
+      permissions: [],
+      loading: false
     };
   },
   mounted () {
@@ -45,12 +46,11 @@ export default {
   },
   methods: {
     submit () {
-     
       const { id } = this.$route.params;
-
+      this.loading = true;
       RoleAPI.update(id, this.role).then(response => {
+        this.loading = false;
         this.$router.push({ name: 'pengaturan/role' });
-        
       });
     },
     fetchRole (id) {

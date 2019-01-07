@@ -3,7 +3,7 @@
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
         <v-toolbar class="elevation-0 transparent media-toolbar">
-          <v-btn flat @click="back()"><v-icon color="primary">arrow_back</v-icon>&nbsp;dokumen</v-btn>
+          <v-btn flat @click="back()"><v-icon color="primary">arrow_back</v-icon>&nbsp;back</v-btn>
           <v-spacer></v-spacer>
           <v-btn flat @click="downloadFile(document)">
             <v-icon color="primary">cloud_download</v-icon>
@@ -155,7 +155,7 @@ export default {
       }, 100);
     },
     back () {
-      this.$router.push({ name: 'Dokumen' });
+      this.$router.go(-1);
     }
   }
 };

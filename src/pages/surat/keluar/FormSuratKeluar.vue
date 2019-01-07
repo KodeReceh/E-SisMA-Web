@@ -84,6 +84,7 @@
       :disabled="!valid"
       @click="submit"
       color="info"
+      :loading="loading"
     >
     submit
     </v-btn>
@@ -97,14 +98,13 @@ import SubLetterCodeAPI from '@/api/sub-letter-code';
 import OutcomingLetterAPI from '@/api/outcoming-letter';
 
 export default {
-  props: ['letter', 'onSubmit'],
+  props: ['letter', 'onSubmit', 'loading'],
   data: () => ({
     valid: false,
     menu: false,
     nonEmptyRules: [v => !!v || 'Isian ini tidak boleh kosong.'],
     letterCodes: [],
     subLetterCodes: [],
-
   }),
   watch: {
     'letter.letter_code_id': {
@@ -151,6 +151,7 @@ export default {
       }
     }, 
     clear () {
+      this.loading = false;
       this.$refs.form.reset();
     },
     fetchLetterCodeItems () {

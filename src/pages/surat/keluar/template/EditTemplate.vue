@@ -2,12 +2,12 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat @click="$router.push({ name: 'pages/surat/keluar/template' })"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
+        <v-btn :round="true" flat @click="$router.go(-1)"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
         <v-flex sm12>
           <v-widget title="Edit Template">
             <div slot="widget-content">
               <v-container>
-                <FormTemplate :template="template" :onSubmit="submit" ></FormTemplate>
+                <FormTemplate :template="template" :onSubmit="submit" :loading="loading"></FormTemplate>
               </v-container>
             </div>
           </v-widget>
@@ -36,7 +36,8 @@ export default {
         fileName: '',
         letter_code_id: '',
         sub_letter_code_id: '' 
-      }
+      },
+      laoding: false
     };
   },
   mounted () {
@@ -45,6 +46,7 @@ export default {
   },
   methods: {
     submit () {
+      this.laoding = true;
       let formData = new FormData();
       formData.append('title', this.template.title);
       formData.append('needs_villager_data', this.template.needs_villager_data);
@@ -53,6 +55,7 @@ export default {
       formData.append('sub_letter_code_id', this.template.sub_letter_code_id);
       const { id } = this.$route.params;
       TemplateAPI.update(id, formData).then(response => {
+        this.laoding = false;
         this.$router.push({ name: 'ShowTemplate', params: { id: response.data.data.id }});
       });
     },

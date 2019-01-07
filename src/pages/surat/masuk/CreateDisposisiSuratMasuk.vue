@@ -2,12 +2,12 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat @click="$router.push({ name: 'ShowSuratMasuk', id: letter.id })"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
+        <v-btn :round="true" flat @click="$router.go(-1)"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
         <v-flex sm12>
           <v-widget :title="'Create Disposisi Surat Masuk ' + letter.number">
             <div slot="widget-content">
               <v-container>
-                <FormDisposisiSuratMasuk :disposition="disposition" :onSubmit="submit" ></FormDisposisiSuratMasuk>
+                <FormDisposisiSuratMasuk :disposition="disposition" :onSubmit="submit" :loading="loading"></FormDisposisiSuratMasuk>
               </v-container>
             </div>
           </v-widget>
@@ -39,6 +39,7 @@ export default {
         information: '',
         summary: '',
       },
+      loading: false
     };
   },
   mounted () {
@@ -53,7 +54,9 @@ export default {
       });
     },
     submit () {
+      this.loading = true;
       IncomingLetterAPI.storeDisposition(this.disposition.incoming_letter_id, this.disposition).then(response => {
+        this.loading = false;
         this.$router.push(
           { 
             name: 'ShowDisposisiSuratMasuk',

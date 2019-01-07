@@ -2,12 +2,12 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat @click="$router.push({ name: 'Dokumen' })"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
+        <v-btn :round="true" flat @click="$router.go(-1)"><v-icon color="secondary">arrow_back</v-icon>&nbsp;back</v-btn>
         <v-flex sm12>
           <v-widget title="Edit Dokumen">
             <div slot="widget-content">
               <v-container>
-                <FormDokumen :document="document" :onSubmit="submit" :isUpdate="isUpdate"></FormDokumen>
+                <FormDokumen :document="document" :onSubmit="submit" :isUpdate="isUpdate" :loading="loading"></FormDokumen>
               </v-container>
             </div>
           </v-widget>
@@ -40,6 +40,7 @@ export default {
         archive_id: ''
       },
       isUpdate: true,
+      laoding: false
     };
   },
   mounted () {
@@ -48,6 +49,7 @@ export default {
   },
   methods: {
     submit () {
+      this.laoding = true;
       let formData = new FormData();
       formData.append('file', this.document.file);
       formData.append('title', this.document.title);
@@ -56,6 +58,7 @@ export default {
       formData.append('description', this.document.description);
       formData.append('archive_id', this.document.archive_id);
       DocumentAPI.update(this.document.id, formData).then(response => {
+        this.laoding = false;
         this.$router.push({ name: 'ShowDokumen', params: { id: response.data.data.id }});
       });
     },

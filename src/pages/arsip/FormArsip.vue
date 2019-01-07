@@ -29,6 +29,7 @@
       :disabled="!valid"
       @click="submit"
       color="info"
+      :loading="loading"
     >
     submit
     </v-btn>
@@ -40,7 +41,7 @@
 import ArchiveAPI from '@/api/archive';
 
 export default {
-  props: ['archive', 'onSubmit'],
+  props: ['archive', 'onSubmit', 'loading'],
   data: () => ({
     valid: false,
     menu: false,
@@ -57,6 +58,7 @@ export default {
       }
     },
     clear () {
+      this.loading = false;
       this.$refs.form.reset();
     },
     fetchArhciveTypes () {
