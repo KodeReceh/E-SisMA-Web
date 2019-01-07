@@ -160,15 +160,10 @@ export default {
       this.deleteDialog.detail = {};
     },
     fetchList () {
-      let vm = this;
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       IncomingLetterAPI.getList().then(response => {
         if (response.data.success) {
-          vm.table.items = response.data.data;
-          loader.hide();
+          this.table.items = response.data.data;
+          
         }
       });
     }

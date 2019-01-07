@@ -122,6 +122,12 @@ export default {
       },
       immediate: true
     },
+    'letter.subject': {
+      handler: function (val, oldVal) {
+        this.setNumber();
+      },
+      immediate: true
+    },
     'letter.date': {
       handler: function (val, oldVal) {
         if (oldVal) {

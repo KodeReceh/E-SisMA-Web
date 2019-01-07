@@ -15,8 +15,6 @@ import VueAxios from 'vue-axios';
 import VueMomentLib from 'vue-moment-lib';
 import TimeAgo from 'javascript-time-ago';
 import id from 'javascript-time-ago/locale/id';
-import Loading from 'vue-loading-overlay';
-import 'vue-loading-overlay/dist/vue-loading.css';
 import VTooltip from 'v-tooltip';
 import './theme/tooltip.css';
 import VuetifyDialog from 'vuetify-dialog';
@@ -40,17 +38,6 @@ Vue.use(VueMomentLib);
 Vue.use(VTooltip);
 Vue.use(Vuex);
 Vue.use(VuetifyDialog);
-
-Vue.use(Loading, {
-  // props
-  color: 'red',
-  height: 128,
-  width: 128,
-  loader: 'spinner',
-  backgroundColor: '#ffffff'
-}, {
-  // slots
-});
 Vue.use(Vuetify, {
   // theme: {
   //   primary: colors.indigo.base, // #E53935
@@ -92,6 +79,8 @@ vm.axios.interceptors.response.use((response) => { // intercept the global error
     localStorage.removeItem('__token__');
     console.log(alert('Anda belum login atau sesi telah habis.'));
     return location.replace('/');
+  } else if (error.response.status === 403) {
+    vm.$router.push({ name: 'AccessDenied' });
   }
   // Do something with response error
   return Promise.reject(error);

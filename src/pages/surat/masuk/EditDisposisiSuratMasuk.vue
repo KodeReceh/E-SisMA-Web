@@ -58,12 +58,7 @@ export default {
       });
     },
     submit () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       IncomingLetterAPI.updateDisposition(this.letter.id, this.disposition).then(response => {
-        loader.hide();
         this.$router.push(
           { 
             name: 'ShowDisposisiSuratMasuk',

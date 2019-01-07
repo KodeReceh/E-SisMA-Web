@@ -105,13 +105,12 @@ export default {
   },
   methods: {
     fetchDokumen (id) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
+     
       DocumentAPI.get(id).then(response => {
         this.document = response.data.data;
-        loader.hide();
+        
+      }).catch(e => {
+        
       });
     },
     uploadButtonClicked () {
@@ -119,16 +118,14 @@ export default {
       files.uploadButtonClicked();
     },
     downloadFile (file) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
+     
+      
       DocumentAPI.download(file.path).then(response => {
         const fileName = file.title + '.' + file.file_extension;
         this.showFile(response.data, fileName, file.file_type, file.file_extension);
-        loader.hide();
+        
       }).catch(e => {
-        loader.hide();
+        
         alert(e.response.status + ': ' + e.response.statusText);
       });
     },

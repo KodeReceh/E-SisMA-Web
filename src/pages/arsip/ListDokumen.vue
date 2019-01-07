@@ -150,15 +150,12 @@ export default {
       this.deleteDialog.detail = {};
     },
     fetchList (id) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
+     
       DocumentAPI.getByArchive(id).then(response => {
         if (response.data.success) {
           this.table.items = response.data.data;
-          loader.hide();
         }
+        
       });
     }
   }

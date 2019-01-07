@@ -45,15 +45,12 @@ export default {
   },
   methods: {
     submit () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
+     
       const { id } = this.$route.params;
 
       RoleAPI.update(id, this.role).then(response => {
         this.$router.push({ name: 'pengaturan/role' });
-        loader.hide();
+        
       });
     },
     fetchRole (id) {

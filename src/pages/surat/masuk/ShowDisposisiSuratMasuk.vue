@@ -132,15 +132,8 @@ export default {
       });
     },
     fetchDisposisiSuratMasuk (id) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       IncomingLetterAPI.getDisposition(id).then(response => {
         this.disposition = response.data.data;
-        loader.hide();
-      }).catch((e) => {
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
   }

@@ -38,13 +38,10 @@ export default {
   },
   methods: {
     submit () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
+     
       ArchiveAPI.store(this.archive).then(response => {
+        
         this.$router.push({ name: 'ShowArsip', params: { id: response.data.data.id }});
-        loader.hide();
       });
     }
   }

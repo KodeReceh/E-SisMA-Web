@@ -48,10 +48,6 @@ export default {
   },
   methods: {
     submit () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       let formData = new FormData();
       formData.append('file', this.document.file);
       formData.append('title', this.document.title);
@@ -61,7 +57,6 @@ export default {
       formData.append('archive_id', this.document.archive_id);
       DocumentAPI.update(this.document.id, formData).then(response => {
         this.$router.push({ name: 'ShowDokumen', params: { id: response.data.data.id }});
-        loader.hide();
       });
     },
     fetchDokumen (id) {

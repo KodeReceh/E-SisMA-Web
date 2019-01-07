@@ -149,14 +149,11 @@ export default {
       this.deleteDialog.detail = {};
     },
     fetchList () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
+     
       DocumentAPI.getAll().then(response => {
         if (response.data.success) {
           this.table.items = response.data.data;
-          loader.hide();
+          
         }
       });
     }

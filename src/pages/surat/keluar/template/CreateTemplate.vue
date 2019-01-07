@@ -41,11 +41,6 @@ export default {
   },
   methods: {
     submit () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
-
       let formData = new FormData();
       formData.append('title', this.template.title);
       formData.append('needs_villager_data', this.template.needs_villager_data);
@@ -55,7 +50,6 @@ export default {
 
       TemplateAPI.store(formData).then(response => {
         this.$router.push({ name: 'ShowTemplate', params: { id: response.data.data.id }});
-        loader.hide();
       });
     }
   }

@@ -84,12 +84,7 @@ export default {
   },
   methods: {
     fetchArsip (id) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       ArchiveAPI.get(id).then(response => {
-        loader.hide();
         this.archive = response.data.data;
       });
     },

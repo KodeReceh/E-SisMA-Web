@@ -168,18 +168,10 @@ export default {
       this.fetchList();
     },
     fetchList () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       TemplateAPI.getList().then(response => {
         if (response.data.success) {
           this.table.items = response.data.data;
-          loader.hide();
         }
-      }).catch(e => {
-        loader.hide();
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     }
   }

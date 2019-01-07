@@ -106,13 +106,8 @@ export default {
   },
   methods: {
     fetchSuratKeluar (id) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       OutcomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
-        loader.hide();
       });
     },
     documentButtonClicked () {

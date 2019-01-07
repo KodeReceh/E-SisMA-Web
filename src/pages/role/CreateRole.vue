@@ -42,13 +42,10 @@ export default {
   },
   methods: {
     submit () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
+     
       RoleAPI.store(this.role).then(response => {
         this.$router.push({ name: 'pengaturan/role' });
-        loader.hide();
+        
       });
     },
     fetchPermissions () {

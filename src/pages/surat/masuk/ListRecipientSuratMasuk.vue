@@ -76,16 +76,10 @@ export default {
       });
     },
     disposisiButtonClicked (userId) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       let letterId = this.$route.params.id;
       RecipientAPI.get(letterId, userId).then(response => {
-        loader.hide();
         this.$router.push({ name: 'ShowDisposisiSuratMasuk', params: { id: letterId, user_id: userId }});
       }).catch((e) => {
-        loader.hide();
         if (e.response.status === 404) {
           this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: letterId }});
           return;

@@ -134,10 +134,6 @@ export default {
       });
     },
     fetchFields () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       const { id } = this.$route.params;
       TemplateFieldAPI.getList(id).then(response => {
         this.table.items = response.data.data;
@@ -151,7 +147,6 @@ export default {
           fields: fields,
           signs: signs
         };
-        loader.hide();
       });
     },
     deleteButtonClicked (id) {

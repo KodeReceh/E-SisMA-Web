@@ -162,18 +162,10 @@ export default {
       this.fetchList();
     },
     fetchList () {
-      let vm = this;
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       OutcomingLetterAPI.getList().then(response => {
         if (response.data.success) {
-          vm.table.items = response.data.data;
-          loader.hide();
+          this.table.items = response.data.data;
         }
-      }).catch(e => {
-        loader.hide();
       });
     }
   }

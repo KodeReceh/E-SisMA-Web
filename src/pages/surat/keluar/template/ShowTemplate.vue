@@ -86,12 +86,7 @@ export default {
   },
   methods: {
     fetchTemplate (id) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       TemplateAPI.get(id).then(response => {
-        loader.hide();
         this.template = response.data.data;
         LetterCodeAPI.getName(this.template.letter_code_id, this.template.sub_letter_code_id).then(r => {
           this.letterCode = r.data.data;

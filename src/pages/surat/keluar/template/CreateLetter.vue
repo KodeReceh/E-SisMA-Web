@@ -104,10 +104,6 @@ export default {
   methods: {
     submit () {
       if (this.$refs.form.validate()) {
-        let loader = this.$loading.show({
-          container: null,
-          canCancel: false,
-        });
         const { id } = this.$route.params;
         let formData = new FormData();
 
@@ -119,7 +115,6 @@ export default {
 
         TemplateAPI.storeFieldData(id, formData).then(response => {
           this.$router.push({ name: 'pages/surat/draft-surat-keluar' });
-          loader.hide();  
         });
       }
     },

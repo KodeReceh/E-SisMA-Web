@@ -166,17 +166,10 @@ export default {
       this.fetchList();
     },
     fetchList () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       LetterTemplateAPI.getList().then(response => {
         if (response.data.success) {
           this.table.items = response.data.data;
-          loader.hide();
         }
-      }).catch(e => {
-        loader.hide();
       });
     },
     downloadButtonClicked (id, name, signed) {
@@ -197,17 +190,10 @@ export default {
       this.confirmDialog.detail = {};
     },
     downloadDraft (id, name) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       LetterTemplateAPI.download(id).then(response => {
         const type = response.headers['content-type'];
         const fileName = name + '.' + mime.extension(type);
         this.downloadFile(response.data, fileName, type);
-        loader.hide();
-      }).catch(e => {
-        loader.hide();
       });
     },
     downloadFile (blob, fileName, type) {

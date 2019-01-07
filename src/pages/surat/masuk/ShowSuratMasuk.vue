@@ -152,28 +152,15 @@ export default {
       this.$refs.listRecipient.fetchRecipients();
     },
     fetchSuratMasuk (id) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       IncomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
         this.is_client_recipient = response.data.is_client_recipient;
-        loader.hide();
       });
     },
     disposisiButtonClicked (userId) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       IncomingLetterAPI.getDisposition(this.letter.id).then(response => {
-        loader.hide();
         if (response.data.data.status) this.$router.push({ name: 'ShowDisposisiSuratMasuk', params: { id: this.letter.id }});
         else this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: this.letter.id }});
-      }).catch((e) => {
-        loader.hide();
-        alert(e.response.status + ': ' + e.response.statusText);
       });
     },
     deleteButtonClicked (id) {

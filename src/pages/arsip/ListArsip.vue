@@ -126,9 +126,6 @@ export default {
       search: ''
     };
   },
-  created () {
-    this.fetchList();
-  },
   mounted () {
     this.fetchList();
   },
@@ -151,15 +148,11 @@ export default {
       this.fetchList();
     },
     fetchList () {
-      let vm = this;
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
+     
       ArchiveAPI.getList().then(response => {
         if (response.data.success) {
-          vm.table.items = response.data.data;
-          loader.hide();
+          this.table.items = response.data.data;
+          
         }
       });
     }

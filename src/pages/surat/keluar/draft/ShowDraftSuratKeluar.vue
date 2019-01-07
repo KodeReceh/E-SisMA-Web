@@ -101,47 +101,27 @@ export default {
   },
   methods: {
     fetchDraft (id) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       LetterTemplateAPI.getDraft(id).then(response => {
         this.letter = response.data.data;
         this.letter.data = JSON.parse(this.letter.data);
-        loader.hide();
       });
     },
     deleteGeneratedFile () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       LetterTemplateAPI.deleteGeneratedFile(this.letter.id).then(response => {
         this.letter = response.data.data;
         this.letter.data = JSON.parse(this.letter.data);
-        loader.hide();
       });
     },
     sign () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       LetterTemplateAPI.sign(this.letter.id).then(response => {
         this.letter = response.data.data;
         this.letter.data = JSON.parse(this.letter.data);
-        loader.hide();
       });
     },
     unsign () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       LetterTemplateAPI.unsign(this.letter.id).then(response => {
         this.letter = response.data.data;
         this.letter.data = JSON.parse(this.letter.data);
-        loader.hide();
       });
     }
   }

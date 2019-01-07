@@ -48,13 +48,10 @@ export default {
       });
     },
     submit () {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
+     
       ArchiveAPI.update(this.archive.id, this.archive).then(response => {
+        
         this.$router.push({ name: 'ShowArsip', params: { id: response.data.data.id }});
-        loader.hide();
       });
     }
   }

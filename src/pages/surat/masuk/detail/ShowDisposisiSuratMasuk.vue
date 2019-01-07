@@ -131,13 +131,8 @@ export default {
       });
     },
     fetchDisposisiSuratMasukUser (id, userId) {
-      let loader = this.$loading.show({
-        container: null,
-        canCancel: false,
-      });
       IncomingLetterAPI.getUserDisposition(id, userId).then(response => {
         this.disposition = response.data.data;
-        loader.hide();
       }).catch((e) => {
         if (e.response.status === 404) {
           this.$router.push({ name: 'CreateDisposisiSuratMasuk', params: { id: id }});
