@@ -80,7 +80,11 @@ vm.axios.interceptors.response.use((response) => { // intercept the global error
     console.log(alert('Anda belum login atau sesi telah habis.'));
     return location.replace('/');
   } else if (error.response.status === 403) {
-    vm.$router.push({ name: 'AccessDenied' });
+    vm.$router.replace({ name: 'AccessDenied' });
+  } else if (error.response.status === 404) {
+    vm.$router.replace({ name: 'NotFound' });
+  } else if (error.response.status === 500) {
+    vm.$router.replace({ name: 'ServerError' });
   }
   // Do something with response error
   return Promise.reject(error);

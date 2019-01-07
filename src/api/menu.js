@@ -5,12 +5,23 @@ const Menu =  [
     group: 'apps',
     icon: 'dashboard',
     name: 'Dashboard',
+    permissions: [
+      'regular',
+      'super_user'
+    ]
   },
   {
     title: 'Surat',
     group: 'surat',
     icon: 'local_post_office',
     component: 'surat',
+    permissions: [
+      'atur_surat_masuk',
+      'atur_surat_keluar',
+      'atur_template_surat',
+      'atur_draft_surat_keluar',
+      'super_user'
+    ],
     items: [
       { name: 'masuk', title: 'Surat Masuk', component: 'pages/surat/masuk' },
       { name: 'keluar', title: 'Surat Keluar', component: 'pages/surat/keluar' },
@@ -22,19 +33,22 @@ const Menu =  [
     title: 'Dokumen',
     group: 'apps',
     icon: 'description',
-    name: 'Dokumen'
+    name: 'Dokumen',
+    permissions: ['regular', 'super_user'],
   },
   {
     title: 'Arsip',
     group: 'apps',
     icon: 'folder',
-    name: 'Arsip'
+    name: 'Arsip',
+    permissions: ['regular', 'super_user'],
   },
   {
     title: 'Pengaturan',
     group: 'pengaturan',
     icon: 'settings',
     component: 'pengaturan',
+    permissions: ['super_user'],
     items: [
       { name: 'user', title: 'User' },
       { name: 'role', title: 'Jabatan' },

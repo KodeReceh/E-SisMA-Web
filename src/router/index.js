@@ -17,19 +17,7 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (store.getters.loggedIn) {
       NProgress.start();
-      console.log(to.meta);
-      
-      if (to.meta.permission) {
-        const user = store.getters.user;
-        if (user.permissions.include(to.meta.permission)) {
-          next();
-        } else {
-          next({ name: 'AccessDenied' });
-        }
-      } else {
-        next();
-      }
-      
+      next();
     } else {
       next({ name: 'Login' });
     }

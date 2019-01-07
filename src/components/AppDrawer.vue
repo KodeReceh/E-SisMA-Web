@@ -17,6 +17,7 @@
     <vue-perfect-scrollbar class="drawer-menu--scroll" :settings="scrollSettings">
       <v-list dense expand>
         <template v-for="(item, i) in menus">
+          <div :key="i" v-if="check(item)">
             <!--group with subitems-->
             <v-list-group v-if="item.items" :key="item.name" :group="item.group" :prepend-icon="item.icon" no-action="no-action">
               <v-list-tile slot="activator" ripple="ripple">
@@ -66,6 +67,8 @@
               </v-list-tile-action>
               <!-- <v-circle class="caption blue lighten-2 white--text mx-0" v-else-if="item.chip" label="label" small="small">{{ item.chip }}</v-circle> -->
             </v-list-tile>
+          </div>
+            
         </template>
       </v-list>        
     </vue-perfect-scrollbar>        
@@ -122,6 +125,18 @@ export default {
       }
       return { name: `${item.group}/${(subItem.name)}` };
     },
+    check (item) {
+      if (!item.permissions) return true;
+      if (!this.$store.getters.user.permissions) return false;
+      
+      for (let i = 0, len = item.permissions.length; i < len; i++) {
+        for (let index = 0; index < this.$store.getters.user.permissions.length; index++) {
+          if (this.$store.getters.user.permissions[index] === item.permissions[i]) return true;
+        }
+      }
+
+      return false;
+    }
   }
 };
 </script>
