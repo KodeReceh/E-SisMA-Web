@@ -64,15 +64,48 @@ export default [
     }
   },
   {
-    path: '/user',
+    path: '/pengaturan/user',
     meta: {
       requiresAuth: true
     },
-    name: 'User',
+    name: 'pengaturan/user',
     component: () =>
       import(/* webpackChunkName: "routes" */
       /* webpackMode: "lazy-once" */
         `@/pages/user/User.vue`)
+  },
+  {
+    path: '/pengaturan/role',
+    meta: {
+      requiresAuth: true
+    },
+    name: 'pengaturan/role',
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+        `@/pages/role/Role.vue`)
+  },
+  {
+    path: '/pengaturan/role/create',
+    meta: {
+      requiresAuth: true
+    },
+    name: 'CreateRole',
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+        `@/pages/role/CreateRole.vue`)
+  },
+  {
+    path: '/pengaturan/role/:id/edit',
+    meta: {
+      requiresAuth: true
+    },
+    name: 'EditRole',
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+        `@/pages/role/EditRole.vue`)
   },
   {
     path: '/surat/masuk',

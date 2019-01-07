@@ -20,7 +20,7 @@
                 </v-layout>
                 <v-layout row>
                   <v-flex xs4>
-                    <b>NIM</b>
+                    <b>NIP</b>
                   </v-flex>
                   <v-flex xs8>
                     <p>{{ $store.getters.user.employee_id_number }}</p>
