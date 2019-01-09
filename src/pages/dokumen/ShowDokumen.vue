@@ -29,7 +29,7 @@
                   </v-flex>
                   <v-spacer></v-spacer>
                   <v-flex xs8 sm8 md8>
-                    <p class="font-weight-regular">{{ document.date ? document.date : new Date() | moment().format('DD MMMM YYYY') }}</p>
+                    <p class="font-weight-regular">{{ document.date_formatted }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -96,6 +96,7 @@ export default {
         path: '',
         uploader: {},
         file_extension: '',
+        date_formatted: ''
       },
     };
   },

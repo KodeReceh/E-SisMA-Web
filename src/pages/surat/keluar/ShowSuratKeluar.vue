@@ -22,7 +22,7 @@
                     <p class="font-weight-bold">Tanggal</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.date ? letter.date : new Date() | moment().format('DD MMMM YYYY') }}</p>
+                    <p class="font-weight-regular">{{ letter.date_formatted }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -96,7 +96,8 @@ export default {
         attachments: 0,
         letter_code_id: null,
         sub_letter_code_id: null,
-        letter_code_name: ''
+        letter_code_name: '',
+        date_formatted: ''
       },
     };
   },

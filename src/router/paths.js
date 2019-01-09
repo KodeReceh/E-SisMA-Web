@@ -75,6 +75,39 @@ export default [
         `@/pages/user/User.vue`)
   },
   {
+    path: '/pengaturan/user/create',
+    meta: {
+      requiresAuth: true
+    },
+    name: 'CreateUser',
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+        `@/pages/user/CreateUser.vue`)
+  },
+  {
+    path: '/pengaturan/user/:id/edit',
+    meta: {
+      requiresAuth: true
+    },
+    name: 'EditUser',
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+        `@/pages/user/EditUser.vue`)
+  },
+  {
+    path: '/pengaturan/user/:id',
+    meta: {
+      requiresAuth: true
+    },
+    name: 'ShowUser',
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+        `@/pages/user/ShowUser.vue`)
+  },
+  {
     path: '/pengaturan/role',
     meta: {
       requiresAuth: true

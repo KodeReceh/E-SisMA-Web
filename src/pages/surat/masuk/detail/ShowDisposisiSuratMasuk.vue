@@ -28,7 +28,7 @@
                     <p class="font-weight-bold">Tanggal Surat</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ letter.date ? letter.date : new Date() | moment().format('DD MMMM YYYY') }}</p>
+                    <p class="font-weight-regular">{{ letter.date_formatted }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -36,7 +36,7 @@
                     <p class="font-weight-bold">Tanggal Proses</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ disposition.processing_date ? disposition.processing_date : new Date() | moment().format('DD MMMM YYYY') }}</p>
+                    <p class="font-weight-regular">{{ disposition.processing_date_formatted }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -87,6 +87,7 @@ export default {
         number: '',
         subject: '',
         date: '',
+        date_formatted: ''
       },
       disposition: {
         incoming_letter_id: '',
@@ -94,6 +95,7 @@ export default {
         information: '',
         summary: '',
         user_id: '',
+        processing_date_formatted: ''
       }, 
       user: {
         id: '',

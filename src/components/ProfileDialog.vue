@@ -39,7 +39,7 @@
                     <b>Tempat, Tgl Lahir</b>
                   </v-flex>
                   <v-flex xs8>
-                    <p>{{ $store.getters.user.birthplace }}, {{ ($store.getters.user.birthdate ? $store.getters.user.birthdate : new Date()) | moment().format('DD MMMM YYYY') }}</p>
+                    <p>{{ $store.getters.user.birthplace }}, {{ $store.getters.user.birthdate_formatted }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout row>

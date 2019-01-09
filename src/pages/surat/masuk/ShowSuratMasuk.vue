@@ -36,7 +36,7 @@
                     <p class="font-weight-bold">Tanggal</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.date ? letter.date : new Date() | moment().format('DD MMMM YYYY') }}</p>
+                    <p class="font-weight-regular">{{ letter.date_formatted }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -44,7 +44,7 @@
                     <p class="font-weight-bold">Tanggal Terima</p>                        
                   </v-flex>
                   <v-flex xs8 sm10 md9 >
-                    <p class="font-weight-regular">{{ letter.receipt_date ? letter.receipt_date : new Date() | moment().format('DD MMMM YYYY') }}</p>
+                    <p class="font-weight-regular">{{ letter.receipt_date_formatted }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -138,7 +138,9 @@ export default {
         letter_code_id: null,
         sub_letter_code_id: null,
         letter_code_name: '',
-        document_id: ''
+        document_id: '',
+        receipt_date_formatted: '',
+        date_formatted: ''
       },
       is_client_recipient: ''
     };

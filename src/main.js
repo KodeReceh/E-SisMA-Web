@@ -12,7 +12,6 @@ import colors from 'vuetify/es5/util/colors';
 import Truncate from 'lodash.truncate';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import VueMomentLib from 'vue-moment-lib';
 import TimeAgo from 'javascript-time-ago';
 import id from 'javascript-time-ago/locale/id';
 import VTooltip from 'v-tooltip';
@@ -34,7 +33,6 @@ Vue.config.productionTip = false;
 // Global filters
 Vue.filter('truncate', Truncate);
 Vue.use(VeeValidate, { fieldsBagName: 'formFields' });
-Vue.use(VueMomentLib);
 Vue.use(VTooltip);
 Vue.use(Vuex);
 Vue.use(VuetifyDialog);
