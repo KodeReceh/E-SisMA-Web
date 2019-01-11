@@ -38,7 +38,7 @@
                       dark 
                       color="primary" 
                       small
-                      :loading="downloadLoading"
+                      :loading="downloadLoading && props.item.id === downloadIndex"
                       @click="downloadButtonClicked(props.item.id, props.item.letter_name, props.item.is_all_signed)"
                     >
                     <v-icon>cloud</v-icon>
@@ -114,6 +114,7 @@ export default {
         cancelTitle: 'Batalkan',
       },
       downloadLoading: false,
+      downloadIndex: null,
       deleteLoading: false,
       deleteDialog: {
         state: false,
@@ -193,11 +194,13 @@ export default {
     },
     downloadDraft (id, name) {
       this.downloadLoading = true;
+      this.downloadIndex = id;
       LetterTemplateAPI.download(id).then(response => {
         const type = response.headers['content-type'];
         const fileName = name + '.' + mime.extension(type);
         this.downloadFile(response.data, fileName, type);
         this.downloadLoading = false;
+        this.downloadIndex = null;
       });
     },
     downloadFile (blob, fileName, type) {
