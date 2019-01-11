@@ -65,5 +65,8 @@ export default {
         Authorization: 'bearer ' + localStorage.getItem('__token__'),
       },
     });
+  },
+  verifyLetter (data) {
+    return axios.post(`${process.env.API_URL}/verify-letter`, data, {});
   }
 };

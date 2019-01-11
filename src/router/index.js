@@ -21,6 +21,12 @@ router.beforeEach((to, from, next) => {
     } else {
       next({ name: 'Login' });
     }
+  } else if (to.path === '/login') {
+    if (store.getters.loggedIn) {
+      next({ name: 'Dashboard' });
+    } else {
+      next();
+    }
   } else {
     next();
   }

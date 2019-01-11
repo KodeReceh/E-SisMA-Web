@@ -20,6 +20,17 @@ export default [
         `@/pages/NotFound.vue`)
   },
   {
+    path: '/verify-letter',
+    meta: {
+      public: true
+    },
+    name: 'VerifyLetter',
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      /* webpackMode: "lazy-once" */
+        `@/pages/VerifyLetter.vue`)
+  },
+  {
     path: '/403',
     meta: {
       public: true

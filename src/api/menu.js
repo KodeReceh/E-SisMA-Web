@@ -54,6 +54,14 @@ const Menu =  [
       { name: 'role', title: 'Jabatan' },
     ]
   },
+  {
+    title: 'Verifikasi Surat',
+    group: 'apps',
+    icon: 'check_circle',
+    name: 'VerifyLetter',
+    target: '_blank',
+    permissions: ['regular', 'super_user'],
+  },
 ];
 // reorder menu
 // Menu.forEach((item) => {
