@@ -1,12 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
 
-const url = process.env.API_URL + '/letters';
+const url = process.env.VUE_APP_API_URL + "/letters";
 
 export default {
-  get (id) {
+  get(id) {
     return axios.get(`${url}/${id}`, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+        Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
   }

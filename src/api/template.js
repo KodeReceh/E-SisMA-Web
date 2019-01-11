@@ -1,55 +1,55 @@
-import axios from 'axios';
+import axios from "axios";
 
-const url = process.env.API_URL + '/templates';
+const url = process.env.VUE_APP_API_URL + "/templates";
 
 export default {
-  get (id) {
+  get(id) {
     return axios.get(`${url}/${id}`, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
-      },
+        Authorization: "bearer " + localStorage.getItem("__token__")
+      }
     });
   },
-  getList () {
+  getList() {
     return axios.get(url, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
-      },
+        Authorization: "bearer " + localStorage.getItem("__token__")
+      }
     });
   },
-  store (data) {
+  store(data) {
     return axios.post(url, data, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
-      },
+        Authorization: "bearer " + localStorage.getItem("__token__")
+      }
     });
   },
-  update (id, data) {
+  update(id, data) {
     return axios.put(`${url}/${id}`, data, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
-      },
+        Authorization: "bearer " + localStorage.getItem("__token__")
+      }
     });
   },
-  delete (id) {
+  delete(id) {
     return axios.delete(`${url}/${id}`, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
-      },
+        Authorization: "bearer " + localStorage.getItem("__token__")
+      }
     });
   },
-  getFieldResources (id) {
+  getFieldResources(id) {
     return axios.get(`${url}/${id}/field-form`, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
-      },
+        Authorization: "bearer " + localStorage.getItem("__token__")
+      }
     });
   },
-  storeFieldData (id, data) {
+  storeFieldData(id, data) {
     return axios.post(`${url}/${id}/field-form`, data, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
-      },
+        Authorization: "bearer " + localStorage.getItem("__token__")
+      }
     });
   }
 };

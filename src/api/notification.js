@@ -1,11 +1,11 @@
-import axios from 'axios';
-const url = process.env.API_URL + '/users/notifications';
+import axios from "axios";
+const url = process.env.VUE_APP_API_URL + "/users/notifications";
 
 export default {
-  getNotifications () {
+  getNotifications() {
     return axios.get(url, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+        Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
   }

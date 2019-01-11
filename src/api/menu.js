@@ -1,67 +1,73 @@
-const Menu =  [
-  { header: 'Menu' },
+const Menu = [
+  { header: "Menu" },
   {
-    title: 'Dashboard',
-    group: 'apps',
-    icon: 'dashboard',
-    name: 'Dashboard',
-    permissions: [
-      'regular',
-      'super_user'
-    ]
+    title: "Dashboard",
+    group: "apps",
+    icon: "dashboard",
+    name: "Dashboard",
+    permissions: ["regular", "super_user"]
   },
   {
-    title: 'Surat',
-    group: 'surat',
-    icon: 'local_post_office',
-    component: 'surat',
+    title: "Surat",
+    group: "surat",
+    icon: "local_post_office",
+    component: "surat",
     permissions: [
-      'atur_surat_masuk',
-      'atur_surat_keluar',
-      'atur_template_surat',
-      'atur_draft_surat_keluar',
-      'super_user'
+      "atur_surat_masuk",
+      "atur_surat_keluar",
+      "atur_template_surat",
+      "atur_draft_surat_keluar",
+      "super_user"
     ],
     items: [
-      { name: 'masuk', title: 'Surat Masuk', component: 'pages/surat/masuk' },
-      { name: 'keluar', title: 'Surat Keluar', component: 'pages/surat/keluar' },
-      { name: 'keluar/template', title: 'Template Surat Keluar', component: 'pages/surat/keluar/template' },
-      { name: 'draft-surat-keluar', title: 'Draft Surat Keluar', component: 'pages/surat/draft-surat-keluar' },
+      { name: "masuk", title: "Surat Masuk", component: "views/surat/masuk" },
+      {
+        name: "keluar",
+        title: "Surat Keluar",
+        component: "views/surat/keluar"
+      },
+      {
+        name: "keluar/template",
+        title: "Template Surat Keluar",
+        component: "views/surat/keluar/template"
+      },
+      {
+        name: "draft-surat-keluar",
+        title: "Draft Surat Keluar",
+        component: "views/surat/draft-surat-keluar"
+      }
     ]
   },
   {
-    title: 'Dokumen',
-    group: 'apps',
-    icon: 'description',
-    name: 'Dokumen',
-    permissions: ['regular', 'super_user'],
+    title: "Dokumen",
+    group: "apps",
+    icon: "description",
+    name: "Dokumen",
+    permissions: ["regular", "super_user"]
   },
   {
-    title: 'Arsip',
-    group: 'apps',
-    icon: 'folder',
-    name: 'Arsip',
-    permissions: ['regular', 'super_user'],
+    title: "Arsip",
+    group: "apps",
+    icon: "folder",
+    name: "Arsip",
+    permissions: ["regular", "super_user"]
   },
   {
-    title: 'Pengaturan',
-    group: 'pengaturan',
-    icon: 'settings',
-    component: 'pengaturan',
-    permissions: ['super_user'],
-    items: [
-      { name: 'user', title: 'User' },
-      { name: 'role', title: 'Jabatan' },
-    ]
+    title: "Pengaturan",
+    group: "pengaturan",
+    icon: "settings",
+    component: "pengaturan",
+    permissions: ["super_user"],
+    items: [{ name: "user", title: "User" }, { name: "role", title: "Jabatan" }]
   },
   {
-    title: 'Verifikasi Surat',
-    group: 'apps',
-    icon: 'check_circle',
-    name: 'VerifyLetter',
-    target: '_blank',
-    permissions: ['regular', 'super_user'],
-  },
+    title: "Verifikasi Surat",
+    group: "apps",
+    icon: "check_circle",
+    name: "VerifyLetter",
+    target: "_blank",
+    permissions: ["regular", "super_user"]
+  }
 ];
 // reorder menu
 // Menu.forEach((item) => {

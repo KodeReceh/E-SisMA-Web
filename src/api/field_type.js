@@ -1,18 +1,18 @@
 const type = [
   {
-    text: 'Text',
+    text: "Text",
     value: 1
   },
   {
-    text: 'Gambar',
+    text: "Gambar",
     value: 2
   },
   {
-    text: 'Data Penduduk',
+    text: "Data Penduduk",
     value: 3
   },
   {
-    text: 'Tanda Tangan',
+    text: "Tanda Tangan",
     value: 4
   }
 ];
@@ -21,6 +21,4 @@ const getTypes = () => {
   return type;
 };
 
-export {
-  getTypes
-};
+export { getTypes };

@@ -1,19 +1,19 @@
-import axios from 'axios';
+import axios from "axios";
 
-const url = 'villagers';
+const url = "villagers";
 
 export default {
-  all () {
+  all() {
     return axios.get(url, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+        Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
   },
-  getFields () {
+  getFields() {
     return axios.get(`${url}/fields`, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+        Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
   }

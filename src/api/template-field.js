@@ -1,40 +1,40 @@
-import axios from 'axios';
+import axios from "axios";
 
-const url = process.env.API_URL + '/templates';
+const url = process.env.VUE_APP_API_URL + "/templates";
 
 export default {
-  get (template, id) {
+  get(template, id) {
     return axios.get(`${url}/${template}/fields/${id}`, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+        Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
   },
-  getList (template) {
+  getList(template) {
     return axios.get(`${url}/${template}/fields`, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+        Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
   },
-  store (template, data) {
+  store(template, data) {
     return axios.post(`${url}/${template}/fields`, data, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+        Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
   },
-  delete (template, id) {
+  delete(template, id) {
     return axios.delete(`${url}/${template}/fields/${id}`, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+        Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
   },
-  getResources () {
+  getResources() {
     return axios.get(`${url}/get-field-resources`, {
       headers: {
-        Authorization: 'bearer ' + localStorage.getItem('__token__'),
+        Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
   }

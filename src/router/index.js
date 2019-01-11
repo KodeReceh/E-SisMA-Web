@@ -1,16 +1,16 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import paths from './paths';
-import NProgress from 'nprogress';
-import 'nprogress/nprogress.css';
-import { store } from '../store/store';
+import Vue from "vue";
+import Router from "vue-router";
+import paths from "./paths";
+import NProgress from "nprogress";
+import "nprogress/nprogress.css";
+import { store } from "../store/store";
 
 Vue.use(Router);
-const router =  new Router({
-  base: '/',
-  mode: 'hash',
-  linkActiveClass: 'active',
-  routes: paths,
+const router = new Router({
+  base: "/",
+  mode: "hash",
+  linkActiveClass: "active",
+  routes: paths
 });
 // router gards
 router.beforeEach((to, from, next) => {
@@ -19,22 +19,17 @@ router.beforeEach((to, from, next) => {
       NProgress.start();
       next();
     } else {
-      next({ name: 'Login' });
+      next({ name: "Login" });
     }
-  } else if (to.path === '/login') {
+  } else if (to.path === "/login") {
     if (store.getters.loggedIn) {
-      next({ name: 'Dashboard' });
+      next({ name: "Dashboard" });
     } else {
       next();
     }
   } else {
     next();
   }
-});
-
-router.afterEach((to, from) => {
-  // ...
-  NProgress.done();
 });
 
 export default router;
