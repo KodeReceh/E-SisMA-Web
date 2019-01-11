@@ -23,7 +23,7 @@
       type="file"
       style="display: none"
       ref="file"
-      accept="image/*"
+      accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       @change.passive="onFilePicked"
     >
     <v-autocomplete
