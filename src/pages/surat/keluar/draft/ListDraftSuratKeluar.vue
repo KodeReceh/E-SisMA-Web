@@ -37,7 +37,8 @@
                       fab 
                       dark 
                       color="primary" 
-                      small 
+                      small
+                      :loading="downloadLoading"
                       @click="downloadButtonClicked(props.item.id, props.item.letter_name, props.item.is_all_signed)"
                     >
                     <v-icon>cloud</v-icon>
@@ -112,6 +113,7 @@ export default {
         confirmTitle: 'Lanjut',
         cancelTitle: 'Batalkan',
       },
+      downloadLoading: false,
       deleteLoading: false,
       deleteDialog: {
         state: false,
@@ -190,10 +192,12 @@ export default {
       this.confirmDialog.detail = {};
     },
     downloadDraft (id, name) {
+      this.downloadLoading = true;
       LetterTemplateAPI.download(id).then(response => {
         const type = response.headers['content-type'];
         const fileName = name + '.' + mime.extension(type);
         this.downloadFile(response.data, fileName, type);
+        this.downloadLoading = false;
       });
     },
     downloadFile (blob, fileName, type) {
