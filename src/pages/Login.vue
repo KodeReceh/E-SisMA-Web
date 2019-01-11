@@ -21,6 +21,7 @@
                 <v-spacer></v-spacer>
                 <v-btn block color="primary" @click="login" :loading="loading">Login</v-btn>
               </v-card-actions>
+              <div><router-link :to="{ name: 'VerifyLetter' }">Verifikasi Surat?</router-link></div>
             </v-card>
           </v-flex>
         </v-layout>

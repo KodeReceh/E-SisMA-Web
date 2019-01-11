@@ -27,7 +27,6 @@
                       label="Tanggal Surat"
                       prepend-icon="event"
                       required
-                      readonly
                     ></v-text-field>
                     <v-date-picker v-model="letter.date" @input="menu = false"></v-date-picker>
                   </v-menu>
