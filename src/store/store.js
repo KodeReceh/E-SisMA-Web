@@ -66,7 +66,6 @@ export const store = new Vuex.Store({
             resolve(response);
           })
           .catch(error => {
-            console.log(error);
             reject(error);
           });
       });
@@ -85,7 +84,6 @@ export const store = new Vuex.Store({
             resolve(response);
           })
           .catch(error => {
-            console.log(error);
             reject(error);
           });
       });

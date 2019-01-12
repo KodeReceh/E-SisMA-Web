@@ -137,7 +137,6 @@ export default {
     },
     deleteConfirm() {
       ArchiveAPI.delete(this.deleteDialog.detail.id).then(() => {
-        console.log("dihapus");
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
         this.fetchList();

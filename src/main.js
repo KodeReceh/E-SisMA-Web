@@ -47,7 +47,7 @@ vm.axios.interceptors.response.use(
   function(error) {
     if (error.response.status === 401) {
       localStorage.removeItem("__token__");
-      console.log(alert("Anda belum login atau sesi telah habis."));
+      alert("Anda belum login atau sesi telah habis.");
       return location.replace("/");
     } else if (error.response.status === 403) {
       vm.$router.replace({ name: "AccessDenied" });

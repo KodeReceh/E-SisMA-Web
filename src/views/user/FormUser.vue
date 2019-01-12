@@ -180,9 +180,6 @@ export default {
           if (response.data.success) {
             this.roles = response.data.data;
           }
-        })
-        .catch(e => {
-          console.log(e);
         });
     },
     pickFile() {

@@ -126,9 +126,6 @@ export default {
           UserAPI.get(val)
             .then(response => {
               this.user = response.data.data;
-            })
-            .catch(e => {
-              console.log(e);
             });
         }
       },
@@ -146,9 +143,6 @@ export default {
       IncomingLetterAPI.get(id)
         .then(response => {
           this.letter = response.data.data;
-        })
-        .catch(e => {
-          console.log(e);
         });
     },
     fetchDisposisiSuratMasukUser(id, userId) {

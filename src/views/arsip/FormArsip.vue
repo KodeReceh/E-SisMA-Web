@@ -62,9 +62,6 @@ export default {
           if (response.data.success) {
             this.archiveTypes = response.data.data;
           }
-        })
-        .catch(e => {
-          console.log(e);
         });
     }
   }
