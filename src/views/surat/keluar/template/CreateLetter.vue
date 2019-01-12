@@ -122,9 +122,12 @@ export default {
             formData.append(key, this.fieldModel[key]);
           }
         }
-        TemplateAPI.storeFieldData(id, formData).then(() => {
+        TemplateAPI.storeFieldData(id, formData).then(response => {
           this.loading = false;
-          this.$router.push({ name: "views/surat/draft-surat-keluar" });
+          this.$router.push({
+            name: "ShowDraftSuratKeluar",
+            params: { id: response.data.data.id }
+          });
         });
       }
     },
