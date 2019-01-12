@@ -98,7 +98,7 @@ export default {
     this.fetchNotifications();
     this.interval = setInterval(
       function() {
-        this.fetchNotifications();
+        if (navigator.onLine) this.fetchNotifications();
       }.bind(this),
       1000
     );
