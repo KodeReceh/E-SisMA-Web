@@ -24,27 +24,31 @@
       :chips="true"
       multiple
     ></v-autocomplete>
-    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading">submit</v-btn>
+    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading"
+      >submit</v-btn
+    >
     <v-btn @click="clear">clear</v-btn>
   </v-form>
 </template>
 
 <script>
-import ArchiveAPI from "@/api/archive";
-
 export default {
   props: {
     role: {
       type: Object,
-      default: {
-        title: "",
-        description: "",
-        permission_ids: []
+      default() {
+        return {
+          title: "",
+          description: "",
+          permission_ids: []
+        };
       }
     },
     permissions: {
       type: Array,
-      default: []
+      default() {
+        return [];
+      }
     },
     onSubmit: Function,
     loading: Boolean

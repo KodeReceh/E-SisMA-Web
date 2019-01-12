@@ -14,14 +14,24 @@
           dark
           color="primary"
           small
-          @click="$router.push({ name: 'EditArsip', params: { id: $route.params.id }})"
+          @click="
+            $router.push({
+              name: 'EditArsip',
+              params: { id: $route.params.id }
+            })
+          "
         >
           <v-icon>edit</v-icon>
         </v-btn>
         <v-btn
           color="info"
           flat
-          @click="$router.push({ name: 'CreateArsipDokumen', params: { id: $route.params.id }})"
+          @click="
+            $router.push({
+              name: 'CreateArsipDokumen',
+              params: { id: $route.params.id }
+            })
+          "
         >
           <v-icon>add</v-icon>&nbsp;Dokumen
         </v-btn>
@@ -37,7 +47,7 @@
                     <p class="font-weight-bold">Nama Arsip</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular" v-html="archive.title"/>
+                    <p class="font-weight-regular" v-html="archive.title" />
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -45,7 +55,9 @@
                     <p class="font-weight-bold">Tipe Arsip</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ archive.archive_type.type }}</p>
+                    <p class="font-weight-regular">
+                      {{ archive.archive_type.type }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">

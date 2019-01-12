@@ -10,7 +10,8 @@
           :round="true"
           color="info"
           :to="{ name: 'EditDisposisiSuratMasuk', id: letter.id }"
-        >Edit</v-btn>
+          >Edit</v-btn
+        >
         <v-flex sm12>
           <v-widget title="Disposisi Surat Masuk">
             <div slot="widget-content">
@@ -20,7 +21,7 @@
                     <p class="font-weight-bold">Nomor</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular" v-html="letter.number"/>
+                    <p class="font-weight-regular" v-html="letter.number" />
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -28,7 +29,7 @@
                     <p class="font-weight-bold">Subjek Surat</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular" v-html="letter.subject"/>
+                    <p class="font-weight-regular" v-html="letter.subject" />
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -36,7 +37,9 @@
                     <p class="font-weight-bold">Tanggal Surat</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ letter.date_formatted }}</p>
+                    <p class="font-weight-regular">
+                      {{ letter.date_formatted }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -44,7 +47,9 @@
                     <p class="font-weight-bold">Tanggal Proses</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ disposition.processing_date_formatted }}</p>
+                    <p class="font-weight-regular">
+                      {{ disposition.processing_date_formatted }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -55,7 +60,9 @@
                     <p
                       class="font-weight-regular"
                       style="white-space: pre-line;"
-                    >{{ disposition.information }}</p>
+                    >
+                      {{ disposition.information }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -66,7 +73,9 @@
                     <p
                       class="font-weight-regular"
                       style="white-space: pre-line;"
-                    >{{ disposition.summary }}</p>
+                    >
+                      {{ disposition.summary }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -119,7 +128,7 @@ export default {
   },
   watch: {
     "disposition.user_id": {
-      handler: function(val, oldVal) {
+      handler: function(val) {
         if (val) {
           UserAPI.get(val)
             .then(response => {

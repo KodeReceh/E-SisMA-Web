@@ -14,11 +14,17 @@
           dark
           color="primary"
           small
-          @click="$router.push({ name: 'EditUser', params: { id: $route.params.id }})"
+          @click="
+            $router.push({ name: 'EditUser', params: { id: $route.params.id } })
+          "
         >
           <v-icon>edit</v-icon>
         </v-btn>
-        <v-btn color="primary" flat @click="$router.push({ name: 'pengaturan/user' })">
+        <v-btn
+          color="primary"
+          flat
+          @click="$router.push({ name: 'pengaturan/user' })"
+        >
           <v-icon>list</v-icon>&nbsp;list
         </v-btn>
         <v-flex sm12>
@@ -30,7 +36,7 @@
                     <p class="font-weight-bold">Nama</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular" v-html="user.name"/>
+                    <p class="font-weight-regular" v-html="user.name" />
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -38,7 +44,9 @@
                     <p class="font-weight-bold">NIP</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ user.employee_id_number }}</p>
+                    <p class="font-weight-regular">
+                      {{ user.employee_id_number }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -62,9 +70,9 @@
                     <p class="font-weight-bold">Tempat, Tgl Lahir</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p
-                      class="font-weight-regular"
-                    >{{ user.birthplcae }}, {{ user.birthdate_formatted }}</p>
+                    <p class="font-weight-regular">
+                      {{ user.birthplcae }}, {{ user.birthdate_formatted }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -72,7 +80,9 @@
                     <p class="font-weight-bold">Jenis Kelamin</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ (user.sex === 1 ? 'Laki-laki' : 'Perempuan')}}</p>
+                    <p class="font-weight-regular">
+                      {{ user.sex === 1 ? "Laki-laki" : "Perempuan" }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">

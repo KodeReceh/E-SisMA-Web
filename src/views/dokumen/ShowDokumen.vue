@@ -21,7 +21,7 @@
                   </v-flex>
                   <v-spacer></v-spacer>
                   <v-flex xs8 sm8 md8>
-                    <p class="font-weight-regular" v-html="document.title"/>
+                    <p class="font-weight-regular" v-html="document.title" />
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -30,7 +30,9 @@
                   </v-flex>
                   <v-spacer></v-spacer>
                   <v-flex xs8 sm8 md8>
-                    <p class="font-weight-regular">{{ document.date_formatted }}</p>
+                    <p class="font-weight-regular">
+                      {{ document.date_formatted }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -39,9 +41,13 @@
                   </v-flex>
                   <v-spacer></v-spacer>
                   <v-flex xs8 sm8 md8>
-                    <p
-                      class="font-weight-regular"
-                    >{{ document.archive ? document.archive.title : 'Belum diarsipkan.' }}</p>
+                    <p class="font-weight-regular">
+                      {{
+                        document.archive
+                          ? document.archive.title
+                          : "Belum diarsipkan."
+                      }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -50,7 +56,9 @@
                   </v-flex>
                   <v-spacer></v-spacer>
                   <v-flex xs8 sm8 md8>
-                    <p class="font-weight-regular">{{ document.file_extension }}</p>
+                    <p class="font-weight-regular">
+                      {{ document.file_extension }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -59,9 +67,13 @@
                   </v-flex>
                   <v-spacer></v-spacer>
                   <v-flex xs8 sm8 md8>
-                    <p
-                      class="font-weight-regular"
-                    >{{ document.uploader ? document.uploader.name : 'Tidak diketahui' }}</p>
+                    <p class="font-weight-regular">
+                      {{
+                        document.uploader
+                          ? document.uploader.name
+                          : "Tidak diketahui"
+                      }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -70,7 +82,9 @@
                   </v-flex>
                   <v-spacer></v-spacer>
                   <v-flex xs8 sm8 md8>
-                    <p class="font-weight-regular">{{ document.description }}</p>
+                    <p class="font-weight-regular">
+                      {{ document.description }}
+                    </p>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -110,11 +124,9 @@ export default {
   },
   methods: {
     fetchDokumen(id) {
-      DocumentAPI.get(id)
-        .then(response => {
-          this.document = response.data.data;
-        })
-        .catch(e => {});
+      DocumentAPI.get(id).then(response => {
+        this.document = response.data.data;
+      });
     },
     uploadButtonClicked() {
       let files = this.$refs.filesDokumen;

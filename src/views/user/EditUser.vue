@@ -9,7 +9,12 @@
           <v-widget title="Edit User">
             <div slot="widget-content">
               <v-container>
-                <FormUser :user="user" :onSubmit="submit" :loading="loading" :isUpdate="isUpdate"></FormUser>
+                <FormUser
+                  :user="user"
+                  :onSubmit="submit"
+                  :loading="loading"
+                  :isUpdate="isUpdate"
+                ></FormUser>
               </v-container>
             </div>
           </v-widget>

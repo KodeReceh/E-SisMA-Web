@@ -26,7 +26,6 @@
 <script>
 import FormDisposisiSuratMasuk from "./FormDisposisiSuratMasuk";
 import IncomingLetterAPI from "@/api/incoming-letter";
-import UserAPI from "@/api/user";
 import VWidget from "@/components/VWidget";
 
 export default {

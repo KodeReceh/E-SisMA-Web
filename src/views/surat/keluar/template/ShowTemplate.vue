@@ -14,7 +14,7 @@
                     <p class="font-weight-bold">Nama Template</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular" v-html="template.title"/>
+                    <p class="font-weight-regular" v-html="template.title" />
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -22,7 +22,9 @@
                     <p class="font-weight-bold">Butuh Data Penduduk</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ template.needs_villager_data_string }}</p>
+                    <p class="font-weight-regular">
+                      {{ template.needs_villager_data_string }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -38,7 +40,9 @@
                     <p class="font-weight-bold">File Template</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ template.template_file }}</p>
+                    <p class="font-weight-regular">
+                      {{ template.template_file }}
+                    </p>
                   </v-flex>
                 </v-layout>
               </v-container>

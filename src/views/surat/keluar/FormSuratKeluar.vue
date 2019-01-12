@@ -38,7 +38,10 @@
         required
         readonly
       ></v-text-field>
-      <v-date-picker v-model="letter.date" @input="menu = false"></v-date-picker>
+      <v-date-picker
+        v-model="letter.date"
+        @input="menu = false"
+      ></v-date-picker>
     </v-menu>
     <v-text-field
       v-model="letter.ordinal"
@@ -62,7 +65,11 @@
       required
       readonly
     ></v-text-field>
-    <v-text-field v-model="letter.tendency" label="Perihal Surat" prepend-icon="error"></v-text-field>
+    <v-text-field
+      v-model="letter.tendency"
+      label="Perihal Surat"
+      prepend-icon="error"
+    ></v-text-field>
     <v-text-field
       v-model="letter.attachments"
       label="Lampiran Surat"
@@ -76,7 +83,9 @@
       prepend-icon="person_outline"
       required
     ></v-text-field>
-    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading">submit</v-btn>
+    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading"
+      >submit</v-btn
+    >
     <v-btn @click="clear">clear</v-btn>
   </v-form>
 </template>
@@ -106,13 +115,13 @@ export default {
       immediate: true
     },
     "letter.sub_letter_code_id": {
-      handler: function(val, oldVal) {
+      handler: function() {
         this.setNumber();
       },
       immediate: true
     },
     "letter.subject": {
-      handler: function(val, oldVal) {
+      handler: function() {
         this.setNumber();
       },
       immediate: true

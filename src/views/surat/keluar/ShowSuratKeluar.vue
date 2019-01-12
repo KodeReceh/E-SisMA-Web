@@ -18,7 +18,7 @@
                     <p class="font-weight-bold">Nomor</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular" v-html="letter.number"/>
+                    <p class="font-weight-regular" v-html="letter.number" />
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -26,7 +26,9 @@
                     <p class="font-weight-bold">Tanggal</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ letter.date_formatted }}</p>
+                    <p class="font-weight-regular">
+                      {{ letter.date_formatted }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -58,9 +60,13 @@
                     <p class="font-weight-bold">Lampiran</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p
-                      class="font-weight-regular"
-                    >{{ parseInt(letter.attachments) ? letter.attachments + ' buah' : '-' }}</p>
+                    <p class="font-weight-regular">
+                      {{
+                        parseInt(letter.attachments)
+                          ? letter.attachments + " buah"
+                          : "-"
+                      }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -68,7 +74,9 @@
                     <p class="font-weight-bold">Kode Surat</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ letter.letter_code_name }}</p>
+                    <p class="font-weight-regular">
+                      {{ letter.letter_code_name }}
+                    </p>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -82,8 +90,6 @@
 
 <script>
 import OutcomingLetterAPI from "@/api/outcoming-letter";
-import LetterCodeAPI from "@/api/letter-code";
-import SubLetterCodeAPI from "@/api/sub-letter-code";
 import VWidget from "@/components/VWidget";
 
 export default {
@@ -118,7 +124,6 @@ export default {
       });
     },
     documentButtonClicked() {
-      const { id } = this.$route.params;
       if (this.letter.document_id) {
         this.$router.push({
           name: "ShowDokumen",

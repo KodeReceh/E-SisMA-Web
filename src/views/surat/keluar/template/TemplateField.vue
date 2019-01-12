@@ -10,9 +10,7 @@
         hide-details
         class="hidden-sm-and-down"
       ></v-text-field>
-      <v-btn icon>
-        <v-icon>filter_list</v-icon>
-      </v-btn>
+      <v-btn icon> <v-icon>filter_list</v-icon> </v-btn>
     </v-toolbar>
     <v-divider></v-divider>
     <v-card-text class="pa-0">
@@ -20,7 +18,7 @@
         :headers="table.headers"
         :search="search"
         :items="table.items"
-        :rows-per-page-items="[10,25,50,{text:'All','value':-1}]"
+        :rows-per-page-items="[10, 25, 50, { text: 'All', value: -1 }]"
         class="elevation-1"
         item-key="name"
       >
@@ -60,16 +58,13 @@
 </template>
 
 <script>
-import VuePerfectScrollbar from "vue-perfect-scrollbar";
 import InputFieldDialog from "./InputFieldDialog";
 import TemplateFieldAPI from "@/api/template-field";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 import { getTypes } from "@/api/field_type";
-import RoleAPI from "@/api/role";
 
 export default {
   components: {
-    VuePerfectScrollbar,
     InputFieldDialog,
     DeleteConfirmation
   },
@@ -163,7 +158,7 @@ export default {
     deleteConfirm() {
       const templateId = this.$route.params.id;
       TemplateFieldAPI.delete(templateId, this.deleteDialog.detail.id).then(
-        response => {
+        () => {
           this.fetchFields();
           this.deleteDialog.state = false;
           this.deleteDialog.detail = {};

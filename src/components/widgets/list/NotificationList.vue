@@ -10,14 +10,16 @@
           <v-divider :key="index"></v-divider>
           <v-list-tile avatar :key="item.title" @click="handleClick(item)">
             <v-list-tile-avatar :color="item.color">
-              <v-icon dark>{{item.icon}}</v-icon>
+              <v-icon dark>{{ item.icon }}</v-icon>
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-sub-title v-html="item.title"></v-list-tile-sub-title>
+              <v-list-tile-sub-title
+                v-html="item.title"
+              ></v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action class="caption">
-            <v-spacer></v-spacer>
-              {{item.timeLabel}}
+              <v-spacer></v-spacer>
+              {{ item.timeLabel }}
             </v-list-tile-action>
           </v-list-tile>
         </template>
@@ -33,18 +35,22 @@ export default {
   props: {
     items: {
       type: Array,
-      default: []
-    }
-  },
-  methods: {
-    handleClick (item) {
-      if (item.type === 'incoming-letter') {
-        this.$router.push({ name: 'ShowSuratMasuk', params: { id: item.id }});
-      } else if (item.type === 'signature') {
-        this.$router.push({ name: 'ShowDraftSuratKeluar', params: { id: item.id }});
+      default() {
+        return [];
       }
     }
   },
-
+  methods: {
+    handleClick(item) {
+      if (item.type === "incoming-letter") {
+        this.$router.push({ name: "ShowSuratMasuk", params: { id: item.id } });
+      } else if (item.type === "signature") {
+        this.$router.push({
+          name: "ShowDraftSuratKeluar",
+          params: { id: item.id }
+        });
+      }
+    }
+  }
 };
 </script>

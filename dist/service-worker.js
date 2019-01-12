@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.b2e92d8901fe1b83a429d54a893803f4.js"
+  "/precache-manifest.7472324c6d24353d82ac47f5a8475bac.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "e-sisma-nagari"});

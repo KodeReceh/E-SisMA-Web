@@ -9,7 +9,11 @@
           <v-widget title="Edit Surat Keluar">
             <div slot="widget-content">
               <v-container>
-                <FormSuratKeluar :letter="letter" :onSubmit="submit" :loading="loading"></FormSuratKeluar>
+                <FormSuratKeluar
+                  :letter="letter"
+                  :onSubmit="submit"
+                  :loading="loading"
+                ></FormSuratKeluar>
               </v-container>
             </div>
           </v-widget>

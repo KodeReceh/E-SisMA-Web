@@ -55,10 +55,16 @@
                       :ref="'file' + field.name"
                       accept="image/*"
                       @change.passive="onFilePicked($event, field)"
-                    >
+                    />
                   </div>
 
-                  <v-btn :disabled="!valid" color="info" @click="submit" :loading="loading">submit</v-btn>
+                  <v-btn
+                    :disabled="!valid"
+                    color="info"
+                    @click="submit"
+                    :loading="loading"
+                    >submit</v-btn
+                  >
                   <v-btn>clear</v-btn>
                 </v-form>
               </v-container>
@@ -73,8 +79,6 @@
 <script>
 import VWidget from "@/components/VWidget";
 import TemplateAPI from "@/api/template";
-import TemplateFieldAPI from "@/api/template-field";
-import VillagerAPI from "@/api/villager";
 
 export default {
   components: {
@@ -118,7 +122,7 @@ export default {
             formData.append(key, this.fieldModel[key]);
           }
         }
-        TemplateAPI.storeFieldData(id, formData).then(response => {
+        TemplateAPI.storeFieldData(id, formData).then(() => {
           this.loading = false;
           this.$router.push({ name: "views/surat/draft-surat-keluar" });
         });

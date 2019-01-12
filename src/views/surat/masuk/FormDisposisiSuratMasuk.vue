@@ -27,7 +27,10 @@
         required
         readonly
       ></v-text-field>
-      <v-date-picker v-model="disposition.processing_date" @input="menu = false"></v-date-picker>
+      <v-date-picker
+        v-model="disposition.processing_date"
+        @input="menu = false"
+      ></v-date-picker>
     </v-menu>
     <v-textarea
       v-model="disposition.information"
@@ -36,14 +39,14 @@
       auto-grow
       box
     ></v-textarea>
-    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading">submit</v-btn>
+    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading"
+      >submit</v-btn
+    >
     <v-btn @click="clear">clear</v-btn>
   </v-form>
 </template>
 
 <script>
-import IncomingLetterAPI from "@/api/incoming-letter";
-
 export default {
   props: ["disposition", "onSubmit", "loading"],
   data: () => ({

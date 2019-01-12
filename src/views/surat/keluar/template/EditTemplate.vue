@@ -9,7 +9,11 @@
           <v-widget title="Edit Template">
             <div slot="widget-content">
               <v-container>
-                <FormTemplate :template="template" :onSubmit="submit" :loading="loading"></FormTemplate>
+                <FormTemplate
+                  :template="template"
+                  :onSubmit="submit"
+                  :loading="loading"
+                ></FormTemplate>
               </v-container>
             </div>
           </v-widget>

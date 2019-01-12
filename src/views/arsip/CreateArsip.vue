@@ -9,7 +9,11 @@
           <v-widget title="Buat Arsip">
             <div slot="widget-content">
               <v-container>
-                <FormArsip :archive="archive" :onSubmit="submit" :loading="loading"></FormArsip>
+                <FormArsip
+                  :archive="archive"
+                  :onSubmit="submit"
+                  :loading="loading"
+                ></FormArsip>
               </v-container>
             </div>
           </v-widget>

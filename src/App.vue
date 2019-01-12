@@ -7,13 +7,13 @@
         <v-content>
           <!-- Page Header -->
           <page-header v-if="$route.meta.breadcrumb"></page-header>
-          <div class="page-wrapper">
-            <router-view></router-view>
-          </div>
+          <div class="page-wrapper"><router-view></router-view></div>
           <!-- App Footer -->
           <v-footer height="auto" class="white pa-3 app--footer" inset app>
             <v-spacer></v-spacer>
-            <span class="caption">efzet &copy; {{ new Date().getFullYear() }} e-SisMA</span>
+            <span class="caption"
+              >efzet &copy; {{ new Date().getFullYear() }} e-SisMA</span
+            >
           </v-footer>
         </v-content>
         <!-- Go to top -->
@@ -53,7 +53,13 @@
         </keep-alive>
       </transition>
     </template>
-    <v-snackbar :timeout="3000" bottom right :color="snackbar.color" v-model="snackbar.show">
+    <v-snackbar
+      :timeout="3000"
+      bottom
+      right
+      :color="snackbar.color"
+      v-model="snackbar.show"
+    >
       {{ snackbar.text }}
       <v-btn dark flat @click.native="snackbar.show = false" icon>
         <v-icon>close</v-icon>
@@ -66,7 +72,6 @@ import AppDrawer from "@/components/AppDrawer";
 import AppToolbar from "@/components/AppToolbar";
 import AppFab from "@/components/AppFab";
 import PageHeader from "@/components/PageHeader";
-import menu from "@/api/menu";
 import ThemeSettings from "@/components/ThemeSettings";
 import AppEvents from "./event";
 import ProfileDialog from "./components/ProfileDialog";
@@ -95,7 +100,9 @@ export default {
   }),
 
   computed: {},
-
+  beforeUpdate() {
+    if (this.$store.getters.loggedIn) this.$store.dispatch("getProfile");
+  },
   created() {
     AppEvents.forEach(item => {
       this.$on(item.name, item.callback);

@@ -11,9 +11,7 @@
           hide-details
           class="hidden-sm-and-down"
         ></v-text-field>
-        <v-btn icon>
-          <v-icon>filter_list</v-icon>
-        </v-btn>
+        <v-btn icon> <v-icon>filter_list</v-icon> </v-btn>
       </v-toolbar>
       <v-divider></v-divider>
       <v-card-text class="pa-0">
@@ -21,7 +19,7 @@
           :headers="table.headers"
           :search="search"
           :items="table.items"
-          :rows-per-page-items="[10,25,50,{text:'All','value':-1}]"
+          :rows-per-page-items="[10, 25, 50, { text: 'All', value: -1 }]"
           class="elevation-1"
           item-key="name"
         >
@@ -29,7 +27,15 @@
             <td>{{ props.index + 1 }}</td>
             <td>{{ props.item.title }}</td>
             <td>{{ props.item.description }}</td>
-            <td>{{ props.item.permissions.map(function(elem){ return elem.can }).join(", ") }}</td>
+            <td>
+              {{
+                props.item.permissions
+                  .map(function(elem) {
+                    return elem.can;
+                  })
+                  .join(", ")
+              }}
+            </td>
             <td>
               <v-btn
                 depressed
@@ -40,11 +46,11 @@
                 color="primary"
                 small
                 :to="{
-                                name: 'EditRole',
-                                params: {
-                                  id: props.item.id
-                                }
-                            }"
+                  name: 'EditRole',
+                  params: {
+                    id: props.item.id
+                  }
+                }"
               >
                 <v-icon>edit</v-icon>
               </v-btn>
@@ -126,7 +132,7 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm() {
-      RoleAPI.delete(this.deleteDialog.detail.id).then(response => {
+      RoleAPI.delete(this.deleteDialog.detail.id).then(() => {
         this.fetchList();
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};

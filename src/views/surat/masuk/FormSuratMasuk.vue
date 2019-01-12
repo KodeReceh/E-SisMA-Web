@@ -25,7 +25,10 @@
         required
         readonly
       ></v-text-field>
-      <v-date-picker v-model="letter.date" @input="menu1 = false"></v-date-picker>
+      <v-date-picker
+        v-model="letter.date"
+        @input="menu1 = false"
+      ></v-date-picker>
     </v-menu>
     <v-menu
       :close-on-content-click="false"
@@ -46,7 +49,10 @@
         required
         readonly
       ></v-text-field>
-      <v-date-picker v-model="letter.receipt_date" @input="menu2 = false"></v-date-picker>
+      <v-date-picker
+        v-model="letter.receipt_date"
+        @input="menu2 = false"
+      ></v-date-picker>
     </v-menu>
     <v-text-field
       v-model="letter.subject"
@@ -55,7 +61,11 @@
       prepend-icon="title"
       required
     ></v-text-field>
-    <v-text-field v-model="letter.tendency" label="Perihal Surat" prepend-icon="error"></v-text-field>
+    <v-text-field
+      v-model="letter.tendency"
+      label="Perihal Surat"
+      prepend-icon="error"
+    ></v-text-field>
     <v-text-field
       v-model="letter.attachments"
       label="Lampiran Surat"
@@ -103,7 +113,9 @@
       required
       :rules="[v => !!v || v === null || 'Item is required']"
     ></v-autocomplete>
-    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading">submit</v-btn>
+    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading"
+      >submit</v-btn
+    >
     <v-btn @click="clear">clear</v-btn>
   </v-form>
 </template>

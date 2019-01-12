@@ -7,7 +7,11 @@
       prepend-icon="title"
       required
     ></v-text-field>
-    <v-text-field v-model="user.employee_id_number" label="NIP" prepend-icon="credit_card"></v-text-field>
+    <v-text-field
+      v-model="user.employee_id_number"
+      label="NIP"
+      prepend-icon="credit_card"
+    ></v-text-field>
     <v-text-field
       v-model="user.birthplace"
       :rules="nonEmptyRules"
@@ -33,7 +37,10 @@
         required
         readonly
       ></v-text-field>
-      <v-date-picker v-model="user.birthdate" @input="menu = false"></v-date-picker>
+      <v-date-picker
+        v-model="user.birthdate"
+        @input="menu = false"
+      ></v-date-picker>
     </v-menu>
     <v-text-field
       v-model="user.email"
@@ -92,8 +99,16 @@
       prepend-icon="attach_file"
       readonly
     ></v-text-field>
-    <input type="file" style="display: none" ref="file" accept="image/png" @change="onFilePicked">
-    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading">submit</v-btn>
+    <input
+      type="file"
+      style="display: none"
+      ref="file"
+      accept="image/png"
+      @change="onFilePicked"
+    />
+    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading"
+      >submit</v-btn
+    >
     <v-btn @click="clear">clear</v-btn>
   </v-form>
 </template>
@@ -105,19 +120,21 @@ export default {
   props: {
     user: {
       type: Object,
-      default: {
-        name: "",
-        employee_id_number: "",
-        birthplace: "",
-        birthdate: "",
-        email: "",
-        password: "",
-        sex: "",
-        address: "",
-        handphone: "",
-        role_id: "",
-        signature: "",
-        fileName: ""
+      default() {
+        return {
+          name: "",
+          employee_id_number: "",
+          birthplace: "",
+          birthdate: "",
+          email: "",
+          password: "",
+          sex: "",
+          address: "",
+          handphone: "",
+          role_id: "",
+          signature: "",
+          fileName: ""
+        };
       }
     },
     onSubmit: Function,

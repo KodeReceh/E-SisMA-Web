@@ -33,7 +33,7 @@
       ref="file"
       accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       @change.passive="onFilePicked"
-    >
+    />
     <v-autocomplete
       v-model="template.letter_code_id"
       :items="letterCodes"
@@ -54,7 +54,9 @@
       item-value="id"
       :chips="true"
     ></v-autocomplete>
-    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading">submit</v-btn>
+    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading"
+      >submit</v-btn
+    >
     <v-btn @click="clear">clear</v-btn>
   </v-form>
 </template>

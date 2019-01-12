@@ -51,7 +51,7 @@ export default {
   methods: {
     submit() {
       this.loading = true;
-      RoleAPI.store(this.role).then(response => {
+      RoleAPI.store(this.role).then(() => {
         this.loading = false;
         this.$router.push({ name: "pengaturan/role" });
       });

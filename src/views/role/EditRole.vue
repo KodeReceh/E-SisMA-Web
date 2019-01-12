@@ -55,7 +55,7 @@ export default {
     submit() {
       const { id } = this.$route.params;
       this.loading = true;
-      RoleAPI.update(id, this.role).then(response => {
+      RoleAPI.update(id, this.role).then(() => {
         this.loading = false;
         this.$router.push({ name: "pengaturan/role" });
       });

@@ -14,29 +14,40 @@
           color="secondary"
           outline
           @click="disposisiButtonClicked"
-        >disposisi</v-btn>
+          >disposisi</v-btn
+        >
         <v-btn
           small
           fab
           dark
           color="info"
-          :to="{ name: 'EditSuratMasuk', params: { id: this.$route.params.id }}"
+          :to="{
+            name: 'EditSuratMasuk',
+            params: { id: this.$route.params.id }
+          }"
         >
           <v-icon>edit</v-icon>
         </v-btn>
-        <v-btn small fab dark color="error" @click="deleteButtonClicked(letter.id)">
+        <v-btn
+          small
+          fab
+          dark
+          color="error"
+          @click="deleteButtonClicked(letter.id)"
+        >
           <v-icon>delete</v-icon>
         </v-btn>
         <v-flex sm12>
           <v-divider></v-divider>
           <h3>
-            <strong>{{ letter.number }}</strong>
-            &nbsp;
+            <strong>{{ letter.number }}</strong> &nbsp;
             <small>{{ letter.subject }}</small>
           </h3>
         </v-flex>
         <v-flex sm12>
-          <list-recipient-surat-masuk ref="listRecipient"></list-recipient-surat-masuk>
+          <list-recipient-surat-masuk
+            ref="listRecipient"
+          ></list-recipient-surat-masuk>
         </v-flex>
         <v-flex sm12>
           <v-widget title="Detail Surat Masuk">
@@ -47,7 +58,7 @@
                     <p class="font-weight-bold">Nomor</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular" v-html="letter.number"/>
+                    <p class="font-weight-regular" v-html="letter.number" />
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -55,7 +66,9 @@
                     <p class="font-weight-bold">Tanggal</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ letter.date_formatted }}</p>
+                    <p class="font-weight-regular">
+                      {{ letter.date_formatted }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -63,7 +76,9 @@
                     <p class="font-weight-bold">Tanggal Terima</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ letter.receipt_date_formatted }}</p>
+                    <p class="font-weight-regular">
+                      {{ letter.receipt_date_formatted }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -97,9 +112,9 @@
                   <v-flex xs8 sm10 md9>
                     <p class="font-weight-regular">
                       {{
-                      parseInt(letter.attachments)
-                      ? letter.attachments + ' buah'
-                      : '-'
+                        parseInt(letter.attachments)
+                          ? letter.attachments + " buah"
+                          : "-"
                       }}
                     </p>
                   </v-flex>

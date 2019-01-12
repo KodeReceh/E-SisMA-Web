@@ -11,9 +11,7 @@
           hide-details
           class="hidden-sm-and-down"
         ></v-text-field>
-        <v-btn icon>
-          <v-icon>filter_list</v-icon>
-        </v-btn>
+        <v-btn icon> <v-icon>filter_list</v-icon> </v-btn>
       </v-toolbar>
       <v-divider></v-divider>
       <v-card-text class="pa-0">
@@ -21,7 +19,7 @@
           :headers="table.headers"
           :search="search"
           :items="table.items"
-          :rows-per-page-items="[10,25,50,{text:'All','value':-1}]"
+          :rows-per-page-items="[10, 25, 50, { text: 'All', value: -1 }]"
           class="elevation-1"
           item-key="name"
         >
@@ -32,7 +30,8 @@
               <router-link
                 v-if="props.item.archive"
                 to="{name: 'ShowArsip', id: props.item.archive.id }"
-              >{{ props.item.archive.title }}</router-link>
+                >{{ props.item.archive.title }}</router-link
+              >
               <div v-else>Belum Diarsipkan</div>
             </td>
             <td>
@@ -45,11 +44,11 @@
                 color="primary"
                 small
                 :to="{
-                                name: 'ShowDokumen',
-                                params: {
-                                  id: props.item.id
-                                }
-                            }"
+                  name: 'ShowDokumen',
+                  params: {
+                    id: props.item.id
+                  }
+                }"
               >
                 <v-icon>visibility</v-icon>
               </v-btn>
@@ -62,11 +61,11 @@
                 color="primary"
                 small
                 :to="{
-                                name: 'EditDokumen',
-                                params: {
-                                  id: props.item.id
-                                }
-                            }"
+                  name: 'EditDokumen',
+                  params: {
+                    id: props.item.id
+                  }
+                }"
               >
                 <v-icon>edit</v-icon>
               </v-btn>
@@ -145,7 +144,7 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm() {
-      DocumentAPI.delete(this.deleteDialog.detail.id).then(response => {
+      DocumentAPI.delete(this.deleteDialog.detail.id).then(() => {
         this.fetchList();
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};

@@ -25,7 +25,10 @@
         required
         readonly
       ></v-text-field>
-      <v-date-picker v-model="document.date" @input="menu = false"></v-date-picker>
+      <v-date-picker
+        v-model="document.date"
+        @input="menu = false"
+      ></v-date-picker>
     </v-menu>
     <v-text-field
       v-model="document.description"
@@ -43,7 +46,13 @@
       readonly
       :required="!isUpdate"
     ></v-text-field>
-    <input type="file" style="display: none" ref="file" accept="image/*" @change="onFilePicked">
+    <input
+      type="file"
+      style="display: none"
+      ref="file"
+      accept="image/*"
+      @change="onFilePicked"
+    />
     <v-autocomplete
       v-model="document.archive_id"
       :items="archives"
@@ -54,7 +63,9 @@
       :chips="true"
       :readonly="readOnlyArchive"
     ></v-autocomplete>
-    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading">submit</v-btn>
+    <v-btn :disabled="!valid" @click="submit" color="info" :loading="loading"
+      >submit</v-btn
+    >
     <v-btn @click="clear">clear</v-btn>
   </v-form>
 </template>
@@ -66,14 +77,16 @@ export default {
   props: {
     document: {
       type: Object,
-      default: {
-        title: "",
-        date: "",
-        description: "",
-        fileName: "",
-        file: null,
-        file_type: "",
-        archive_id: ""
+      default() {
+        return {
+          title: "",
+          date: "",
+          description: "",
+          fileName: "",
+          file: null,
+          file_type: "",
+          archive_id: ""
+        };
       }
     },
     onSubmit: Function,

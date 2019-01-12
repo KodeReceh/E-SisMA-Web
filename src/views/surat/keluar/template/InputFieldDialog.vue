@@ -1,8 +1,15 @@
 <template>
   <v-dialog v-model="dialog.state" scrollable max-width="500px" persistent>
     <v-card>
-      <v-card-title class="justify-center" :style="{ backgroundColor: this.$vuetify.theme.primary}">
-        <span class="headline" :style="{ color: 'white', fontWeight: 'bold'}">{{ dialog.title }}</span>
+      <v-card-title
+        class="justify-center"
+        :style="{ backgroundColor: this.$vuetify.theme.primary }"
+      >
+        <span
+          class="headline"
+          :style="{ color: 'white', fontWeight: 'bold' }"
+          >{{ dialog.title }}</span
+        >
       </v-card-title>
       <v-divider></v-divider>
       <v-card-text>
@@ -13,7 +20,9 @@
                 <v-autocomplete
                   v-model="field.field_type"
                   :items="types"
-                  :rules="[v => !!v || 'Inputan tipe field tidak boleh kosong.']"
+                  :rules="[
+                    v => !!v || 'Inputan tipe field tidak boleh kosong.'
+                  ]"
                   prepend-icon="view_headline"
                   label="Tipe Field"
                   required
@@ -70,9 +79,20 @@
         <v-btn
           color="blue darken-1"
           flat
-          @click.native="dialog.state = false; clearFileObject();"
-        >Close</v-btn>
-        <v-btn color="blue darken-1" :disabled="!valid" flat @click="save" :loading="loading">Save</v-btn>
+          @click.native="
+            dialog.state = false;
+            clearFileObject();
+          "
+          >Close</v-btn
+        >
+        <v-btn
+          color="blue darken-1"
+          :disabled="!valid"
+          flat
+          @click="save"
+          :loading="loading"
+          >Save</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -93,18 +113,22 @@ export default {
     },
     field: {
       type: Object,
-      default: {
-        id: "",
-        name: "",
-        field_type: "",
-        user_id: ""
+      default() {
+        return {
+          id: "",
+          name: "",
+          field_type: "",
+          user_id: ""
+        };
       }
     },
     uniqueData: {
       type: Object,
-      default: {
-        fields: [],
-        signs: []
+      default() {
+        return {
+          fields: [],
+          signs: []
+        };
       }
     }
   },
@@ -162,7 +186,7 @@ export default {
         formData.append("user_id", this.field.user_id);
         const { id } = this.$route.params;
         TemplateFieldAPI.store(id, formData)
-          .then(response => {
+          .then(() => {
             this.onClosedDialog();
           })
           .catch(e => {

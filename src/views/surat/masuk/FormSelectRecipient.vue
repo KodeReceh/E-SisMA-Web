@@ -18,7 +18,13 @@
         </v-flex>
         <v-flex xs2>
           <v-spacer></v-spacer>
-          <v-btn color="primary" :disabled="!valid" @click="save" :loading="loading">Tambah</v-btn>
+          <v-btn
+            color="primary"
+            :disabled="!valid"
+            @click="save"
+            :loading="loading"
+            >Tambah</v-btn
+          >
         </v-flex>
       </v-layout>
     </v-form>

@@ -36,17 +36,22 @@
                       prepend-icon="event"
                       required
                     ></v-text-field>
-                    <v-date-picker v-model="letter.date" @input="menu = false"></v-date-picker>
+                    <v-date-picker
+                      v-model="letter.date"
+                      @input="menu = false"
+                    ></v-date-picker>
                   </v-menu>
                 </v-form>
               </v-card-text>
               <div v-if="errorMsg">
                 <p style="color: red">{{ errorMsg }}</p>
               </div>
-              <br>
+              <br />
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn block color="primary" @click="submit" :loading="loading">Cek</v-btn>
+                <v-btn block color="primary" @click="submit" :loading="loading"
+                  >Cek</v-btn
+                >
               </v-card-actions>
             </v-card>
             <v-card class="elevation-1 pa-3" v-if="result">
@@ -62,7 +67,7 @@
                       </v-flex>
                       <v-spacer></v-spacer>
                       <v-flex xs7 sm7 md7>
-                        <p class="font-weight-regular" v-html="found.number"/>
+                        <p class="font-weight-regular" v-html="found.number" />
                       </v-flex>
                     </v-layout>
                     <v-layout align-center row spacer slot="header">
@@ -108,12 +113,8 @@
 </template>
 <script>
 import VerifyLetterAPI from "@/api/incoming-letter";
-import VWidget from "@/components/VWidget";
 
 export default {
-  components: {
-    VWidget
-  },
   data() {
     return {
       valid: false,

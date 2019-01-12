@@ -11,18 +11,21 @@
             v-if="!letter.sign.has_signed && !letter.generated_file"
             color="primary"
             @click="sign()"
-          >Tanda Tangan</v-btn>
+            >Tanda Tangan</v-btn
+          >
           <v-btn
             v-if="letter.sign.has_signed && !letter.generated_file"
             color="primary"
             @click="unsign()"
-          >Batal Tanda Tangan</v-btn>
+            >Batal Tanda Tangan</v-btn
+          >
         </div>
         <v-btn
           v-if="letter.generated_file"
           color="error"
           @click="deleteGeneratedFile()"
-        >Hapus File Surat</v-btn>
+          >Hapus File Surat</v-btn
+        >
         <v-flex sm12>
           <v-widget title="Detail Draft Surat Keluar">
             <div slot="widget-content">
@@ -32,7 +35,10 @@
                     <p class="font-weight-bold">Nama Surat</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular" v-html="letter.letter_name"/>
+                    <p
+                      class="font-weight-regular"
+                      v-html="letter.letter_name"
+                    />
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -40,7 +46,10 @@
                     <p class="font-weight-bold">Nama Template</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular" v-html="letter.template_name"/>
+                    <p
+                      class="font-weight-regular"
+                      v-html="letter.template_name"
+                    />
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -48,7 +57,9 @@
                     <p class="font-weight-bold">Status</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ letter.status ? 'Selesai' : 'Draft' }}</p>
+                    <p class="font-weight-regular">
+                      {{ letter.status ? "Selesai" : "Draft" }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout
@@ -75,7 +86,9 @@
                   v-bind:key="key"
                 >
                   <v-flex xs4 sm2 md3>
-                    <p class="font-weight-bold">{{ key.replace(/_/g, " ") + ' Penduduk' }}</p>
+                    <p class="font-weight-bold">
+                      {{ key.replace(/_/g, " ") + " Penduduk" }}
+                    </p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
                     <p class="font-weight-regular">{{ value }}</p>
@@ -93,7 +106,9 @@
                     <p class="font-weight-bold">{{ key.replace(/_/g, " ") }}</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ value ? 'Sudah' : 'Belum' }}</p>
+                    <p class="font-weight-regular">
+                      {{ value ? "Sudah" : "Belum" }}
+                    </p>
                   </v-flex>
                 </v-layout>
               </v-container>

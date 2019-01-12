@@ -1,7 +1,9 @@
 <template>
   <v-card>
     <v-toolbar card color="white">
-      <v-toolbar-title class="font-weight-light">Penerima Surat</v-toolbar-title>
+      <v-toolbar-title class="font-weight-light"
+        >Penerima Surat</v-toolbar-title
+      >
     </v-toolbar>
     <v-divider></v-divider>
     <v-card-text class="pa-0">
@@ -18,9 +20,12 @@
           <td>{{ props.item.role }}</td>
           <td v-if="props.item.status">
             <router-link
-              :to="{ name: 'ShowDisposisiSuratMasukUser',
-            params: { id: $route.params.id, user_id: props.item.user_id } }"
-            >Terdisposisi</router-link>
+              :to="{
+                name: 'ShowDisposisiSuratMasukUser',
+                params: { id: $route.params.id, user_id: props.item.user_id }
+              }"
+              >Terdisposisi</router-link
+            >
           </td>
           <td v-else>Belum Terdisposisi</td>
         </template>
@@ -78,7 +83,7 @@ export default {
     disposisiButtonClicked(userId) {
       let letterId = this.$route.params.id;
       RecipientAPI.get(letterId, userId)
-        .then(response => {
+        .then(() => {
           this.$router.push({
             name: "ShowDisposisiSuratMasuk",
             params: { id: letterId, user_id: userId }

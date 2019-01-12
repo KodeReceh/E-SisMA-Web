@@ -7,7 +7,7 @@
             <v-card class="elevation-1 pa-3">
               <v-card-text>
                 <div class="layout column align-center">
-                  <img :src="logoPath" alt="E-SisMA Nagari" width="120">
+                  <img :src="logoPath" alt="E-SisMA Nagari" width="120" />
                   <h1 class="flex my-4 primary--text">E-SisMA Login</h1>
                 </div>
                 <v-form>
@@ -34,13 +34,17 @@
               <div v-if="errorMsg">
                 <p style="color: red">{{ errorMsg }}</p>
               </div>
-              <br>
+              <br />
               <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn block color="primary" @click="login" :loading="loading">Login</v-btn>
+                <v-btn block color="primary" @click="login" :loading="loading"
+                  >Login</v-btn
+                >
               </v-card-actions>
               <div>
-                <router-link :to="{ name: 'VerifyLetter' }">Verifikasi Surat?</router-link>
+                <router-link :to="{ name: 'VerifyLetter' }"
+                  >Verifikasi Surat?</router-link
+                >
               </div>
             </v-card>
           </v-flex>
@@ -70,7 +74,7 @@ export default {
           email: this.form.email,
           password: this.form.password
         })
-        .then(response => {
+        .then(() => {
           this.$router.push("dashboard");
           this.$store.dispatch("getProfile");
           this.loading = false;

@@ -9,7 +9,11 @@
           <v-widget title="Buat User">
             <div slot="widget-content">
               <v-container>
-                <FormUser :user="user" :onSubmit="submit" :loading="loading"></FormUser>
+                <FormUser
+                  :user="user"
+                  :onSubmit="submit"
+                  :loading="loading"
+                ></FormUser>
               </v-container>
             </div>
           </v-widget>
