@@ -57,12 +57,11 @@ export default {
       this.$refs.form.reset();
     },
     fetchArhciveTypes() {
-      ArchiveAPI.getArchiveTypes()
-        .then(response => {
-          if (response.data.success) {
-            this.archiveTypes = response.data.data;
-          }
-        });
+      ArchiveAPI.getArchiveTypes().then(response => {
+        if (response.data.success) {
+          this.archiveTypes = response.data.data;
+        }
+      });
     }
   }
 };

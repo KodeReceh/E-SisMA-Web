@@ -175,12 +175,11 @@ export default {
       this.$refs.file.reset();
     },
     fetchRoles() {
-      RoleAPI.getList()
-        .then(response => {
-          if (response.data.success) {
-            this.roles = response.data.data;
-          }
-        });
+      RoleAPI.getList().then(response => {
+        if (response.data.success) {
+          this.roles = response.data.data;
+        }
+      });
     },
     pickFile() {
       this.$refs.file.click();

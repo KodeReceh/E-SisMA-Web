@@ -130,10 +130,9 @@ export default {
     "disposition.user_id": {
       handler: function(val) {
         if (val) {
-          UserAPI.get(val)
-            .then(response => {
-              this.user = response.data.data;
-            });
+          UserAPI.get(val).then(response => {
+            this.user = response.data.data;
+          });
         }
       },
       immediate: true
@@ -146,10 +145,9 @@ export default {
   },
   methods: {
     fetchSuratMasuk(id) {
-      IncomingLetterAPI.get(id)
-        .then(response => {
-          this.letter = response.data.data;
-        });
+      IncomingLetterAPI.get(id).then(response => {
+        this.letter = response.data.data;
+      });
     },
     fetchDisposisiSuratMasuk(id) {
       IncomingLetterAPI.getDisposition(id).then(response => {
