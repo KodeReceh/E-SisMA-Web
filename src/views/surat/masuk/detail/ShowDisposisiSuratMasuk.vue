@@ -76,7 +76,7 @@
                     <p class="font-weight-bold">Pegawai</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ user.name }}</p>
+                    <p class="font-weight-regular">{{ disposition.user }}</p>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -90,7 +90,6 @@
 
 <script>
 import IncomingLetterAPI from "@/api/incoming-letter";
-import UserAPI from "@/api/user";
 import VWidget from "@/components/VWidget";
 
 export default {
@@ -111,25 +110,10 @@ export default {
         information: "",
         summary: "",
         user_id: "",
-        processing_date_formatted: ""
-      },
-      user: {
-        id: "",
-        name: ""
+        processing_date_formatted: "",
+        user: ""
       }
     };
-  },
-  watch: {
-    "disposition.user_id": {
-      handler: function(val) {
-        if (val) {
-          UserAPI.get(val).then(response => {
-            this.user = response.data.data;
-          });
-        }
-      },
-      immediate: true
-    }
   },
   mounted() {
     const { id } = this.$route.params;

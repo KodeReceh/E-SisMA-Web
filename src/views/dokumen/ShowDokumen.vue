@@ -7,9 +7,27 @@
             <v-icon color="primary">arrow_back</v-icon>&nbsp;back
           </v-btn>
           <v-spacer></v-spacer>
-          <v-btn flat @click="downloadFile(document)">
+          <v-btn flat @click="downloadFile(document)" :loading="loading">
             <v-icon color="primary">cloud_download</v-icon>&nbsp;Download
           </v-btn>
+        </v-toolbar>
+        <v-toolbar class="elevation-0 transparent media-toolbar">
+          <v-btn flat @click="$router.push({ name: 'Dokumen' })">
+            <v-icon color="primary">description</v-icon>&nbsp;dokumen
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn
+            v-if="document.letter"
+            flat
+            :to="{
+              name: document.letter.is_incoming_letter
+                ? 'ShowSuratMasuk'
+                : 'ShowSuratKeluar',
+              params: { id: document.letter.id }
+            }"
+          >
+            <v-icon color="primary">email</v-icon>&nbsp;Surat</v-btn
+          >
         </v-toolbar>
         <v-flex sm12>
           <v-widget title="Detail Dokumen">
@@ -114,8 +132,10 @@ export default {
         path: "",
         uploader: {},
         file_extension: "",
-        date_formatted: ""
-      }
+        date_formatted: "",
+        letter: null
+      },
+      loading: false
     };
   },
   mounted() {
@@ -133,6 +153,7 @@ export default {
       files.uploadButtonClicked();
     },
     downloadFile(file) {
+      this.loading = true;
       DocumentAPI.download(file.path)
         .then(response => {
           const fileName = file.title + "." + file.file_extension;
@@ -142,8 +163,10 @@ export default {
             file.file_type,
             file.file_extension
           );
+          this.loading = false;
         })
         .catch(e => {
+          this.loading = false;
           alert(e.response.status + ": " + e.response.statusText);
         });
     },

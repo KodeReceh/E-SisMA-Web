@@ -1,7 +1,7 @@
 <template>
   <v-card class="elevation-0">
     <v-toolbar card dense color="transparent">
-      <v-toolbar-title><h4>Notification</h4></v-toolbar-title>
+      <v-toolbar-title><h4>Notifikasi</h4></v-toolbar-title>
     </v-toolbar>
     <v-divider></v-divider>
     <v-card-text class="pa-0">

@@ -4,7 +4,7 @@ const Menu = [
     title: "Dashboard",
     group: "apps",
     icon: "dashboard",
-    name: "Dashboard",
+    name: "Dashboard"
   },
   {
     title: "Surat",
@@ -15,7 +15,7 @@ const Menu = [
       "atur_surat_masuk",
       "atur_surat_keluar",
       "atur_template_surat",
-      "atur_draft_surat_keluar",
+      "atur_draft_surat_keluar"
     ],
     items: [
       { name: "masuk", title: "Surat Masuk", component: "views/surat/masuk" },
@@ -55,7 +55,7 @@ const Menu = [
     group: "pengaturan",
     icon: "settings",
     component: "pengaturan",
-    permissions: ["admin"],
+    permissions: ["atur_pengguna"],
     items: [{ name: "user", title: "User" }, { name: "role", title: "Jabatan" }]
   },
   {
@@ -63,7 +63,7 @@ const Menu = [
     group: "apps",
     icon: "check_circle",
     name: "VerifyLetter",
-    target: "_blank",
+    target: "_blank"
   }
 ];
 // reorder menu

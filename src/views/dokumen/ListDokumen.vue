@@ -160,7 +160,6 @@ export default {
       DocumentAPI.getAll().then(response => {
         if (response.data.success) {
           this.table.items = response.data.data;
-          console.log(response.data.data);
         }
       });
     }
