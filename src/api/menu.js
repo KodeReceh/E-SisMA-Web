@@ -5,7 +5,6 @@ const Menu = [
     group: "apps",
     icon: "dashboard",
     name: "Dashboard",
-    permissions: ["regular", "super_user"]
   },
   {
     title: "Surat",
@@ -17,7 +16,6 @@ const Menu = [
       "atur_surat_keluar",
       "atur_template_surat",
       "atur_draft_surat_keluar",
-      "super_user"
     ],
     items: [
       { name: "masuk", title: "Surat Masuk", component: "views/surat/masuk" },
@@ -43,21 +41,21 @@ const Menu = [
     group: "apps",
     icon: "description",
     name: "Dokumen",
-    permissions: ["regular", "super_user"]
+    permissions: ["regular"]
   },
   {
     title: "Arsip",
     group: "apps",
     icon: "folder",
     name: "Arsip",
-    permissions: ["regular", "super_user"]
+    permissions: ["regular"]
   },
   {
     title: "Pengaturan",
     group: "pengaturan",
     icon: "settings",
     component: "pengaturan",
-    permissions: ["super_user"],
+    permissions: ["admin"],
     items: [{ name: "user", title: "User" }, { name: "role", title: "Jabatan" }]
   },
   {
@@ -66,7 +64,6 @@ const Menu = [
     icon: "check_circle",
     name: "VerifyLetter",
     target: "_blank",
-    permissions: ["regular", "super_user"]
   }
 ];
 // reorder menu

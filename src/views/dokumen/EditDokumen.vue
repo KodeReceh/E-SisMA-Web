@@ -47,7 +47,7 @@ export default {
         archive_id: ""
       },
       isUpdate: true,
-      laoding: false
+      loading: false
     };
   },
   mounted() {

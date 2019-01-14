@@ -32,10 +32,8 @@
     </v-menu>
     <v-text-field
       v-model="document.description"
-      :rules="nonEmptyRules"
       label="Keterangan"
       prepend-icon="info"
-      required
     ></v-text-field>
     <v-text-field
       label="Pilih File"
@@ -91,7 +89,10 @@ export default {
     },
     onSubmit: Function,
     isUpdate: Boolean,
-    loading: Boolean,
+    loading: {
+      type: Boolean,
+      default: false
+    },
     readOnlyArchive: {
       type: Boolean,
       default: false

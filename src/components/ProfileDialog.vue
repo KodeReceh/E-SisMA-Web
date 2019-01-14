@@ -51,7 +51,9 @@
                       {{
                         $store.getters.user.sex === 1
                           ? "Laki-Laki"
-                          : "Perempuan"
+                          : $store.getters.user.sex === 2
+                          ? "Perempuan"
+                          : ""
                       }}
                     </p>
                   </v-flex>
