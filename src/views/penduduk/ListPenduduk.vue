@@ -1,6 +1,6 @@
 <template>
   <v-flex lg12>
-    <v-card loading>
+    <v-card>
       <v-toolbar card color="white">
         <v-text-field
           flat
@@ -24,19 +24,10 @@
           item-key="name"
         >
           <template slot="items" slot-scope="props">
-            <td>{{ props.item.date }}</td>
-            <td>{{ props.item.title }}</td>
-            <td>
-              <router-link
-                v-if="props.item.archive"
-                :to="{
-                  name: 'ShowArsip',
-                  params: { id: props.item.archive.id }
-                }"
-                >{{ props.item.archive.title }}</router-link
-              >
-              <div v-else>Belum Diarsipkan</div>
-            </td>
+            <td>{{ props.index + 1 }}</td>
+            <td>{{ props.item.name }}</td>
+            <td>{{ props.item.sex_text }}</td>
+            <td>{{ props.item.tribe_text }}</td>
             <td>
               <v-btn
                 depressed
@@ -47,7 +38,7 @@
                 color="primary"
                 small
                 :to="{
-                  name: 'ShowDokumen',
+                  name: 'ShowPenduduk',
                   params: {
                     id: props.item.id
                   }
@@ -64,7 +55,7 @@
                 color="primary"
                 small
                 :to="{
-                  name: 'EditDokumen',
+                  name: 'EditPenduduk',
                   params: {
                     id: props.item.id
                   }
@@ -98,7 +89,7 @@
 </template>
 
 <script>
-import DocumentAPI from "@/api/document";
+import VillagerAPI from "@/api/villager";
 import DeleteConfirmation from "@/components/DeleteConfirmation";
 
 export default {
@@ -116,16 +107,20 @@ export default {
         selected: [],
         headers: [
           {
-            text: "Tanggal",
-            value: "date"
+            text: "#",
+            value: ""
           },
           {
-            text: "Dokumen",
-            value: "title"
+            text: "Nama",
+            value: "name"
           },
           {
-            text: "Arsip",
-            value: "arsip"
+            text: "Jenis Kelamin",
+            value: "sex_text"
+          },
+          {
+            text: "Suku",
+            value: "tribe_text"
           },
           {
             text: "Action",
@@ -146,18 +141,19 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm() {
-      DocumentAPI.delete(this.deleteDialog.detail.id).then(() => {
-        this.fetchList();
+      VillagerAPI.delete(this.deleteDialog.detail.id).then(() => {
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
+        this.fetchList();
       });
     },
     deleteCancel() {
       this.deleteDialog.state = false;
       this.deleteDialog.detail = {};
+      this.fetchList();
     },
     fetchList() {
-      DocumentAPI.getAll().then(response => {
+      VillagerAPI.all().then(response => {
         if (response.data.success) {
           this.table.items = response.data.data;
         }

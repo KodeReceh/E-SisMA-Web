@@ -100,7 +100,7 @@ export default {
       function() {
         if (navigator.onLine) this.fetchNotifications();
       }.bind(this),
-      1000
+      3600
     );
   },
   beforeDestroy: function() {

@@ -470,5 +470,45 @@ export default [
     component: () =>
       import(/* webpackChunkName: "routes" */
       `@/views/arsip/ShowArsip.vue`)
+  },
+  {
+    path: "/penduduk",
+    meta: {
+      requiresAuth: true
+    },
+    name: "Penduduk",
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      `@/views/penduduk/Penduduk.vue`)
+  },
+  {
+    path: "/penduduk/create",
+    meta: {
+      requiresAuth: true
+    },
+    name: "CreatePenduduk",
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      `@/views/penduduk/CreatePenduduk.vue`)
+  },
+  {
+    path: "/penduduk/:id/edit",
+    meta: {
+      requiresAuth: true
+    },
+    name: "EditPenduduk",
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      `@/views/penduduk/EditPenduduk.vue`)
+  },
+  {
+    path: "/penduduk/:id",
+    meta: {
+      requiresAuth: true
+    },
+    name: "ShowPenduduk",
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      `@/views/penduduk/ShowPenduduk.vue`)
   }
 ];

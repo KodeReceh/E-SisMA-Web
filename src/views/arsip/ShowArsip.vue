@@ -7,13 +7,8 @@
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn
-          depressed
-          outline
-          icon
-          fab
-          dark
+          flat
           color="primary"
-          small
           @click="
             $router.push({
               name: 'EditArsip',
@@ -21,7 +16,7 @@
             })
           "
         >
-          <v-icon>edit</v-icon>
+          <v-icon>edit</v-icon>&nbsp;edit
         </v-btn>
         <v-btn
           color="info"
