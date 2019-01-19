@@ -52,5 +52,12 @@ export default {
         Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
+  },
+  getNIKs() {
+    return axios.get(`${url}/get-niks`, {
+      headers: {
+        Authorization: "bearer " + localStorage.getItem("__token__")
+      }
+    });
   }
 };

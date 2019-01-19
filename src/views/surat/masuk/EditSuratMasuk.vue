@@ -14,6 +14,7 @@
                   :onSubmit="submit"
                   :availableUsers="availableUsers"
                   :loading="loading"
+                  :takenNumbers="takenNumbers"
                 ></FormSuratMasuk>
               </v-container>
             </div>
@@ -29,6 +30,7 @@ import FormSuratMasuk from "./FormSuratMasuk";
 import IncomingLetterAPI from "@/api/incoming-letter";
 import VWidget from "@/components/VWidget";
 import RecipientAPI from "@/api/recipient";
+import LetterAPI from "@/api/letter";
 
 export default {
   components: {
@@ -51,7 +53,8 @@ export default {
         sub_letter_code_id: ""
       },
       availableUsers: [],
-      loading: false
+      loading: false,
+      takenNumbers: []
     };
   },
   mounted() {
@@ -63,6 +66,16 @@ export default {
     fetchSuratMasuk(id) {
       IncomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
+        LetterAPI.getNumbers().then(r => {
+          this.takenNumbers = [];
+          for (const key in r.data.data) {
+            if (r.data.data.hasOwnProperty(key)) {
+              if (r.data.data[key] !== response.data.data.number) {
+                this.takenNumbers.push(r.data.data[key]);
+              }
+            }
+          }
+        });
       });
     },
     submit() {

@@ -9,5 +9,12 @@ export default {
         Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
+  },
+  getNumbers() {
+    return axios.get(`${url}/get-numbers`, {
+      headers: {
+        Authorization: "bearer " + localStorage.getItem("__token__")
+      }
+    });
   }
 };

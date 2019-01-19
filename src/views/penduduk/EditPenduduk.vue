@@ -13,6 +13,7 @@
                   :villager="villager"
                   :onSubmit="submit"
                   :loading="loading"
+                  :takenNIKs="takenNIKs"
                 ></FormPenduduk>
               </v-container>
             </div>
@@ -48,7 +49,8 @@ export default {
         fileName: "",
         photo: null
       },
-      loading: false
+      loading: false,
+      takenNIKs: []
     };
   },
   mounted() {
@@ -60,6 +62,16 @@ export default {
       VillagerAPI.get(id).then(response => {
         this.villager = response.data.data;
         this.villager.fileName = response.data.data.photo;
+        VillagerAPI.getNIKs().then(r => {
+          this.takenNIKs = [];
+          for (const key in r.data.data) {
+            if (r.data.data.hasOwnProperty(key)) {
+              if (r.data.data[key] !== response.data.data.NIK) {
+                this.takenNIKs.push(r.data.data[key]);
+              }
+            }
+          }
+        });
       });
     },
     submit() {

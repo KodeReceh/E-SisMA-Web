@@ -53,6 +53,7 @@
       :fetchFields="fetchFields"
       :field="field"
       :uniqueData="uniqueData"
+      :template="template"
     ></InputFieldDialog>
   </v-card>
 </template>
@@ -72,6 +73,20 @@ export default {
     type: {
       type: String,
       default: "image"
+    },
+    template: {
+      type: Object,
+      default() {
+        return {
+          id: "",
+          title: "",
+          needs_villager_data: "",
+          needs_villager_data_string: "",
+          template_file: "",
+          created_at: "",
+          updated_at: ""
+        };
+      }
     }
   },
   data: () => ({

@@ -59,7 +59,7 @@
     ></v-text-field>
     <v-text-field
       v-model="letter.number"
-      :rules="nonEmptyRules"
+      :rules="getNumberRules()"
       label="Nomor Surat"
       prepend-icon="format_list_numbered"
       required
@@ -96,7 +96,7 @@ import SubLetterCodeAPI from "@/api/sub-letter-code";
 import OutcomingLetterAPI from "@/api/outcoming-letter";
 
 export default {
-  props: ["letter", "onSubmit", "loading"],
+  props: ["letter", "onSubmit", "loading", "takenNumbers"],
   data: () => ({
     valid: false,
     menu: false,
@@ -207,6 +207,13 @@ export default {
         acronym +
         "/" +
         year;
+    },
+    getNumberRules() {
+      return [
+        v => !!v || "Nomor surat tidak boleh kosong.",
+        v =>
+          !this.takenNumbers.includes(v) || "Nomor surat ini sudah terdaftar."
+      ];
     }
   }
 };

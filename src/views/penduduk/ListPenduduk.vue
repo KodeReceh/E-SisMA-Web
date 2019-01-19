@@ -26,7 +26,7 @@
         >
           <template slot="items" slot-scope="props">
             <tr @click="props.expanded = !props.expanded">
-              <td>{{ props.index + 1 }}</td>
+              <td>{{ props.item.NIK }}</td>
               <td>{{ props.item.name }}</td>
               <td>{{ props.item.sex_text }}</td>
               <td>{{ props.item.tribe_text }}</td>
@@ -118,8 +118,8 @@ export default {
         selected: [],
         headers: [
           {
-            text: "#",
-            value: ""
+            text: "NIK",
+            value: "NIK"
           },
           {
             text: "Nama",

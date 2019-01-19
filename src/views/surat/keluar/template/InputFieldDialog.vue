@@ -19,7 +19,7 @@
               <v-flex xs12>
                 <v-autocomplete
                   v-model="field.field_type"
-                  :items="types"
+                  :items="filterTypes()"
                   :rules="[
                     v => !!v || 'Inputan tipe field tidak boleh kosong.'
                   ]"
@@ -130,6 +130,20 @@ export default {
           signs: []
         };
       }
+    },
+    template: {
+      type: Object,
+      default() {
+        return {
+          id: "",
+          title: "",
+          needs_villager_data: "",
+          needs_villager_data_string: "",
+          template_file: "",
+          created_at: "",
+          updated_at: ""
+        };
+      }
     }
   },
   data() {
@@ -212,6 +226,15 @@ export default {
         this.villagerFields = response.data.data.villager_fields;
         this.users = response.data.data.users;
       });
+    },
+    filterTypes() {
+      if (!this.template.needs_villager_data) {
+        return this.types.filter(t => {
+          return t.id !== 3;
+        });
+      }
+
+      return this.types;
     }
   }
 };

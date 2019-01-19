@@ -54,7 +54,10 @@
         <v-spacer></v-spacer>
         <v-btn color="info" @click="addButtonClicked">Tambah</v-btn>
         <v-flex sm12>
-          <template-field ref="templateField"></template-field>
+          <template-field
+            ref="templateField"
+            :template="template"
+          ></template-field>
         </v-flex>
       </v-layout>
     </v-container>

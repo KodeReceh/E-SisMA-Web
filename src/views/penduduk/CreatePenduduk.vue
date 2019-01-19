@@ -13,6 +13,7 @@
                   :villager="villager"
                   :onSubmit="submit"
                   :loading="loading"
+                  :takenNIKs="takenNIKs"
                 ></FormPenduduk>
               </v-container>
             </div>
@@ -49,8 +50,12 @@ export default {
         fileName: "",
         photo: null
       },
-      loading: false
+      loading: false,
+      takenNIKs: []
     };
+  },
+  mounted() {
+    this.getNIKs();
   },
   methods: {
     submit() {
@@ -73,6 +78,11 @@ export default {
           name: "ShowPenduduk",
           params: { id: response.data.data.id }
         });
+      });
+    },
+    getNIKs() {
+      VillagerAPI.getNIKs().then(response => {
+        this.takenNIKs = response.data.data;
       });
     }
   }

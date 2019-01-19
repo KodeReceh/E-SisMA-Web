@@ -2,7 +2,7 @@
   <v-form ref="form" v-model="valid" lazy-validation>
     <v-text-field
       v-model="villager.NIK"
-      :rules="nonEmptyRules"
+      :rules="getNIKRules()"
       label="NIK"
       prepend-icon="credit_card"
       required
@@ -155,6 +155,12 @@ export default {
     loading: {
       type: Boolean,
       default: false
+    },
+    takenNIKs: {
+      type: Array,
+      default() {
+        return [];
+      }
     }
   },
   data: () => ({
@@ -267,6 +273,12 @@ export default {
         this.villager.fileName = "";
       }
       this.$forceUpdate();
+    },
+    getNIKRules() {
+      return [
+        v => !!v || "NIK tidak boleh kosong.",
+        v => !this.takenNIKs.includes(v) || "NIK ini sudah terdaftar."
+      ];
     }
   }
 };

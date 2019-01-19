@@ -13,6 +13,7 @@
                   :letter="letter"
                   :onSubmit="submit"
                   :loading="loading"
+                  :takenNumbers="takenNumbers"
                 ></FormSuratKeluar>
               </v-container>
             </div>
@@ -27,6 +28,7 @@
 import FormSuratKeluar from "./FormSuratKeluar";
 import OutcomingLetterAPI from "@/api/outcoming-letter";
 import VWidget from "@/components/VWidget";
+import LetterAPI from "@/api/letter";
 
 export default {
   components: {
@@ -46,7 +48,8 @@ export default {
         letter_code_id: "",
         sub_letter_code_id: ""
       },
-      loading: false
+      loading: false,
+      takenNumbers: []
     };
   },
   mounted() {
@@ -57,6 +60,16 @@ export default {
     fetchSuratKeluar(id) {
       OutcomingLetterAPI.get(id).then(response => {
         this.letter = response.data.data;
+        LetterAPI.getNumbers().then(r => {
+          this.takenNumbers = [];
+          for (const key in r.data.data) {
+            if (r.data.data.hasOwnProperty(key)) {
+              if (r.data.data[key] !== response.data.data.number) {
+                this.takenNumbers.push(r.data.data[key]);
+              }
+            }
+          }
+        });
       });
     },
     submit() {

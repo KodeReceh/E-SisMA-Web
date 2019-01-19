@@ -2,7 +2,7 @@
   <v-form ref="form" v-model="valid" lazy-validation>
     <v-text-field
       v-model="letter.number"
-      :rules="nonEmptyRules"
+      :rules="getNumberRules()"
       label="Nomor Surat"
       prepend-icon="format_list_numbered"
       required
@@ -125,7 +125,7 @@ import LetterCodeAPI from "@/api/letter-code";
 import SubLetterCodeAPI from "@/api/sub-letter-code";
 
 export default {
-  props: ["letter", "onSubmit", "availableUsers", "loading"],
+  props: ["letter", "onSubmit", "availableUsers", "loading", "takenNumbers"],
   data: () => ({
     valid: false,
     menu1: false,
@@ -182,6 +182,13 @@ export default {
         .catch(e => {
           alert(e.response.status + ": " + e.response.statusText);
         });
+    },
+    getNumberRules() {
+      return [
+        v => !!v || "Nomor surat tidak boleh kosong.",
+        v =>
+          !this.takenNumbers.includes(v) || "Nomor surat ini sudah terdaftar."
+      ];
     }
   }
 };

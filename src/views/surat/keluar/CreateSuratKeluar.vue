@@ -13,6 +13,7 @@
                   :letter="letter"
                   :onSubmit="submit"
                   :loading="loading"
+                  :takenNumbers="takenNumbers"
                 ></FormSuratKeluar>
               </v-container>
             </div>
@@ -27,6 +28,7 @@
 import FormSuratKeluar from "./FormSuratKeluar";
 import VWidget from "@/components/VWidget";
 import OutcomingLetterAPI from "@/api/outcoming-letter";
+import LetterAPI from "@/api/letter";
 
 export default {
   components: {
@@ -46,12 +48,14 @@ export default {
         letter_code_id: "",
         sub_letter_code_id: ""
       },
-      loading: false
+      loading: false,
+      takenNumbers: []
     };
   },
   mounted() {
     const year = new Date().getFullYear();
     this.setDefaultOrdinal(year);
+    this.getNumbers();
   },
   methods: {
     submit() {
@@ -71,6 +75,11 @@ export default {
     setDefaultOrdinal(year) {
       OutcomingLetterAPI.getOrdinal(year).then(response => {
         this.letter.ordinal = response.data.data;
+      });
+    },
+    getNumbers() {
+      LetterAPI.getNumbers().then(response => {
+        this.takenNumbers = response.data.data;
       });
     }
   }
