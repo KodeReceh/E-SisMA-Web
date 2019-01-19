@@ -9,9 +9,9 @@
     width="260"
   >
     <v-toolbar color="primary darken-1" dark>
-      <img v-bind:src="computeLogo" height="46" alt="E-SisMA" />
+      <img v-bind:src="computeLogo" height="46" alt="e-SISMA" />
       <v-toolbar-title class="ml-0 pl-3">
-        <span class="hidden-sm-and-down">e-SisMA Nagari</span>
+        <span class="hidden-sm-and-down">e-SISMA Nagari</span>
       </v-toolbar-title>
     </v-toolbar>
     <vue-perfect-scrollbar

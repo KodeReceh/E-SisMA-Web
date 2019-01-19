@@ -1,6 +1,6 @@
 {
-    "name": "e-SisMA Nagari",
-    "short_name": "e-sisma",
+    "name": "e-SISMA Nagari",
+    "short_name": "e-SISMA",
     "icons": [
         {
             "src": "./static/agam.png",

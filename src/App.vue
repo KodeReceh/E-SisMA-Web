@@ -12,7 +12,7 @@
           <v-footer height="auto" class="white pa-3 app--footer" inset app>
             <v-spacer></v-spacer>
             <span class="caption"
-              >efzet &copy; {{ new Date().getFullYear() }} e-SisMA</span
+              >efzet &copy; {{ new Date().getFullYear() }} e-SISMA</span
             >
           </v-footer>
         </v-content>
