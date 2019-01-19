@@ -6,7 +6,7 @@
           <v-icon color="secondary">arrow_back</v-icon>&nbsp;back
         </v-btn>
         <v-spacer></v-spacer>
-        <div v-if="letter.sign">
+        <div v-if="letter.sign && !letter.status">
           <v-btn
             v-if="!letter.sign.has_signed && !letter.generated_file"
             color="primary"
@@ -21,7 +21,12 @@
           >
         </div>
         <v-btn
-          v-if="letter.generated_file"
+          v-if="
+            letter.generated_file &&
+              $store.getters.user.permissions.includes(
+                'atur_draft_surat_keluar'
+              )
+          "
           color="error"
           @click="deleteGeneratedFile()"
           >Hapus File Surat</v-btn
@@ -100,7 +105,7 @@
                   spacer
                   slot="header"
                   v-for="(value, key) in letter.signations_status"
-                  v-bind:key="key"
+                  v-bind:key="value.index"
                 >
                   <v-flex xs4 sm2 md3>
                     <p class="font-weight-bold">{{ key.replace(/_/g, " ") }}</p>

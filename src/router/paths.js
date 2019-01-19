@@ -510,5 +510,25 @@ export default [
     component: () =>
       import(/* webpackChunkName: "routes" */
       `@/views/penduduk/ShowPenduduk.vue`)
+  },
+  {
+    path: "/profil",
+    meta: {
+      requiresAuth: true
+    },
+    name: "ShowProfil",
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      `@/views/profil/ShowProfil.vue`)
+  },
+  {
+    path: "/profil/edit",
+    meta: {
+      requiresAuth: true
+    },
+    name: "EditProfil",
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      `@/views/profil/EditProfil.vue`)
   }
 ];

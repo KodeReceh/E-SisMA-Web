@@ -87,6 +87,15 @@
           </v-flex>
         </v-card-text>
         <v-card-actions>
+          <v-btn
+            color="blue darken-1"
+            flat
+            @click="
+              $router.push({ name: 'EditProfil' });
+              onDialogClosed();
+            "
+            >Edit</v-btn
+          >
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click="onDialogClosed()"
             >Close</v-btn

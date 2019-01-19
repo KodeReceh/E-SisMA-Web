@@ -2,48 +2,55 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat @click="$router.go(-1)">
-          <v-icon>arrow_back</v-icon>&nbsp;back
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" @click="documentButtonClicked()">
-          <v-icon>file_copy</v-icon>&nbsp;file
-        </v-btn>
-        <v-btn
-          v-if="letter.is_client_recipient"
-          color="secondary"
-          outline
-          @click="disposisiButtonClicked"
-          >disposisi</v-btn
-        >
-        <v-btn
-          small
-          fab
-          dark
-          color="info"
-          :to="{
-            name: 'EditSuratMasuk',
-            params: { id: this.$route.params.id }
-          }"
-        >
-          <v-icon>edit</v-icon>
-        </v-btn>
-        <v-btn
-          small
-          fab
-          dark
-          color="error"
-          @click="deleteButtonClicked(letter.id)"
-        >
-          <v-icon>delete</v-icon>
-        </v-btn>
-        <v-flex sm12>
-          <v-divider></v-divider>
+        <v-toolbar class="elevation-0 transparent media-toolbar">
+          <v-btn :round="true" flat @click="$router.go(-1)">
+            <v-icon>arrow_back</v-icon>&nbsp;back
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            v-if="doesDocumentExist()"
+            @click="documentButtonClicked()"
+          >
+            <v-icon>file_copy</v-icon>&nbsp;file
+          </v-btn>
+          <v-btn
+            v-if="letter.is_client_recipient"
+            color="secondary"
+            outline
+            @click="disposisiButtonClicked"
+            >disposisi</v-btn
+          >
+          <v-btn
+            v-if="$store.getters.user.permissions.includes('atur_surat_masuk')"
+            small
+            fab
+            dark
+            color="info"
+            :to="{
+              name: 'EditSuratMasuk',
+              params: { id: this.$route.params.id }
+            }"
+          >
+            <v-icon>edit</v-icon>
+          </v-btn>
+          <v-btn
+            v-if="$store.getters.user.permissions.includes('atur_surat_masuk')"
+            small
+            fab
+            dark
+            color="error"
+            @click="deleteButtonClicked(letter.id)"
+          >
+            <v-icon>delete</v-icon>
+          </v-btn>
+        </v-toolbar>
+        <v-toolbar class="elevation-0 transparent media-toolbar">
           <h3>
             <strong>{{ letter.number }}</strong> &nbsp;
             <small>{{ letter.subject }}</small>
           </h3>
-        </v-flex>
+        </v-toolbar>
         <v-flex sm12>
           <list-recipient-surat-masuk
             ref="listRecipient"
@@ -245,6 +252,12 @@ export default {
         });
       }
       return;
+    },
+    doesDocumentExist() {
+      if (this.$store.getters.user.permissions.includes("atur_surat_masuk"))
+        return true;
+      if (this.letter.document_id) return true;
+      return false;
     }
   }
 };
