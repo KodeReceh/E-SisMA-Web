@@ -136,8 +136,12 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm() {
-      ArchiveAPI.delete(this.deleteDialog.detail.id).then(() => {
+      ArchiveAPI.delete(this.deleteDialog.detail.id).then(response => {
         this.deleteDialog.state = false;
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.deleteDialog.detail = {};
         this.fetchList();
       });

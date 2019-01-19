@@ -17,29 +17,37 @@ export default {
       }
     });
   },
-  get (id) {
+  get(id) {
     return axios.get(`${url}/${id}`, {
       headers: {
         Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
   },
-  store (data) {
+  store(data) {
     return axios.post(url, data, {
       headers: {
         Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
   },
-  update (id, data) {
+  update(id, data) {
     return axios.put(`${url}/${id}`, data, {
       headers: {
         Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
   },
-  delete (id) {
+  delete(id) {
     return axios.delete(`${url}/${id}`, {
+      headers: {
+        Authorization: "bearer " + localStorage.getItem("__token__")
+      }
+    });
+  },
+  getPic(filename) {
+    return axios.get(`${url}/get-pic/${filename}`, {
+      responseType: "blob",
       headers: {
         Authorization: "bearer " + localStorage.getItem("__token__")
       }

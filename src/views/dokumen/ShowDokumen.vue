@@ -60,7 +60,14 @@
                   <v-spacer></v-spacer>
                   <v-flex xs8 sm8 md8>
                     <p class="font-weight-regular">
-                      <router-link v-if="document.archive" :to="{ name: 'ShowArchive', params: { id: document.archive.id }}">{{ document.archive.title }}</router-link>
+                      <router-link
+                        v-if="document.archive"
+                        :to="{
+                          name: 'ShowArsip',
+                          params: { id: document.archive.id }
+                        }"
+                        >{{ document.archive.title }}</router-link
+                      >
                       <span v-else>Belum diarsipkan.</span>
                     </p>
                   </v-flex>

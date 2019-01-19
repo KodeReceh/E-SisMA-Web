@@ -33,6 +33,10 @@
         >
           <v-icon>settings</v-icon>
         </v-btn>
+        <v-btn fab flat fixed left bottom @click="forceUpdate()">
+          <v-icon dark>refresh</v-icon>
+        </v-btn>
+
         <v-navigation-drawer
           class="setting-drawer"
           temporary
@@ -53,18 +57,7 @@
         </keep-alive>
       </transition>
     </template>
-    <v-snackbar
-      :timeout="3000"
-      bottom
-      right
-      :color="snackbar.color"
-      v-model="snackbar.show"
-    >
-      {{ snackbar.text }}
-      <v-btn dark flat @click.native="snackbar.show = false" icon>
-        <v-icon>close</v-icon>
-      </v-btn>
-    </v-snackbar>
+    <snackbar></snackbar>
   </div>
 </template>
 <script>
@@ -75,6 +68,7 @@ import PageHeader from "@/components/PageHeader";
 import ThemeSettings from "@/components/ThemeSettings";
 import AppEvents from "./event";
 import ProfileDialog from "./components/ProfileDialog";
+import Snackbar from "./components/Snackbar";
 
 export default {
   components: {
@@ -83,22 +77,17 @@ export default {
     AppFab,
     PageHeader,
     ThemeSettings,
-    ProfileDialog
+    ProfileDialog,
+    Snackbar
   },
   data: () => ({
     expanded: true,
     rightDrawer: false,
-    snackbar: {
-      show: false,
-      text: "",
-      color: ""
-    },
     profile: {
       state: false,
       title: "Profil User"
     }
   }),
-
   computed: {},
   beforeUpdate() {
     if (this.$store.getters.loggedIn) this.$store.dispatch("getProfile");
@@ -116,6 +105,9 @@ export default {
     openThemeSettings() {
       this.$vuetify.goTo(0);
       this.rightDrawer = !this.rightDrawer;
+    },
+    forceUpdate() {
+      this.$forceUpdate();
     }
   }
 };
@@ -130,5 +122,11 @@ export default {
 
 .page-wrapper {
   min-height: calc(100vh - 64px - 50px - 81px);
+}
+
+.fab-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
 }
 </style>

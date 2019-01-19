@@ -66,6 +66,10 @@ export default {
         this.letter.id,
         this.disposition
       ).then(response => {
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.$router.push({
           name: "ShowDisposisiSuratMasuk",
           params: {

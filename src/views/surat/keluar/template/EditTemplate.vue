@@ -62,6 +62,10 @@ export default {
       const { id } = this.$route.params;
       TemplateAPI.update(id, formData).then(response => {
         this.laoding = false;
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.$router.push({
           name: "ShowTemplate",
           params: { id: response.data.data.id }

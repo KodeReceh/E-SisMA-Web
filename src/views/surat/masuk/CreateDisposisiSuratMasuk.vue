@@ -65,6 +65,10 @@ export default {
         this.disposition
       ).then(response => {
         this.loading = false;
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.$router.push({
           name: "ShowDisposisiSuratMasuk",
           params: {

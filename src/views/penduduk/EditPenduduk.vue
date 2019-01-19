@@ -46,7 +46,7 @@ export default {
         tribe: "",
         status: "",
         fileName: "",
-        photo: null,
+        photo: null
       },
       loading: false
     };
@@ -68,14 +68,18 @@ export default {
 
       for (const key in this.villager) {
         if (this.villager.hasOwnProperty(key)) {
-          formData.append(this.villager[key])
+          formData.append(key, this.villager[key]);
         }
       }
 
       VillagerAPI.update(this.villager.id, formData).then(response => {
         this.loading = false;
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.$router.push({
-          name: "ShowArsip",
+          name: "ShowPenduduk",
           params: { id: response.data.data.id }
         });
       });

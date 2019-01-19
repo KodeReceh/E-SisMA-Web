@@ -165,12 +165,20 @@ export default {
     sign() {
       LetterTemplateAPI.sign(this.letter.id).then(response => {
         this.letter = response.data.data;
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.letter.data = JSON.parse(this.letter.data);
       });
     },
     unsign() {
       LetterTemplateAPI.unsign(this.letter.id).then(response => {
         this.letter = response.data.data;
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.letter.data = JSON.parse(this.letter.data);
       });
     }

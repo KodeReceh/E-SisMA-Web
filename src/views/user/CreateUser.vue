@@ -13,6 +13,8 @@
                   :user="user"
                   :onSubmit="submit"
                   :loading="loading"
+                  :takenEmails="takenEmails"
+                  :takenNIP="takenNIP"
                 ></FormUser>
               </v-container>
             </div>
@@ -49,8 +51,13 @@ export default {
         signature: "",
         fileName: ""
       },
-      loading: false
+      loading: false,
+      takenEmails: [],
+      takenNIP: []
     };
+  },
+  mounted() {
+    this.getUniques();
   },
   methods: {
     submit() {
@@ -65,10 +72,20 @@ export default {
 
       UserAPI.store(formData).then(response => {
         this.loading = false;
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.$router.push({
           name: "ShowUser",
           params: { id: response.data.data.id }
         });
+      });
+    },
+    getUniques() {
+      UserAPI.getUniques().then(response => {
+        this.takenEmails = response.data.email;
+        this.takenNIP = response.data.NIP.map(String);
       });
     }
   }

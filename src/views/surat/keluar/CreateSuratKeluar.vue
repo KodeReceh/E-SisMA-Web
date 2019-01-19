@@ -57,6 +57,10 @@ export default {
     submit() {
       this.loading = true;
       OutcomingLetterAPI.store(this.letter).then(response => {
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.loading = false;
         this.$router.push({
           name: "ShowSuratKeluar",

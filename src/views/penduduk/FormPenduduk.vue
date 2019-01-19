@@ -126,8 +126,6 @@
 </template>
 
 <script>
-import VillagerAPI from "@/api/villager";
-
 export default {
   props: {
     villager: {
@@ -145,7 +143,7 @@ export default {
           tribe: "",
           status: "",
           fileName: "",
-          photo: null,
+          photo: null
         };
       }
     },
@@ -166,77 +164,77 @@ export default {
     religions: [
       {
         id: 1,
-        value: 'Islam'
+        value: "Islam"
       },
       {
         id: 2,
-        value: 'Protestan'
+        value: "Protestan"
       },
       {
         id: 3,
-        value: 'Katolik'
+        value: "Katolik"
       },
       {
         id: 4,
-        value: 'Hindu'
+        value: "Hindu"
       },
       {
         id: 5,
-        value: 'Budha'
+        value: "Budha"
       },
       {
         id: 6,
-        value: 'Konghuchu'
+        value: "Konghuchu"
       }
     ],
     tribes: [
       {
         id: 1,
-        value: 'Koto'
+        value: "Koto"
       },
       {
         id: 2,
-        value: 'Piliang'
+        value: "Piliang"
       },
       {
         id: 3,
-        value: 'Bodi'
+        value: "Bodi"
       },
       {
         id: 4,
-        value: 'Chaniago'
+        value: "Chaniago"
       },
       {
         id: 5,
-        value: 'Sikumbang'
+        value: "Sikumbang"
       },
       {
         id: 6,
-        value: 'Melayu'
+        value: "Melayu"
       },
       {
         id: 7,
-        value: 'Lainnya'
+        value: "Lainnya"
       }
     ],
     statuses: [
       {
         id: 1,
-        value: 'WNI'
-      }, 
+        value: "WNI"
+      },
       {
         id: 2,
-        value: 'WNA'
+        value: "WNA"
       }
     ],
     sexes: [
       {
         id: 1,
-        value: 'Laki-laki'
+        value: "Laki-laki"
       },
       {
         id: 2,
-        value: 'Perempuan'
+        value: "Perempuan"
       }
     ]
   }),
@@ -262,12 +260,13 @@ export default {
         } else {
           this.villager.photo = null;
           this.villager.fileName = "";
-          alert('File harus berupa gambar!');
+          alert("File harus berupa gambar!");
         }
       } else {
         this.villager.photo = null;
         this.villager.fileName = "";
       }
+      this.$forceUpdate();
     }
   }
 };

@@ -65,6 +65,10 @@ export default {
       formData.append("file_type", this.document.file_type);
       formData.append("letter_id", this.document.letter_id);
       DocumentAPI.store(formData).then(response => {
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.loading = false;
         this.$router.push({
           name: "ShowDokumen",

@@ -51,5 +51,12 @@ export default {
         Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
+  },
+  getUniques() {
+    return axios.get(`${url}/get-uniques`, {
+      headers: {
+        Authorization: "bearer " + localStorage.getItem("__token__")
+      }
+    });
   }
 };

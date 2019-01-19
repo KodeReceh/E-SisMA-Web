@@ -51,6 +51,13 @@ const Menu = [
     permissions: ["regular"]
   },
   {
+    title: "Penduduk",
+    group: "apps",
+    icon: "group",
+    name: "Penduduk",
+    permissions: ["atur_penduduk"]
+  },
+  {
     title: "Pengaturan",
     group: "pengaturan",
     icon: "settings",

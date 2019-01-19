@@ -55,8 +55,12 @@ export default {
     submit() {
       const { id } = this.$route.params;
       this.loading = true;
-      RoleAPI.update(id, this.role).then(() => {
+      RoleAPI.update(id, this.role).then(response => {
         this.loading = false;
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.$router.push({ name: "pengaturan/role" });
       });
     },

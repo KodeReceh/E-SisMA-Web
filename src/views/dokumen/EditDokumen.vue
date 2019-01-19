@@ -66,6 +66,10 @@ export default {
       formData.append("archive_id", this.document.archive_id);
       DocumentAPI.update(this.document.id, formData).then(response => {
         this.laoding = false;
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.$router.push({
           name: "ShowDokumen",
           params: { id: response.data.data.id }

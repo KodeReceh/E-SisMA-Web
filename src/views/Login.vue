@@ -65,7 +65,14 @@ export default {
     },
     errorMsg: ""
   }),
-
+  watch: {
+    "form.email": function() {
+      this.errorMsg = "";
+    },
+    "form.password": function() {
+      this.errorMsg = "";
+    }
+  },
   methods: {
     login() {
       this.loading = true;
@@ -74,13 +81,17 @@ export default {
           email: this.form.email,
           password: this.form.password
         })
-        .then(() => {
+        .then(response => {
           this.$router.push("dashboard");
           this.$store.dispatch("getProfile");
+          this.$store.commit("showSnackbar", {
+            text: "Selamat datang " + response.data.data.user.name,
+            color: "info"
+          });
           this.loading = false;
         })
         .catch(e => {
-          this.errorMsg = e.response.statusText;
+          this.errorMsg = e.response.data.message;
           this.loading = false;
         });
     }

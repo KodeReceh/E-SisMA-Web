@@ -48,6 +48,10 @@ export default {
       this.loading = true;
       ArchiveAPI.store(this.archive).then(response => {
         this.loading = false;
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.$router.push({
           name: "ShowArsip",
           params: { id: response.data.data.id }

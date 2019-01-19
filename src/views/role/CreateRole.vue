@@ -51,8 +51,12 @@ export default {
   methods: {
     submit() {
       this.loading = true;
-      RoleAPI.store(this.role).then(() => {
+      RoleAPI.store(this.role).then(response => {
         this.loading = false;
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.$router.push({ name: "pengaturan/role" });
       });
     },

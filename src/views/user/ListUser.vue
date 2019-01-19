@@ -154,9 +154,13 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm() {
-      UserAPI.delete(this.deleteDialog.detail.id).then(() => {
+      UserAPI.delete(this.deleteDialog.detail.id).then(response => {
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.fetchList();
       });
     },
@@ -173,7 +177,12 @@ export default {
     changeUserStatus(id) {
       let data = new FormData();
       data.append("user_id", id);
-      UserAPI.changeStatus(data);
+      UserAPI.changeStatus(data).then(response => {
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
+      });
     },
     checkIsUserIdIsCurrentLogin(id) {
       if (this.$store.getters.user.id === id) return true;

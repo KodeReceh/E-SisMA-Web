@@ -14,6 +14,8 @@
                   :onSubmit="submit"
                   :loading="loading"
                   :isUpdate="isUpdate"
+                  :takenEmails="takenEmails"
+                  :takenNIP="takenNIP"
                 ></FormUser>
               </v-container>
             </div>
@@ -52,7 +54,9 @@ export default {
         fileName: ""
       },
       loading: false,
-      isUpdate: true
+      isUpdate: true,
+      takenEmails: [],
+      takenNIP: []
     };
   },
   mounted() {
@@ -64,6 +68,28 @@ export default {
       UserAPI.get(id).then(response => {
         this.user = response.data.data;
         this.user.fileName = response.data.data.signature;
+
+        UserAPI.getUniques().then(r => {
+          for (const key in r.data.email) {
+            if (r.data.email.hasOwnProperty(key)) {
+              if (r.data.email[key] !== response.data.data.email) {
+                this.takenEmails = [];
+                this.takenEmails.push(r.data.email[key]);
+              }
+            }
+          }
+
+          let nips = r.data.NIP.map(String);
+
+          for (const key in nips) {
+            if (nips.hasOwnProperty(key)) {
+              if (response.data.data.employee_id_number !== nips[key]) {
+                this.takenNIP = [];
+                this.takenNIP.push(nips[key]);
+              }
+            }
+          }
+        });
       });
     },
     submit() {
@@ -78,6 +104,10 @@ export default {
 
       UserAPI.update(this.user.id, formData).then(response => {
         this.loading = false;
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.$router.push({
           name: "ShowUser",
           params: { id: response.data.data.id }

@@ -63,6 +63,10 @@ export default {
       this.loading = true;
       OutcomingLetterAPI.update(this.letter.id, this.letter).then(response => {
         this.loading = false;
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.$router.push({
           name: "ShowSuratKeluar",
           params: { id: response.data.data.letter_id }

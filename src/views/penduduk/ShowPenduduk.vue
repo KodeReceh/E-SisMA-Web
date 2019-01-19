@@ -25,7 +25,19 @@
           <v-widget title="Detail Penduduk">
             <div slot="widget-content">
               <v-container>
-                 <v-layout align-center row spacer slot="header">
+                <v-layout align-center row wrap v-if="photo">
+                  <v-container bg fill-height grid-list-md text-xs-center>
+                    <v-layout align-center row wrap>
+                      <v-flex>
+                        <v-avatar :size="200">
+                          <img :src="photo" alt="avatar" />
+                        </v-avatar>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-layout>
+                <v-divider></v-divider>
+                <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm2 md3>
                     <p class="font-weight-bold">NIK</p>
                   </v-flex>
@@ -46,9 +58,7 @@
                     <p class="font-weight-bold">Tempat Lahir</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">
-                      {{ villager.birthplace }}
-                    </p>
+                    <p class="font-weight-regular">{{ villager.birthplace }}</p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -56,7 +66,9 @@
                     <p class="font-weight-bold">Tanggal Lahir</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular">{{ villager.birthdate_formatted }}</p>
+                    <p class="font-weight-regular">
+                      {{ villager.birthdate_formatted }}
+                    </p>
                   </v-flex>
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
@@ -67,23 +79,29 @@
                     <p class="font-weight-regular">{{ villager.sex_text }}</p>
                   </v-flex>
                 </v-layout>
-                 <v-layout align-center row spacer slot="header">
+                <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm2 md3>
                     <p class="font-weight-bold">Agama</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular" v-html="villager.religion_text" />
+                    <p
+                      class="font-weight-regular"
+                      v-html="villager.religion_text"
+                    />
                   </v-flex>
                 </v-layout>
-                 <v-layout align-center row spacer slot="header">
+                <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm2 md3>
                     <p class="font-weight-bold">Suku</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular" v-html="villager.tribe_text" />
+                    <p
+                      class="font-weight-regular"
+                      v-html="villager.tribe_text"
+                    />
                   </v-flex>
                 </v-layout>
-                 <v-layout align-center row spacer slot="header">
+                <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm2 md3>
                     <p class="font-weight-bold">Pekerjaan</p>
                   </v-flex>
@@ -91,7 +109,7 @@
                     <p class="font-weight-regular" v-html="villager.job" />
                   </v-flex>
                 </v-layout>
-                 <v-layout align-center row spacer slot="header">
+                <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm2 md3>
                     <p class="font-weight-bold">Alamat</p>
                   </v-flex>
@@ -99,12 +117,15 @@
                     <p class="font-weight-regular" v-html="villager.address" />
                   </v-flex>
                 </v-layout>
-                 <v-layout align-center row spacer slot="header">
+                <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm2 md3>
                     <p class="font-weight-bold">Status</p>
                   </v-flex>
                   <v-flex xs8 sm10 md9>
-                    <p class="font-weight-regular" v-html="villager.status_text" />
+                    <p
+                      class="font-weight-regular"
+                      v-html="villager.status_text"
+                    />
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -122,7 +143,7 @@ import VWidget from "@/components/VWidget";
 
 export default {
   components: {
-    VWidget,
+    VWidget
   },
   data() {
     return {
@@ -144,7 +165,8 @@ export default {
         birthdate_formatted: "",
         tribe_text: "",
         status_text: ""
-      }
+      },
+      photo: ""
     };
   },
   mounted() {
@@ -155,6 +177,13 @@ export default {
     fetchPenduduk(id) {
       VillagerAPI.get(id).then(response => {
         this.villager = response.data.data;
+        if (response.data.data.photo) this.getPic(response.data.data.photo);
+      });
+    },
+    getPic(filename) {
+      VillagerAPI.getPic(filename).then(response => {
+        const theFile = new Blob([response.data]);
+        this.photo = window.URL.createObjectURL(theFile);
       });
     }
   }

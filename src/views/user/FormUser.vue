@@ -10,6 +10,7 @@
     <v-text-field
       v-model="user.employee_id_number"
       label="NIP"
+      :rules="getNIPRules()"
       prepend-icon="credit_card"
     ></v-text-field>
     <v-text-field
@@ -44,8 +45,9 @@
     </v-menu>
     <v-text-field
       v-model="user.email"
-      :rules="nonEmptyRules"
+      :rules="getEmailRules()"
       label="Email"
+      autocomplete="off"
       prepend-icon="alternate_email"
       required
     ></v-text-field>
@@ -53,6 +55,7 @@
       v-model="user.password"
       :rules="!isUpdate ? nonEmptyRules : []"
       label="Password"
+      autocomplete="off"
       type="password"
       prepend-icon="keyboard_hide"
       :required="!isUpdate"
@@ -142,6 +145,18 @@ export default {
     isUpdate: {
       type: Boolean,
       default: false
+    },
+    takenEmails: {
+      type: Array,
+      default() {
+        return [];
+      }
+    },
+    takenNIP: {
+      type: Array,
+      default() {
+        return [];
+      }
     }
   },
   data: () => ({
@@ -202,6 +217,23 @@ export default {
     },
     getExtFile(fileName) {
       return /[.]/.exec(fileName) ? /[^.]+$/.exec(fileName)[0] : undefined;
+    },
+    getEmailRules() {
+      return [
+        v => !!v || "Email tidak boleh kosong.",
+        v =>
+          v.match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          ) !== null || "Format email tidak benar",
+        v => !this.takenEmails.includes(v) || "Email ini sudah terdaftar"
+      ];
+    },
+    getNIPRules() {
+      return [
+        v =>
+          !this.takenNIP.includes(v) || "User dengan NIP ini sudah terdaftar",
+        v => !/\s/.test(v) || "Tidak boleh mengandung spasi"
+      ];
     }
   }
 };

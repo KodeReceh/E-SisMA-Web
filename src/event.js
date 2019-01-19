@@ -14,13 +14,12 @@ export default [
     callback: function() {
       this.$store
         .dispatch("destroyToken")
-        .then(response => {
+        .then(() => {
           this.$router.replace({ path: "/login" });
-          this.snackbar = {
-            show: true,
-            color: "info",
-            text: response.data.description
-          };
+          this.$store.commit("showSnackbar", {
+            text: "Sampai jumpa kembali :)",
+            color: "info"
+          });
         })
         .catch(e => {
           this.$router.replace({ path: "/login" });

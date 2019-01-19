@@ -8,7 +8,12 @@ axios.defaults.baseURL = process.env.VUE_APP_API_URL || "restapi.fz";
 export const store = new Vuex.Store({
   state: {
     token: localStorage.getItem("__token__") || null,
-    user: {}
+    user: {},
+    snackbar: {
+      show: false,
+      text: "",
+      color: ""
+    }
   },
   getters: {
     loggedIn(state) {
@@ -27,6 +32,16 @@ export const store = new Vuex.Store({
     },
     getProfile(state, user) {
       state.user = user;
+    },
+    showSnackbar(state, payload) {
+      state.snackbar.text = payload.text;
+      state.snackbar.show = true;
+      state.snackbar.color = payload.color;
+    },
+    closeSnackbar(state) {
+      state.snackbar.text = "";
+      state.snackbar.show = false;
+      state.snackbar.color = "";
     }
   },
   actions: {

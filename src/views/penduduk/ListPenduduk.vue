@@ -141,9 +141,13 @@ export default {
       this.deleteDialog.detail = { id: id };
     },
     deleteConfirm() {
-      VillagerAPI.delete(this.deleteDialog.detail.id).then(() => {
+      VillagerAPI.delete(this.deleteDialog.detail.id).then(response => {
         this.deleteDialog.state = false;
         this.deleteDialog.detail = {};
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.fetchList();
       });
     },

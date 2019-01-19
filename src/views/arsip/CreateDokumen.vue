@@ -60,6 +60,10 @@ export default {
       formData.append("file_type", this.document.file_type);
       formData.append("archive_id", archiveId);
       DocumentAPI.store(formData).then(response => {
+        this.$store.commit("showSnackbar", {
+          text: response.data.description,
+          color: "info"
+        });
         this.$router.push({
           name: "ShowDokumen",
           params: { id: response.data.data.id }

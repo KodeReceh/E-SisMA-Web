@@ -2,37 +2,39 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat @click="$router.go(-1)">
-          <v-icon color="secondary">arrow_back</v-icon>&nbsp;back
-        </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn
-          flat
-          color="primary"
-          @click="
-            $router.push({
-              name: 'EditArsip',
-              params: { id: $route.params.id }
-            })
-          "
-        >
-          <v-icon>edit</v-icon>&nbsp;edit
-        </v-btn>
-        <v-btn
-          color="info"
-          flat
-          @click="
-            $router.push({
-              name: 'CreateArsipDokumen',
-              params: { id: $route.params.id }
-            })
-          "
-        >
-          <v-icon>add</v-icon>&nbsp;Dokumen
-        </v-btn>
-        <v-btn color="primary" flat @click="$router.push({ name: 'Arsip' })">
-          <v-icon>list</v-icon>&nbsp;list
-        </v-btn>
+        <v-toolbar>
+          <v-btn :round="true" flat @click="$router.go(-1)">
+            <v-icon color="secondary">arrow_back</v-icon>&nbsp;back
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn
+            flat
+            color="primary"
+            @click="
+              $router.push({
+                name: 'EditArsip',
+                params: { id: $route.params.id }
+              })
+            "
+          >
+            <v-icon>edit</v-icon>&nbsp;edit
+          </v-btn>
+          <v-btn
+            color="info"
+            flat
+            @click="
+              $router.push({
+                name: 'CreateArsipDokumen',
+                params: { id: $route.params.id }
+              })
+            "
+          >
+            <v-icon>add</v-icon>&nbsp;Dokumen
+          </v-btn>
+          <v-btn color="primary" flat @click="$router.push({ name: 'Arsip' })">
+            <v-icon>list</v-icon>&nbsp;list
+          </v-btn>
+        </v-toolbar>
         <v-flex sm12>
           <v-widget title="Detail Arsip">
             <div slot="widget-content">
