@@ -21,62 +21,71 @@
           :items="table.items"
           :rows-per-page-items="[10, 25, 50, { text: 'All', value: -1 }]"
           class="elevation-1"
-          item-key="name"
+          item-key="id"
+          :expand="expand"
         >
           <template slot="items" slot-scope="props">
-            <td>{{ props.item.date }}</td>
-            <td>{{ props.item.number }}</td>
-            <td>{{ props.item.recipient }}</td>
-            <td>{{ props.item.subject }}</td>
-            <td>{{ props.item.tendency }}</td>
-            <td>
-              <v-btn
-                depressed
-                outline
-                icon
-                fab
-                dark
-                color="primary"
-                small
-                :to="{
-                  name: 'ShowSuratKeluar',
-                  params: {
-                    id: props.item.id
-                  }
-                }"
-              >
-                <v-icon>visibility</v-icon>
-              </v-btn>
-              <v-btn
-                depressed
-                outline
-                icon
-                fab
-                dark
-                color="primary"
-                small
-                :to="{
-                  name: 'EditSuratKeluar',
-                  params: {
-                    id: props.item.id
-                  }
-                }"
-              >
-                <v-icon>edit</v-icon>
-              </v-btn>
-              <v-btn
-                depressed
-                outline
-                icon
-                fab
-                dark
-                color="warning"
-                small
-                @click="deleteButtonClicked(props.item.id)"
-              >
-                <v-icon>delete</v-icon>
-              </v-btn>
-            </td>
+            <tr @click="props.expanded = !props.expanded">
+              <td>{{ props.item.date }}</td>
+              <td>{{ props.item.number }}</td>
+              <td>{{ props.item.recipient }}</td>
+              <td>{{ props.item.subject }}</td>
+              <td>{{ props.item.tendency }}</td>
+            </tr>
+          </template>
+          <template slot="expand" slot-scope="props">
+            <v-card flat>
+              <v-container>
+                <v-layout align-center justify-center>
+                  <v-btn
+                    depressed
+                    outline
+                    icon
+                    fab
+                    dark
+                    color="primary"
+                    small
+                    :to="{
+                      name: 'ShowSuratKeluar',
+                      params: {
+                        id: props.item.id
+                      }
+                    }"
+                  >
+                    <v-icon>visibility</v-icon>
+                  </v-btn>
+                  <v-btn
+                    depressed
+                    outline
+                    icon
+                    fab
+                    dark
+                    color="primary"
+                    small
+                    :to="{
+                      name: 'EditSuratKeluar',
+                      params: {
+                        id: props.item.id
+                      }
+                    }"
+                  >
+                    <v-icon>edit</v-icon>
+                  </v-btn>
+                  <v-btn
+                    depressed
+                    outline
+                    icon
+                    fab
+                    dark
+                    color="warning"
+                    small
+                    @click="deleteButtonClicked(props.item.id)"
+                  >
+                    <v-icon>delete</v-icon>
+                  </v-btn>
+                </v-layout>
+              </v-container>
+            </v-card>
           </template>
         </v-data-table>
       </v-card-text>
@@ -100,6 +109,7 @@ export default {
   },
   data() {
     return {
+      expand: false,
       deleteLoading: false,
       deleteDialog: {
         state: false,
@@ -128,10 +138,6 @@ export default {
           {
             text: "Perihal",
             value: "tendency"
-          },
-          {
-            text: "Action",
-            value: ""
           }
         ],
         items: []

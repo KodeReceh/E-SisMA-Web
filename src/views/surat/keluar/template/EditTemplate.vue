@@ -43,7 +43,7 @@ export default {
         letter_code_id: "",
         sub_letter_code_id: ""
       },
-      laoding: false
+      loading: false
     };
   },
   mounted() {

@@ -22,69 +22,78 @@
           :rows-per-page-items="[10, 25, 50, { text: 'All', value: -1 }]"
           class="elevation-1"
           item-key="id"
+          :expand="expand"
         >
           <template slot="items" slot-scope="props">
-            <td>{{ props.index + 1 }}</td>
-            <td>{{ props.item.name }}</td>
-            <td>{{ props.item.email }}</td>
-            <td>{{ props.item.role ? props.item.role.title : "-" }}</td>
-            <td>
-              <v-switch
-                :readonly="checkIsUserIdIsCurrentLogin(props.item.id)"
-                v-model="props.item.status"
-                color="success"
-                @change="changeUserStatus(props.item.id)"
-              ></v-switch>
-            </td>
-            <td>
-              <v-btn
-                depressed
-                outline
-                icon
-                fab
-                dark
-                color="primary"
-                small
-                :to="{
-                  name: 'ShowUser',
-                  params: {
-                    id: props.item.id
-                  }
-                }"
-              >
-                <v-icon>visibility</v-icon>
-              </v-btn>
-              <v-btn
-                depressed
-                outline
-                icon
-                fab
-                dark
-                color="primary"
-                small
-                :to="{
-                  name: 'EditUser',
-                  params: {
-                    id: props.item.id
-                  }
-                }"
-              >
-                <v-icon>edit</v-icon>
-              </v-btn>
-              <v-btn
-                v-if="!checkIsUserIdIsCurrentLogin(props.item.id)"
-                depressed
-                outline
-                icon
-                fab
-                dark
-                color="warning"
-                small
-                @click="deleteButtonClicked(props.item.id)"
-              >
-                <v-icon>delete</v-icon>
-              </v-btn>
-            </td>
+            <tr @click="props.expanded = !props.expanded">
+              <td>{{ props.index + 1 }}</td>
+              <td>{{ props.item.name }}</td>
+              <td>{{ props.item.email }}</td>
+              <td>{{ props.item.role ? props.item.role.title : "-" }}</td>
+              <td>
+                <v-switch
+                  :readonly="checkIsUserIdIsCurrentLogin(props.item.id)"
+                  v-model="props.item.status"
+                  color="success"
+                  @change="changeUserStatus(props.item.id)"
+                ></v-switch>
+              </td>
+            </tr>
+          </template>
+          <template slot="expand" slot-scope="props">
+            <v-card flat>
+              <v-container>
+                <v-layout align-center justify-center>
+                  <v-btn
+                    depressed
+                    outline
+                    icon
+                    fab
+                    dark
+                    color="primary"
+                    small
+                    :to="{
+                      name: 'ShowUser',
+                      params: {
+                        id: props.item.id
+                      }
+                    }"
+                  >
+                    <v-icon>visibility</v-icon>
+                  </v-btn>
+                  <v-btn
+                    depressed
+                    outline
+                    icon
+                    fab
+                    dark
+                    color="primary"
+                    small
+                    :to="{
+                      name: 'EditUser',
+                      params: {
+                        id: props.item.id
+                      }
+                    }"
+                  >
+                    <v-icon>edit</v-icon>
+                  </v-btn>
+                  <v-btn
+                    v-if="!checkIsUserIdIsCurrentLogin(props.item.id)"
+                    depressed
+                    outline
+                    icon
+                    fab
+                    dark
+                    color="warning"
+                    small
+                    @click="deleteButtonClicked(props.item.id)"
+                  >
+                    <v-icon>delete</v-icon>
+                  </v-btn>
+                </v-layout>
+              </v-container>
+            </v-card>
           </template>
         </v-data-table>
       </v-card-text>
@@ -107,6 +116,7 @@ export default {
   },
   data() {
     return {
+      expand: false,
       deleteDialog: {
         state: false,
         title: "",
@@ -134,10 +144,6 @@ export default {
           {
             text: "Status",
             value: "status"
-          },
-          {
-            text: "Action",
-            value: ""
           }
         ],
         items: []
