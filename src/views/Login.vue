@@ -8,7 +8,7 @@
               <v-card-text>
                 <div class="layout column align-center">
                   <img :src="logoPath" alt="E-SisMA Nagari" width="120" />
-                  <h1 class="flex my-4 primary--text">E-SisMA Login</h1>
+                  <h1 class="flex my-4 primary--text">e-SISMA Login</h1>
                 </div>
                 <v-form>
                   <v-text-field
