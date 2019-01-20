@@ -173,7 +173,11 @@ export default {
     deleteConfirm() {
       const templateId = this.$route.params.id;
       TemplateFieldAPI.delete(templateId, this.deleteDialog.detail.id).then(
-        () => {
+        response => {
+          this.$store.commit("showSnackbar", {
+            text: response.data.description,
+            color: "info"
+          });
           this.fetchFields();
           this.deleteDialog.state = false;
           this.deleteDialog.detail = {};

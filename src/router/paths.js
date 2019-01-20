@@ -150,6 +150,46 @@ export default [
       `@/views/surat/masuk/SuratMasuk.vue`)
   },
   {
+    path: "/surat/kode-surat",
+    meta: {
+      requiresAuth: true
+    },
+    name: "views/surat/kode-surat",
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      `@/views/kode-surat/KodeSurat.vue`)
+  },
+  {
+    path: "/surat/kode-surat/create",
+    meta: {
+      requiresAuth: true
+    },
+    name: "CreateKodeSurat",
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      `@/views/kode-surat/CreateKodeSurat.vue`)
+  },
+  {
+    path: "/surat/kode-surat/:id/edit",
+    meta: {
+      requiresAuth: true
+    },
+    name: "EditKodeSurat",
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      `@/views/kode-surat/EditKodeSurat.vue`)
+  },
+  {
+    path: "/surat/kode-surat/:id",
+    meta: {
+      requiresAuth: true
+    },
+    name: "ShowKodeSurat",
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      `@/views/kode-surat/ShowKodeSurat.vue`)
+  },
+  {
     path: "/surat/masuk/create",
     meta: {
       breadcrumb: false,

@@ -2,9 +2,11 @@
   <div>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
-        <v-btn :round="true" flat @click="$router.go(-1)">
-          <v-icon color="secondary">arrow_back</v-icon>&nbsp;back
-        </v-btn>
+        <v-toolbar class="elevation-0 transparent media-toolbar">
+          <v-btn :round="true" flat @click="$router.go(-1)">
+            <v-icon color="secondary">arrow_back</v-icon>&nbsp;back
+          </v-btn>
+        </v-toolbar>
         <v-flex sm12>
           <v-widget title="Detail Surat Keluar">
             <div slot="widget-content">

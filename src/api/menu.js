@@ -30,9 +30,9 @@ const Menu = [
         component: "views/surat/keluar/template"
       },
       {
-        name: "draft-surat-keluar",
-        title: "Draft Surat Keluar",
-        component: "views/surat/draft-surat-keluar"
+        name: "kode-surat",
+        title: "Kode Surat",
+        component: "views/surat/kode-surat"
       }
     ]
   },

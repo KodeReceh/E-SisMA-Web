@@ -200,7 +200,11 @@ export default {
         formData.append("user_id", this.field.user_id);
         const { id } = this.$route.params;
         TemplateFieldAPI.store(id, formData)
-          .then(() => {
+          .then(response => {
+            this.$store.commit("showSnackbar", {
+              text: response.data.description,
+              color: "info"
+            });
             this.onClosedDialog();
           })
           .catch(e => {
