@@ -52,6 +52,7 @@
       :dialog="dialog"
       :fetchList="fetchList"
       :sub="sub"
+      ref="inputSub"
     ></InputSubKodeSurat>
   </v-card>
 </template>
@@ -127,6 +128,7 @@ export default {
       ).then(response => {
         const { id } = this.$route.params;
         this.fetchList(id);
+        this.$refs.inputSub.fetchTakenSubCodes(id);
         this.$store.commit("showSnackbar", {
           text: response.data.description,
           color: "info"

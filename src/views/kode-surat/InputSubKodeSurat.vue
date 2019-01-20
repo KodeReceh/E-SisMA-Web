@@ -40,7 +40,13 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" flat @click.native="dialog.state = false"
+        <v-btn
+          color="blue darken-1"
+          flat
+          @click.native="
+            dialog.state = false;
+            $refs.form.reset();
+          "
           >Close</v-btn
         >
         <v-btn
