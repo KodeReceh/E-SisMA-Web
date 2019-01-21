@@ -570,5 +570,15 @@ export default [
     component: () =>
       import(/* webpackChunkName: "routes" */
       `@/views/profil/EditProfil.vue`)
+  },
+  {
+    path: "/notifikasi",
+    meta: {
+      requiresAuth: true
+    },
+    name: "Notifikasi",
+    component: () =>
+      import(/* webpackChunkName: "routes" */
+      `@/views/notifikasi/Notifikasi.vue`)
   }
 ];

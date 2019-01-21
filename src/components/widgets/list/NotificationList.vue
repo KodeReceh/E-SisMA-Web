@@ -25,6 +25,13 @@
         </template>
       </v-list>
       <v-divider></v-divider>
+      <v-btn
+        block
+        flat
+        class="ma-0"
+        @click="$router.push({ name: 'Notifikasi' })"
+        >Semua</v-btn
+      >
       <v-divider></v-divider>
     </v-card-text>
   </v-card>

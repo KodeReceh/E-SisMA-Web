@@ -8,5 +8,12 @@ export default {
         Authorization: "bearer " + localStorage.getItem("__token__")
       }
     });
+  },
+  getAllNotifications() {
+    return axios.get(`${url}/all`, {
+      headers: {
+        Authorization: "bearer " + localStorage.getItem("__token__")
+      }
+    });
   }
 };
