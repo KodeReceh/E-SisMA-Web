@@ -33,10 +33,6 @@
         >
           <v-icon>settings</v-icon>
         </v-btn>
-        <v-btn fab flat fixed left bottom @click="$forceUpdate()">
-          <v-icon dark>refresh</v-icon>
-        </v-btn>
-
         <v-navigation-drawer
           class="setting-drawer"
           temporary

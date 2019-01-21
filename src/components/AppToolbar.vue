@@ -6,6 +6,7 @@
       ></v-toolbar-side-icon>
     </v-toolbar-title>
     <v-spacer></v-spacer>
+    <v-btn icon @click="$forceUpdate()"> <v-icon>refresh</v-icon> </v-btn>
     <v-btn icon @click="handleFullScreen()">
       <v-icon>fullscreen</v-icon>
     </v-btn>
