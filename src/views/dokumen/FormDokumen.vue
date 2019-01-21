@@ -30,6 +30,15 @@
         @input="menu = false"
       ></v-date-picker>
     </v-menu>
+    <v-autocomplete
+      v-model="document.public"
+      :items="publics"
+      prepend-icon="security"
+      label="Publik"
+      item-text="title"
+      item-value="id"
+      :chips="true"
+    ></v-autocomplete>
     <v-text-field
       v-model="document.description"
       label="Keterangan"
@@ -103,7 +112,17 @@ export default {
       valid: false,
       menu: false,
       nonEmptyRules: [v => !!v || "Isian ini tidak boleh kosong."],
-      archives: []
+      archives: [],
+      publics: [
+        {
+          id: 0,
+          title: "Tidak"
+        },
+        {
+          id: 1,
+          title: "Iya"
+        }
+      ]
     };
   },
   mounted() {

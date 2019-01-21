@@ -125,7 +125,7 @@ export default {
           },
           {
             text: "Tipe Arsip",
-            value: "archive_type"
+            value: "type"
           }
         ],
         items: []

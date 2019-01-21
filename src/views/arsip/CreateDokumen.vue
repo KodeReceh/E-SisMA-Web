@@ -43,6 +43,7 @@ export default {
         fileName: "",
         file: null,
         file_type: "",
+        public: "",
         archive_id: this.$route.params.id
       },
       isUpdate: false,
@@ -58,6 +59,7 @@ export default {
       formData.append("date", this.document.date);
       formData.append("description", this.document.description);
       formData.append("file_type", this.document.file_type);
+      formData.append("public", this.document.public);
       formData.append("archive_id", archiveId);
       DocumentAPI.store(formData).then(response => {
         this.$store.commit("showSnackbar", {

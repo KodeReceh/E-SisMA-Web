@@ -85,6 +85,17 @@
                 </v-layout>
                 <v-layout align-center row spacer slot="header">
                   <v-flex xs4 sm4 md4>
+                    <p class="font-weight-bold">Publik</p>
+                  </v-flex>
+                  <v-spacer></v-spacer>
+                  <v-flex xs8 sm8 md8>
+                    <p class="font-weight-regular">
+                      {{ document.public ? "Iya" : "Tidak" }}
+                    </p>
+                  </v-flex>
+                </v-layout>
+                <v-layout align-center row spacer slot="header">
+                  <v-flex xs4 sm4 md4>
                     <p class="font-weight-bold">Pengupload</p>
                   </v-flex>
                   <v-spacer></v-spacer>

@@ -29,17 +29,8 @@
               <td>{{ props.item.date }}</td>
               <td>{{ props.item.title }}</td>
               <td>{{ props.item.file_extension }}</td>
-              <td>
-                <router-link
-                  v-if="props.item.archive"
-                  :to="{
-                    name: 'ShowArsip',
-                    params: { id: props.item.archive.id }
-                  }"
-                  >{{ props.item.archive.title }}</router-link
-                >
-                <div v-else>Belum Diarsipkan</div>
-              </td>
+              <td>{{ props.item.public_text }}</td>
+              <td>{{ props.item.uploader.name }}</td>
             </tr>
           </template>
           <template slot="expand" slot-scope="props">
@@ -64,6 +55,7 @@
                     <v-icon>visibility</v-icon>
                   </v-btn>
                   <v-btn
+                    v-if="props.item.this_user_can_manage_the_doc"
                     depressed
                     outline
                     icon
@@ -81,6 +73,7 @@
                     <v-icon>edit</v-icon>
                   </v-btn>
                   <v-btn
+                    v-if="props.item.this_user_can_manage_the_doc"
                     depressed
                     outline
                     icon
@@ -139,8 +132,12 @@ export default {
             value: "file_extension"
           },
           {
-            text: "Arsip",
-            value: "arsip"
+            text: "Publik",
+            value: "public_text"
+          },
+          {
+            text: "Pengunggah",
+            value: "uploader.name"
           }
         ],
         items: []

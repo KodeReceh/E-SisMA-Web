@@ -63,6 +63,7 @@ export default {
       formData.append("date", this.document.date);
       formData.append("file_type", this.document.file_type);
       formData.append("description", this.document.description);
+      formData.append("public", this.document.public);
       formData.append("archive_id", this.document.archive_id);
       DocumentAPI.update(this.document.id, formData).then(response => {
         this.laoding = false;
