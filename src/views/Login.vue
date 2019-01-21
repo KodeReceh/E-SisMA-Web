@@ -17,6 +17,7 @@
                     label="Email"
                     type="text"
                     v-model="form.email"
+                    autofocus
                     autocomplete
                   ></v-text-field>
                   <v-text-field
@@ -72,6 +73,11 @@ export default {
     "form.password": function() {
       this.errorMsg = "";
     }
+  },
+  mounted() {
+    setTimeout(() => {
+      this.$forceUpdate();
+    }, 1000);
   },
   methods: {
     login() {
