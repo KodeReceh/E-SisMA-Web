@@ -33,7 +33,7 @@
         >
           <v-icon>settings</v-icon>
         </v-btn>
-        <v-btn fab flat fixed left bottom @click="forceUpdate()">
+        <v-btn fab flat fixed left bottom @click="$forceUpdate()">
           <v-icon dark>refresh</v-icon>
         </v-btn>
 
@@ -105,9 +105,6 @@ export default {
     openThemeSettings() {
       this.$vuetify.goTo(0);
       this.rightDrawer = !this.rightDrawer;
-    },
-    forceUpdate() {
-      this.$forceUpdate();
     }
   }
 };
