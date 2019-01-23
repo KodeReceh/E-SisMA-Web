@@ -27,7 +27,7 @@
           fixed
           top="top"
           right="right"
-          class="setting-fab"
+          class="setting-fab hidden-sm-and-down"
           color="red"
           @click="openThemeSettings"
         >
