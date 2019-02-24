@@ -44,6 +44,7 @@ export default {
         fileName: "",
         description: "",
         file_type: "",
+        public: "",
         archive_id: ""
       },
       isUpdate: true,

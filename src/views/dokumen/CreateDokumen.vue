@@ -43,6 +43,7 @@ export default {
         fileName: "",
         file: null,
         file_type: "",
+        public: "",
         archive_id: ""
       },
       isUpdate: false,

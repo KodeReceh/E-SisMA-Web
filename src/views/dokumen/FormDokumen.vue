@@ -91,6 +91,7 @@ export default {
           description: "",
           fileName: "",
           file: null,
+          public: "",
           file_type: "",
           archive_id: ""
         };
