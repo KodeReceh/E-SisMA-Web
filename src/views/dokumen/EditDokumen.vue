@@ -84,6 +84,7 @@ export default {
         this.document.fileName = response.data.data.path;
         this.document.title = response.data.data.title;
         this.document.date = response.data.data.date;
+        this.document.public = response.data.data.public;
         this.document.description = response.data.data.description;
         this.document.archive_id = response.data.data.archive_id || "";
       });

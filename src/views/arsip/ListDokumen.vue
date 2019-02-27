@@ -29,14 +29,6 @@
               <td>{{ props.item.date }}</td>
               <td>{{ props.item.title }}</td>
               <td>{{ props.item.file_extension }}</td>
-              <td>
-                <router-link
-                  v-if="props.item.archive"
-                  to="{name: 'ShowArsip', id: props.item.archive.id }"
-                  >{{ props.item.archive.title }}</router-link
-                >
-                <div v-else>Belum Diarsipkan</div>
-              </td>
             </tr>
           </template>
           <template slot="expand" slot-scope="props">
@@ -134,10 +126,6 @@ export default {
           {
             text: "Ekstensi",
             value: "file_extension"
-          },
-          {
-            text: "Arsip",
-            value: "arsip"
           }
         ],
         items: []
