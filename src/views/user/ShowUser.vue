@@ -71,7 +71,7 @@
                   </v-flex>
                   <v-flex xs8 sm10 md9>
                     <p class="font-weight-regular">
-                      {{ user.birthplcae }}, {{ user.birthdate_formatted }}
+                      {{ user.birthplace }}, {{ user.birthdate_formatted }}
                     </p>
                   </v-flex>
                 </v-layout>
