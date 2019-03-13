@@ -23,6 +23,7 @@
           class="elevation-1"
           item-key="id"
           :expand="expand"
+          disable-initial-sort
         >
           <template slot="items" slot-scope="props">
             <tr @click="props.expanded = !props.expanded">
