@@ -158,11 +158,21 @@ export default {
         ],
         items: []
       },
-      search: ""
+      search: "",
+      interval: null
     };
   },
   mounted() {
     this.fetchList();
+    this.interval = setInterval(
+      function() {
+        if (navigator.onLine) this.fetchList();
+      }.bind(this),
+      3600
+    );
+  },
+  beforeDestroy: function() {
+    clearInterval(this.interval);
   },
   methods: {
     deleteButtonClicked(id) {
