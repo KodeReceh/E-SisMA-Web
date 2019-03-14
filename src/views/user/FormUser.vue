@@ -232,7 +232,9 @@ export default {
       return [
         v =>
           !this.takenNIP.includes(v) || "User dengan NIP ini sudah terdaftar",
-        v => !/\s/.test(v) || "Tidak boleh mengandung spasi"
+        v => !/\s/.test(v) || "Tidak boleh mengandung spasi",
+        v => v.length <= 18 || "Maksimal Nomor Induk Pegawai 18 karakter",
+        v => !isNaN(v) || "NIP harus berupa angka"
       ];
     }
   }
