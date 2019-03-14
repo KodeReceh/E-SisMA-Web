@@ -96,6 +96,15 @@
             "
             >Edit</v-btn
           >
+          <v-btn
+            color="blue darken-1"
+            flat
+            @click="
+              $router.push({ name: 'ShowProfil' });
+              onDialogClosed();
+            "
+            >Detail</v-btn
+          >
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click="onDialogClosed()"
             >Close</v-btn
