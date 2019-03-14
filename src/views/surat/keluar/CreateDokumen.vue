@@ -45,7 +45,8 @@ export default {
         file: null,
         file_type: "",
         public: "",
-        letter_id: ""
+        letter_id: "",
+        archive_id: ""
       },
       isUpdate: false,
       loading: false
@@ -66,6 +67,7 @@ export default {
       formData.append("file_type", this.document.file_type);
       formData.append("public", this.document.public);
       formData.append("letter_id", this.document.letter_id);
+      formData.append("archive_id", this.document.archive_id);
       DocumentAPI.store(formData).then(response => {
         this.$store.commit("showSnackbar", {
           text: response.data.description,
